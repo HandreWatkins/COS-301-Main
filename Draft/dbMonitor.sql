@@ -26,7 +26,7 @@ CREATE TABLE request_Table
   request_Starttime smallint NOT NULL,
   request_endtime character varying(45) NOT NULL,
   overhead character varying(45) NOT NULL,
-  failure rate character varying(50),
+  failurerate character varying(50),
   httpStatus character varying(50) NOT NULL,
   activebool boolean NOT NULL DEFAULT true,
   create_date date NOT NULL DEFAULT ('now'::text)::date,
