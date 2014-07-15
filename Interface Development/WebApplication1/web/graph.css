@@ -1,0 +1,245 @@
+/* 
+ * Project: Donut Chart
+ * Description: JavaScript driven donut chart.
+ * Version: 0.2.0
+ * 
+ * 2014 Kris Olszewski | http://www.kolszewski.com/
+ *
+ * Repo: https://github.com/KrisOlszewski/donut-chart
+ */
+
+
+/**
+  * Demo scaffolding
+  * --------------------------------------------------
+  */
+*,
+*:before,
+*:after
+
+{
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+
+body
+{
+    position: relative;
+
+    margin: 0;
+
+    background: #434a54;
+
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+}
+
+.row
+{
+    display: block;
+
+    width: 300px;
+    margin: 50px auto;
+
+    -webkit-animation: fadeIn .4s ease-in .4s both;
+            animation: fadeIn .4s ease-in .4s both;
+}
+.row:before,
+.row:after
+{
+    display: table;
+
+    content: ' ';
+}
+.row:after
+{
+    clear: both;
+}
+@media only screen and (min-width: 600px)
+{
+    .row
+    {
+        width: 600px;
+    }
+}
+
+.column
+{
+    float: left;
+
+    width: 300px;
+    padding: 25px;
+}
+
+@-webkit-keyframes fadeIn
+{
+    0%
+    {
+        opacity: 0;
+    }
+
+    100%
+    {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn
+{
+    0%
+    {
+        opacity: 0;
+    }
+
+    100%
+    {
+        opacity: 1;
+    }
+}
+/**
+  * Donut Chart
+  * --------------------------------------------------
+  */
+.donut-chart
+{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    position: relative;
+
+    overflow: hidden;
+
+    width: 250px;
+    height: 250px;
+
+    border-radius: 50%;
+    background-color: #f5f7fa;
+    -webkit-box-shadow: 0 0 0 6px rgba(0, 0, 0, .2);
+            box-shadow: 0 0 0 6px rgba(0, 0, 0, .2);
+}
+
+.outer-circle,
+.inner-circle
+{
+    position: absolute;
+
+    border-radius: 50%;
+}
+
+.outer-circle
+{
+    top: 6%;
+    right: 6%;
+    bottom: 6%;
+    left: 6%;
+
+    background-color: #fff;
+    -webkit-box-shadow: inset 0 0 0 6px rgba(0, 0, 0, .2);
+            box-shadow: inset 0 0 0 6px rgba(0, 0, 0, .2);
+}
+
+.inner-circle
+{
+    top: 22%;
+    right: 22%;
+    bottom: 22%;
+    left: 22%;
+
+    background-color: #f5f7fa;
+    -webkit-box-shadow: 0 0 0 6px rgba(0, 0, 0, .2);
+            box-shadow: 0 0 0 6px rgba(0, 0, 0, .2);
+}
+
+.inner-circle-label,
+.inner-circle-value
+{
+    position: absolute;
+    top: 50%;
+    left: 0;
+
+    display: block;
+
+    width: 100%;
+
+    text-align: center;
+}
+
+.inner-circle-label
+{
+    font-size: 18px;
+    line-height: 1;
+
+    margin-top: -30px;
+
+    color: #aab2bd;
+}
+
+.inner-circle-value
+{
+    font-size: 42px;
+    font-weight: bold;
+    line-height: 1;
+
+    margin-top: -12px;
+
+    color: #656d78;
+}
+
+.wedge-container,
+.wedge,
+.wedge-extension,
+.wedge-label
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    -webkit-transition: all .4s linear;
+            transition: all .4s linear;
+
+    border-radius: 50%;
+}
+
+.wedge,
+.wedge-extension
+{
+    -webkit-box-shadow: inset 0 0 0 6px rgba(0, 0, 0, .2);
+            box-shadow: inset 0 0 0 6px rgba(0, 0, 0, .2);
+}
+
+.wedge-value
+{
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+
+    position: absolute;
+    top: 5%;
+    left: 50%;
+
+    display: block;
+
+    width: 30px;
+    margin-left: -15px;
+
+    text-align: center;
+}
+
+.wedge-extension
+{
+    z-index: 100;
+}
+
+.wedge
+{
+    z-index: 200;
+}
+
+.wedge-label
+{
+    z-index: 300;
+}

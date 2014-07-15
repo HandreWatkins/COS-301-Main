@@ -1,0 +1,527 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #FFF5E4;
+  /**/
+}
+.circle {
+  padding: 40px 40px 20px;
+  background: #fff;
+  max-width: 200px;
+  margin: 40px auto;
+  position: relative;
+  -webkit-background-clip: padding-box;
+  
+  background-clip: padding-box;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  
+  -moz-box-shadow: 0 2px 6px 2px rgba(0, 0, 6, 0.1);
+  -webkit-box-shadow: 0 2px 6px 2px rgba(0, 0, 6, 0.1);
+  box-shadow: 0 2px 6px 2px rgba(0, 0, 6, 0.1);
+}
+.circle-frame {
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+.circle-bg {
+  width: 200px;
+  height: 100px;
+  background: #eee;
+  -webkit-background-clip: padding-box;
+  
+  background-clip: padding-box;
+  -moz-border-radius: 200px 200px 0 0;
+  -webkit-border-radius: 200px 200px 0 0;
+  border-radius: 200px 200px 0 0;
+  -moz-box-shadow: inset 0 3px 12px 0 rgba(0, 0, 12, 0.1);
+  -webkit-box-shadow: inset 0 3px 12px 0 rgba(0, 0, 12, 0.1);
+  box-shadow: inset 0 3px 12px 0 rgba(0, 0, 12, 0.1);
+}
+.circle-fill {
+  width: 200px;
+  height: 100px;
+  background: #d3222e;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  /*.transition(all);*/
+  -moz-transform: rotate(-180deg);
+  -webkit-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+  -moz-transform-origin: 50% 100%;
+  -webkit-transform-origin: 50% 100%;
+  -o-transform-origin: 50% 100%;
+  -ms-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+  -webkit-background-clip: padding-box;
+  
+  background-clip: padding-box;
+  -moz-border-radius: 200px 200px 0 0;
+  -webkit-border-radius: 200px 200px 0 0;
+  border-radius: 200px 200px 0 0;
+}
+.circle-mask {
+  width: 100px;
+  height: 50px;
+  background: #fff;
+  position: absolute;
+  bottom: 0;
+  left: 50px;
+  
+  -moz-box-shadow: 0 3px 12px 0 rgba(0, 0, 12, 0.1);
+  -webkit-box-shadow: 0 3px 12px 0 rgba(0, 0, 12, 0.1);
+  box-shadow: 0 3px 12px 0 rgba(0, 0, 12, 0.1);
+  -webkit-background-clip: padding-box;
+ 
+  background-clip: padding-box;
+  -moz-border-radius: 100px 100px 0 0;
+  -webkit-border-radius: 100px 100px 0 0;
+  border-radius: 100px 100px 0 0;
+}
+.value {
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: red;
+  font-size: 24px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+}
+.circle-label {
+  padding: 20px 30px 0;
+  border-top: 1px solid #eee;
+  margin: 40px -40px 0;
+  color: #666;
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  line-height: 21px;
+}
+.circle-label + .circle-label {
+  margin-top: 20px;
+}
+button {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  padding: 15px;
+  font-size: 15px;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  border: none;
+  -webkit-background-clip: padding-box;
+  
+  background-clip: padding-box;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background: green;
+  color: white;
+  -webkit-transition: all;
+  -moz-transition: all;
+  -o-transition: all;
+  transition: all;
+  -moz-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+button:hover {
+  background-color: #00b300;
+}
+input {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  
+  -webkit-appearance: none;
+ 
+ 
+  background: transparent;
+  z-index: 200;
+  height: 100px;
+}
+input:focus {
+  border: none;
+  outline: none;
+}
+input:before {
+  content: attr(min);
+  position: absolute;
+  left: 3px;
+  bottom: 3px;
+  font-size: 15px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.35);
+  font-family: "Montserrat", sans-serif;
+  width: 50px;
+  text-align: center;
+}
+input:after {
+  content: attr(max);
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  font-size: 15px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.35);
+  font-family: "Montserrat", sans-serif;
+  width: 50px;
+  text-align: center;
+}
+input::-webkit-slider-thumb {
+  opacity: 0.01;
+}
+input::-moz-slider-thumb {
+  opacity: 0.01;
+}
+input[value="0"] ~ .circle-fill {
+  -moz-transform: rotate(-180deg);
+  -webkit-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+  background-color: #d3222e;
+}
+input[value="0"] ~ .circle-fill ~ .value {
+  color: #d3222e;
+}
+input[value="1"] ~ .circle-fill {
+  -moz-transform: rotate(-174deg);
+  -webkit-transform: rotate(-174deg);
+  -o-transform: rotate(-174deg);
+  -ms-transform: rotate(-174deg);
+  transform: rotate(-174deg);
+  background-color: #d5292b;
+}
+input[value="1"] ~ .circle-fill ~ .value {
+  color: #d5292b;
+}
+input[value="2"] ~ .circle-fill {
+  -moz-transform: rotate(-168deg);
+  -webkit-transform: rotate(-168deg);
+  -o-transform: rotate(-168deg);
+  -ms-transform: rotate(-168deg);
+  transform: rotate(-168deg);
+  background-color: #d73029;
+}
+input[value="2"] ~ .circle-fill ~ .value {
+  color: #d73029;
+}
+input[value="3"] ~ .circle-fill {
+  -moz-transform: rotate(-162deg);
+  -webkit-transform: rotate(-162deg);
+  -o-transform: rotate(-162deg);
+  -ms-transform: rotate(-162deg);
+  transform: rotate(-162deg);
+  background-color: #d93726;
+}
+input[value="3"] ~ .circle-fill ~ .value {
+  color: #d93726;
+}
+input[value="4"] ~ .circle-fill {
+  -moz-transform: rotate(-156deg);
+  -webkit-transform: rotate(-156deg);
+  -o-transform: rotate(-156deg);
+  -ms-transform: rotate(-156deg);
+  transform: rotate(-156deg);
+  background-color: #db3e23;
+}
+input[value="4"] ~ .circle-fill ~ .value {
+  color: #db3e23;
+}
+input[value="5"] ~ .circle-fill {
+  -moz-transform: rotate(-150deg);
+  -webkit-transform: rotate(-150deg);
+  -o-transform: rotate(-150deg);
+  -ms-transform: rotate(-150deg);
+  transform: rotate(-150deg);
+  background-color: #dd4520;
+}
+input[value="5"] ~ .circle-fill ~ .value {
+  color: #dd4520;
+}
+input[value="6"] ~ .circle-fill {
+  -moz-transform: rotate(-144deg);
+  -webkit-transform: rotate(-144deg);
+  -o-transform: rotate(-144deg);
+  -ms-transform: rotate(-144deg);
+  transform: rotate(-144deg);
+  background-color: #df4c1e;
+}
+input[value="6"] ~ .circle-fill ~ .value {
+  color: #df4c1e;
+}
+input[value="7"] ~ .circle-fill {
+  -moz-transform: rotate(-138deg);
+  -webkit-transform: rotate(-138deg);
+  -o-transform: rotate(-138deg);
+  -ms-transform: rotate(-138deg);
+  transform: rotate(-138deg);
+  background-color: #e1531b;
+}
+input[value="7"] ~ .circle-fill ~ .value {
+  color: #e1531b;
+}
+input[value="8"] ~ .circle-fill {
+  -moz-transform: rotate(-132deg);
+  -webkit-transform: rotate(-132deg);
+  -o-transform: rotate(-132deg);
+  -ms-transform: rotate(-132deg);
+  transform: rotate(-132deg);
+  background-color: #e25918;
+}
+input[value="8"] ~ .circle-fill ~ .value {
+  color: #e25918;
+}
+input[value="9"] ~ .circle-fill {
+  -moz-transform: rotate(-126deg);
+  -webkit-transform: rotate(-126deg);
+  -o-transform: rotate(-126deg);
+  -ms-transform: rotate(-126deg);
+  transform: rotate(-126deg);
+  background-color: #e46015;
+}
+input[value="9"] ~ .circle-fill ~ .value {
+  color: #e46015;
+}
+input[value="10"] ~ .circle-fill {
+  -moz-transform: rotate(-120deg);
+  -webkit-transform: rotate(-120deg);
+  -o-transform: rotate(-120deg);
+  -ms-transform: rotate(-120deg);
+  transform: rotate(-120deg);
+  background-color: #e66713;
+}
+input[value="10"] ~ .circle-fill ~ .value {
+  color: #e66713;
+}
+input[value="11"] ~ .circle-fill {
+  -moz-transform: rotate(-114deg);
+  -webkit-transform: rotate(-114deg);
+  -o-transform: rotate(-114deg);
+  -ms-transform: rotate(-114deg);
+  transform: rotate(-114deg);
+  background-color: #e86e10;
+}
+input[value="11"] ~ .circle-fill ~ .value {
+  color: #e86e10;
+}
+input[value="12"] ~ .circle-fill {
+  -moz-transform: rotate(-108deg);
+  -webkit-transform: rotate(-108deg);
+  -o-transform: rotate(-108deg);
+  -ms-transform: rotate(-108deg);
+  transform: rotate(-108deg);
+  background-color: #ea750d;
+}
+input[value="12"] ~ .circle-fill ~ .value {
+  color: #ea750d;
+}
+input[value="13"] ~ .circle-fill {
+  -moz-transform: rotate(-102deg);
+  -webkit-transform: rotate(-102deg);
+  -o-transform: rotate(-102deg);
+  -ms-transform: rotate(-102deg);
+  transform: rotate(-102deg);
+  background-color: #ec7c0a;
+}
+input[value="13"] ~ .circle-fill ~ .value {
+  color: #ec7c0a;
+}
+input[value="14"] ~ .circle-fill {
+  -moz-transform: rotate(-96deg);
+  -webkit-transform: rotate(-96deg);
+  -o-transform: rotate(-96deg);
+  -ms-transform: rotate(-96deg);
+  transform: rotate(-96deg);
+  background-color: #ee8308;
+}
+input[value="14"] ~ .circle-fill ~ .value {
+  color: #ee8308;
+}
+input[value="15"] ~ .circle-fill {
+  -moz-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  background-color: #f08a05;
+}
+input[value="15"] ~ .circle-fill ~ .value {
+  color: #f08a05;
+}
+input[value="16"] ~ .circle-fill {
+  -moz-transform: rotate(-84deg);
+  -webkit-transform: rotate(-84deg);
+  -o-transform: rotate(-84deg);
+  -ms-transform: rotate(-84deg);
+  transform: rotate(-84deg);
+  background-color: #e48d08;
+}
+input[value="16"] ~ .circle-fill ~ .value {
+  color: #e48d08;
+}
+input[value="17"] ~ .circle-fill {
+  -moz-transform: rotate(-78deg);
+  -webkit-transform: rotate(-78deg);
+  -o-transform: rotate(-78deg);
+  -ms-transform: rotate(-78deg);
+  transform: rotate(-78deg);
+  background-color: #d7900c;
+}
+input[value="17"] ~ .circle-fill ~ .value {
+  color: #d7900c;
+}
+input[value="18"] ~ .circle-fill {
+  -moz-transform: rotate(-72deg);
+  -webkit-transform: rotate(-72deg);
+  -o-transform: rotate(-72deg);
+  -ms-transform: rotate(-72deg);
+  transform: rotate(-72deg);
+  background-color: #cb930f;
+}
+input[value="18"] ~ .circle-fill ~ .value {
+  color: #cb930f;
+}
+input[value="19"] ~ .circle-fill {
+  -moz-transform: rotate(-66deg);
+  -webkit-transform: rotate(-66deg);
+  -o-transform: rotate(-66deg);
+  -ms-transform: rotate(-66deg);
+  transform: rotate(-66deg);
+  background-color: #bf9612;
+}
+input[value="19"] ~ .circle-fill ~ .value {
+  color: #bf9612;
+}
+input[value="20"] ~ .circle-fill {
+  -moz-transform: rotate(-60deg);
+  -webkit-transform: rotate(-60deg);
+  -o-transform: rotate(-60deg);
+  -ms-transform: rotate(-60deg);
+  transform: rotate(-60deg);
+  background-color: #b29916;
+}
+input[value="20"] ~ .circle-fill ~ .value {
+  color: #b29916;
+}
+input[value="21"] ~ .circle-fill {
+  -moz-transform: rotate(-54deg);
+  -webkit-transform: rotate(-54deg);
+  -o-transform: rotate(-54deg);
+  -ms-transform: rotate(-54deg);
+  transform: rotate(-54deg);
+  background-color: #a69c19;
+}
+input[value="21"] ~ .circle-fill ~ .value {
+  color: #a69c19;
+}
+input[value="22"] ~ .circle-fill {
+  -moz-transform: rotate(-48deg);
+  -webkit-transform: rotate(-48deg);
+  -o-transform: rotate(-48deg);
+  -ms-transform: rotate(-48deg);
+  transform: rotate(-48deg);
+  background-color: #9a9f1c;
+}
+input[value="22"] ~ .circle-fill ~ .value {
+  color: #9a9f1c;
+}
+input[value="23"] ~ .circle-fill {
+  -moz-transform: rotate(-42deg);
+  -webkit-transform: rotate(-42deg);
+  -o-transform: rotate(-42deg);
+  -ms-transform: rotate(-42deg);
+  transform: rotate(-42deg);
+  background-color: #8da220;
+}
+input[value="23"] ~ .circle-fill ~ .value {
+  color: #8da220;
+}
+input[value="24"] ~ .circle-fill {
+  -moz-transform: rotate(-36deg);
+  -webkit-transform: rotate(-36deg);
+  -o-transform: rotate(-36deg);
+  -ms-transform: rotate(-36deg);
+  transform: rotate(-36deg);
+  background-color: #81a523;
+}
+input[value="24"] ~ .circle-fill ~ .value {
+  color: #81a523;
+}
+input[value="25"] ~ .circle-fill {
+  -moz-transform: rotate(-30deg);
+  -webkit-transform: rotate(-30deg);
+  -o-transform: rotate(-30deg);
+  -ms-transform: rotate(-30deg);
+  transform: rotate(-30deg);
+  background-color: #75a826;
+}
+input[value="25"] ~ .circle-fill ~ .value {
+  color: #75a826;
+}
+input[value="26"] ~ .circle-fill {
+  -moz-transform: rotate(-24deg);
+  -webkit-transform: rotate(-24deg);
+  -o-transform: rotate(-24deg);
+  -ms-transform: rotate(-24deg);
+  transform: rotate(-24deg);
+  background-color: #68ab2a;
+}
+input[value="26"] ~ .circle-fill ~ .value {
+  color: #68ab2a;
+}
+input[value="27"] ~ .circle-fill {
+  -moz-transform: rotate(-18deg);
+  -webkit-transform: rotate(-18deg);
+  -o-transform: rotate(-18deg);
+  -ms-transform: rotate(-18deg);
+  transform: rotate(-18deg);
+  background-color: #5cae2d;
+}
+input[value="27"] ~ .circle-fill ~ .value {
+  color: #5cae2d;
+}
+input[value="28"] ~ .circle-fill {
+  -moz-transform: rotate(-12deg);
+  -webkit-transform: rotate(-12deg);
+  -o-transform: rotate(-12deg);
+  -ms-transform: rotate(-12deg);
+  transform: rotate(-12deg);
+  background-color: #50b130;
+}
+input[value="28"] ~ .circle-fill ~ .value {
+  color: #50b130;
+}
+input[value="29"] ~ .circle-fill {
+  -moz-transform: rotate(-6deg);
+  -webkit-transform: rotate(-6deg);
+  -o-transform: rotate(-6deg);
+  -ms-transform: rotate(-6deg);
+  transform: rotate(-6deg);
+  background-color: #43b434;
+}
+input[value="29"] ~ .circle-fill ~ .value {
+  color: #43b434;
+}
+input[value="30"] ~ .circle-fill {
+  -moz-transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
+  background-color: #37b737;
+}
+input[value="30"] ~ .circle-fill ~ .value {
+  color: #37b737;
+}
