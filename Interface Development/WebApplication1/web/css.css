@@ -85,6 +85,7 @@ html
     font-family: headingFont;
     text-align: center;
     border-radius: 5px;
+    
 }
 
 #submit
@@ -94,7 +95,7 @@ html
     height : 30px;
     border: 2px solid #a1a1a1;
     border-radius: 5px;
-
+    
 }
 #epiLogo
 {
