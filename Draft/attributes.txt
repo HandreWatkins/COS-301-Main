@@ -1,32 +1,30 @@
-request
---request id
---start time
---end time
---call size
---call that was sent
---error states
---indep error
---treadid
---url
---host
+Main activity table
+-Log_ID int PK
+-creation_date timestamp
+-Ip String
+-Resource String
+-ResponseStart millisec
+-ResponseEnd millisec
 
+Rules
+-Log_id int PK
+-dateTime timestamp
+-User string FK
+-Resource string
+-time_set int
 
-respond
---respond id
---start time
---end time
---return size
---return values
---error states
---indep error
---treadid
+Bookmark
+-logId int PK
+-Datetime timestamp
+-user string FK
+-disc string
 
+Distressed resource table
+-logid int PK
+-datetime timestamp
+-time_expected int
+-time_taken int
 
-
-response time
-response start
-response end time
-overhead traffic
-failure rate
-http status
-datetime
+User
+-username PK
+-password
