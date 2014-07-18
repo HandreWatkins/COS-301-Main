@@ -7,6 +7,18 @@ CREATE DATABASE dbMonitor
        LC_COLLATE = 'English_United States.1252'
        LC_CTYPE = 'English_United States.1252'
        CONNECTION LIMIT = -1;
+
+CREATE OR REPLACE FUNCTION last_updated()
+  RETURNS trigger AS
+$BODY$
+BEGIN
+    NEW.last_update = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END $BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION last_updated()
+  OWNER TO postgres;
        
 
 CREATE SEQUENCE request_id_seq
@@ -18,21 +30,28 @@ CREATE SEQUENCE request_id_seq
 ALTER TABLE request_id_seq
   OWNER TO postgres;
 
-DROP TABLE request_Table;
+DROP TABLE MainActivity;
 
-CREATE TABLE request_Table
+CREATE TABLE MainActivity
 (
-  request_Date integer NOT NULL DEFAULT nextval('request_id_seq'::regclass),
-  request_Starttime smallint NOT NULL,
-  request_endtime character varying(45) NOT NULL,
-  overhead character varying(45) NOT NULL,
-  failurerate character varying(50),
-  httpStatus character varying(50) NOT NULL,
-  activebool boolean NOT NULL DEFAULT true,
-  create_date date NOT NULL DEFAULT ('now'::text)::date,
-  last_update timestamp without time zone DEFAULT now(),
-  active integer,
-  CONSTRAINT customer_pkey PRIMARY KEY (customer_id),
+  mainActivity_id integer NOT NULL DEFAULT nextval('request_id_seq'::regclass),
+  create_date timestamp without time zone DEFAULT now(),
+  ip character varying(255) NOT NULL,
+  --project_create_date character varying(255) NOT NULL,
+  url character varying(255) NOT NULL,
+  responseStart timestamp without time zone,
+  responseEnd timestamp without time zone,
+  active boolean NOT NULL,
+  
+   --character varying(45) NOT NULL,
+  --failurerate character varying(50),
+  --httpStatus character varying(50) NOT NULL,
+  --activebool boolean NOT NULL DEFAULT true,
+  
+ -- last_update timestamp without time zone DEFAULT now(),
+  
+ -- CONSTRAINT userDefinedRulesId_pkey PRIMARY KEY (user_defined_id),
+ -- CONSTRAINT userlastUpdate_pkey PRIMARY KEY (last_Update),
  -- CONSTRAINT customer_address_id_fkey FOREIGN KEY (address_id)
     --  REFERENCES address (address_id) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE RESTRICT
@@ -40,8 +59,11 @@ CREATE TABLE request_Table
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE request_Table
+ALTER TABLE MainActivity
   OWNER TO postgres;
+
+ALTER SEQUENCE request_id_seq RESTART WITH 1;
+UPDATE t SET idcolumn=nextval('request_id_seq');
 
 -- Index: idx_fk_address_id
 
