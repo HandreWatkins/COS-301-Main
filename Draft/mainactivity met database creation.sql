@@ -39,7 +39,7 @@ CREATE TABLE MainActivity
   ip character varying(255) NOT NULL,
   --project_create_date character varying(255) NOT NULL,
   url character varying(255) NOT NULL,
-  responseStart timestamp without time zone,
+  responseStart timestamp without time zone NOT NULL,
   responseEnd timestamp without time zone,
   active boolean NOT NULL,
   
@@ -50,7 +50,7 @@ CREATE TABLE MainActivity
   
  -- last_update timestamp without time zone DEFAULT now(),
   
- -- CONSTRAINT userDefinedRulesId_pkey PRIMARY KEY (user_defined_id),
+  CONSTRAINT mainActivity_id_pkey PRIMARY KEY (mainActivity_id),
  -- CONSTRAINT userlastUpdate_pkey PRIMARY KEY (last_Update),
  -- CONSTRAINT customer_address_id_fkey FOREIGN KEY (address_id)
     --  REFERENCES address (address_id) MATCH SIMPLE
