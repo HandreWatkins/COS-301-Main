@@ -1,20 +1,20 @@
 USE dbMonitor;
        
 
-CREATE SEQUENCE request_id_seq
+CREATE SEQUENCE distressedResources_id_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 599
   CACHE 1;
-ALTER TABLE request_id_seq
+ALTER TABLE distressedResources_id_seq
   OWNER TO postgres;
 
 DROP TABLE DistressedResources;
 
 CREATE TABLE DistressedResources
 (
-  distressedResources_id integer NOT NULL DEFAULT nextval('request_id_seq'::regclass),
+  distressedResources_id integer NOT NULL DEFAULT nextval('distressedResources_id_seq'::regclass),
   last_Update timestamp without time zone DEFAULT now(),
   
   --url character varying(255) NOT NULL,
@@ -30,20 +30,18 @@ CREATE TABLE DistressedResources
   
  -- last_update timestamp without time zone DEFAULT now(),
   
-  CONSTRAINT distressedResources_id_pkey PRIMARY KEY (distressedResources_id),
+  CONSTRAINT distressedResources_id_pkey PRIMARY KEY (distressedResources_id)
  -- CONSTRAINT userlastUpdate_pkey PRIMARY KEY (last_Update),
  -- CONSTRAINT customer_address_id_fkey FOREIGN KEY (address_id)
     --  REFERENCES address (address_id) MATCH SIMPLE
-      ON UPDATE CASCADE ON DELETE RESTRICT
+      --ON UPDATE CASCADE ON DELETE RESTRICT
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE DistressedWebPagesTable
+ALTER TABLE DistressedResources
   OWNER TO postgres;
 
-ALTER SEQUENCE request_id_seq RESTART WITH 1;
-UPDATE t SET idcolumn=nextval('request_id_seq');
 
 -- Index: idx_fk_address_id
 

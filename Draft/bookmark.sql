@@ -1,21 +1,21 @@
 USE dbMonitor;
        
-CREATE SEQUENCE request_id_seq
+CREATE SEQUENCE bookmark_id_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 599
   CACHE 1;
-ALTER TABLE request_id_seq
+ALTER TABLE bookmark_id_seq
   OWNER TO postgres;
 
 DROP TABLE Bookmark;
 
 CREATE TABLE Bookmark
 (
-  bookmark_id integer NOT NULL DEFAULT nextval('request_id_seq'::regclass),
+  bookmark_id integer NOT NULL DEFAULT nextval('bookmark_id_seq'::regclass),
   date_Time timestamp without time zone DEFAULT now(),
-  user_active character varying(255) NOT NULL,
+  user_requesting character varying(255) NOT NULL,
   discription character varying(255) NOT NULL,
   --exception_error character varying(255) NOT NULL,
   --request_start_time character varying(255) NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE Bookmark
  -- CONSTRAINT userlastUpdate_pkey PRIMARY KEY (last_Update),
  -- CONSTRAINT customer_address_id_fkey FOREIGN KEY (address_id)
     --  REFERENCES address (address_id) MATCH SIMPLE
-      ON UPDATE CASCADE ON DELETE RESTRICT
+     -- ON UPDATE CASCADE ON DELETE RESTRICT
 )
 WITH (
   OIDS=FALSE
@@ -41,8 +41,6 @@ WITH (
 ALTER TABLE Bookmark
   OWNER TO postgres;
 
-ALTER SEQUENCE request_id_seq RESTART WITH 1;
-UPDATE t SET idcolumn=nextval('request_id_seq');
 
 -- Index: idx_fk_address_id
 

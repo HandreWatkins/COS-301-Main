@@ -1,23 +1,23 @@
 USE dbMonitor;
        
 
-CREATE SEQUENCE request_id_seq
+CREATE SEQUENCE rules_id_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 599
   CACHE 1;
-ALTER TABLE request_id_seq
+ALTER TABLE rules_id_seq
   OWNER TO postgres;
 
 DROP TABLE Rules;
 
 CREATE TABLE Rules
 (
-  rules_id integer NOT NULL DEFAULT nextval('request_id_seq'::regclass),
+  rules_id integer NOT NULL DEFAULT nextval('rules_id_seq'::regclass),
   date_Time timestamp without time zone DEFAULT now(),
-  user_Active character varying(255) NOT NULL,
-  time_set smallint NOT NULL,
+  user_requesting character varying(255) NOT NULL,
+  time_set integer NOT NULL,
   url character varying(255) NOT NULL,
   --time_set character varying(255) NOT NULL,
   --active integer,

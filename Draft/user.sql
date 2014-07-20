@@ -21,10 +21,10 @@ CREATE TABLE Users
  -- last_update timestamp without time zone DEFAULT now(),
   
  -- CONSTRAINT userDefinedRulesId_pkey PRIMARY KEY (user_defined_id),
- CONSTRAINT username_pkey PRIMARY KEY (username),
+ CONSTRAINT username_pkey PRIMARY KEY (username)
  -- CONSTRAINT customer_address_id_fkey FOREIGN KEY (address_id)
     --  REFERENCES address (address_id) MATCH SIMPLE
-      ON UPDATE CASCADE ON DELETE RESTRICT
+     -- ON UPDATE CASCADE ON DELETE RESTRICT
 )
 WITH (
   OIDS=FALSE
