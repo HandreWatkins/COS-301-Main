@@ -21,20 +21,20 @@ ALTER FUNCTION last_updated()
   OWNER TO postgres;
        
 
-CREATE SEQUENCE request_id_seq
+CREATE SEQUENCE mainActivity_id_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 599
   CACHE 1;
-ALTER TABLE request_id_seq
+ALTER TABLE mainActivity_id_seq
   OWNER TO postgres;
 
 DROP TABLE MainActivity;
 
 CREATE TABLE MainActivity
 (
-  mainActivity_id integer NOT NULL DEFAULT nextval('request_id_seq'::regclass),
+  mainActivity_id integer NOT NULL DEFAULT nextval('mainActivity_id_seq'::regclass),
   create_date timestamp without time zone DEFAULT now(),
   ip character varying(255) NOT NULL,
   --project_create_date character varying(255) NOT NULL,
@@ -62,8 +62,6 @@ WITH (
 ALTER TABLE MainActivity
   OWNER TO postgres;
 
-ALTER SEQUENCE request_id_seq RESTART WITH 1;
-UPDATE t SET idcolumn=nextval('request_id_seq');
 
 -- Index: idx_fk_address_id
 
