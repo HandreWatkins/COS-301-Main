@@ -11,20 +11,32 @@ public class responseCall
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Boolean clientreqeust(HttpRequest request)
+	public HttpResponse clientreqeust(HttpRequest request)
 	{
 		try 
 		{
 			DefaultHttpClient httpclient = new DefaultHttpClient();
+			Long stime = System.currentTimeMillis();
+			Long etime = null;
 			HttpResponse response = httpclient.execute((HttpUriRequest) request);
 			
+			if(response.getStatusLine().getStatusCode() != 0)
+			{
+				etime = System.currentTimeMillis();
+			}
 			
+			if(etime != null)
+			{
+				Long ftime = etime - stime;
+			}
 			
+			return response;
 		} catch (Exception e)
 		{
 			// TODO: handle exception
+			return null;
 		}
 		
-		return false;
+		
 	}
 }
