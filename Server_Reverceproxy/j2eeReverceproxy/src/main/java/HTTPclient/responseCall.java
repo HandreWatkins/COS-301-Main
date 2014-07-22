@@ -1,25 +1,31 @@
 package HTTPclient;
 
-import javax.servlet.ServletRequest;
+import Util.UrlLinker;
 
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.DefaultHttpClient;
-public class responseCall
+
+public abstract class responseCall
 {
-	public responseCall() 
+	public abstract UrlLinker clientreqeust(UrlLinker urlproxy);
+	
+	public abstract Long starttime();
+	
+	public abstract Long stoptime();
+}
+
+/*
+ * public responseCall() 
 	{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public HttpResponse clientreqeust(ServletRequest requestHTTP)
+	public HttpResponse clientreqeust(HttpServletRequest requestHTTP)
 	{
 		try 
 		{
 			DefaultHttpClient httpclient = new DefaultHttpClient();
 			Long stime = System.currentTimeMillis();
 			Long etime = null;
+			
 			HttpResponse response = httpclient.execute((HttpUriRequest) requestHTTP);
 			
 			if(response.getStatusLine().getStatusCode() != 0)
@@ -41,4 +47,4 @@ public class responseCall
 		
 		
 	}
-}
+ */
