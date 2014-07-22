@@ -11,15 +11,20 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Util.Translate;
 import pickup.PickupMain;
+
 
 public class Proxyfilter implements Filter
 {
-	private PickupMain pickupHandle = new PickupMain();
-	/*public boolean accept(Object entry) throws IOException {
+	private Translate trance = new Translate();
+	private PickupMain pickupHandle = new PickupMain(trance);
+	
+	public boolean accept(Object entry) throws IOException {
 		// TODO Auto-generated method stub
+		System.out.println("test");
 		return false;
-	}*/
+	}
 
 	public void destroy()
 	{
@@ -27,12 +32,19 @@ public class Proxyfilter implements Filter
 		
 	}
 
-	public void doFilter(ServletRequest requestHTTP, ServletResponse responseHTTP,FilterChain arg2) throws IOException, ServletException
+	public void doFilter(final ServletRequest requestHTTP, final ServletResponse responseHTTP,FilterChain arg2) throws IOException, ServletException
 	{
 		if((requestHTTP instanceof HttpServletRequest) && (responseHTTP instanceof HttpServletResponse))
 		{
-			System.out.println(requestHTTP.toString()+ "test");
-			pickupHandle.pickupListener(requestHTTP, responseHTTP);
+			new Thread(new Runnable()
+			{	
+				public void run()
+				{
+					// TODO Auto-generated method stub
+					System.out.println(requestHTTP.toString()+ "test");
+					pickupHandle.pickupListener(requestHTTP, responseHTTP);
+				}
+			}).start();
 		}
 		else
 		{
