@@ -40,7 +40,7 @@ html
     border: 2px solid #a1a1a1;
      border-radius: 5px;
     padding: 10px 40px; 
-
+    
     text-align: center;
 }
 .absoluteCenter
@@ -106,7 +106,8 @@ html
 /*******************************************HOME********************************************************************/
 html, body 
 { 
-    height :90%;
+    overflow: hidden;
+    height :100%;
 }
 #headerHome
         {
@@ -134,12 +135,12 @@ html, body
   width: 12em;
   opacity: 1;
   bottom: 0;
-
+  
   float: left;
     width: 200px;
    
     padding-bottom: 10px;
-    height: 100%;
+    height: 98%;
 }
 #homeMenu  li {
   font-size: 12px;

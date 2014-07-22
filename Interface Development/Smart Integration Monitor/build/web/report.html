@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css.css"> 
+        <title>Generate Report</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+       <div id="headerHome" class="topCenter">
+            
+            <div class="wrap">
+              <h1 id="indexH1" class="head1">GENERATE REPORT</h1>
+            </div>
+         </div>
+         <div id="homeBody">
+            <div id="homeMenu">
+                <ul>
+                    <li><a href='home.html'><span>Home</span></a></li>
+                    <li><a href='detailedStats.html'><span>Detailed Statistics</span></a></li>
+                    <li><a href='report.html'><span>Generate Report</span></a></li>
+                    <li class='last'><a href='index.html' onclick="return confirm('Are you sure you want to exit?')"><span>Exit</span></a></li>
+                </ul>
+            </div>
+            <div id="statsBody">
+               <form method="get" action="file.pdf">
+                    <button type="submit">Download!</button>
+                </form>
+            </div>
+            
+        </div>
+    </body>
+</html>
