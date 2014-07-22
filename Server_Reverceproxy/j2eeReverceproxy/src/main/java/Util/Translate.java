@@ -1,6 +1,7 @@
 package Util;
 
-import org.apache.http.HttpRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 public class Translate
 {
@@ -9,7 +10,7 @@ public class Translate
 		
 	}
 	
-	public UrlLinker linkurl(HttpRequest request)
+	public UrlLinker linkurl(HttpServletRequest request , ServletResponse response)
 	{
 		if(request == null)
 		{
@@ -17,9 +18,9 @@ public class Translate
 		}
 		
 		UrlLinker urlSaver = new UrlLinker();
-		urlSaver.setcontext(request.getRequestLine().getMethod());
-		urlSaver.setURL(request.getRequestLine().getUri());
-		String newUrl = "http://localhost/" + request.getRequestLine().getUri();
+		urlSaver.setcontext(request.getMethod());
+		urlSaver.setURL(request.getRequestURI());
+		String newUrl = "http://localhost/" + request.getRequestURI();
 		urlSaver.setNURL(newUrl);
 		
 		return urlSaver;

@@ -1,7 +1,6 @@
 package Filter;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -12,15 +11,14 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Util.Translate;
 import pickup.PickupMain;
+import Util.Translate;
 
 
 public class Proxyfilter implements Filter
 {
 	private Translate trance = new Translate();
 	private PickupMain pickupHandle = new PickupMain(trance);
-	private String [] jax_RS = {"GET","POST","PUT"};
 	
 	public boolean accept(Object entry) throws IOException {
 		// TODO Auto-generated method stub
@@ -37,7 +35,8 @@ public class Proxyfilter implements Filter
 		if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
 		{
 			final HttpServletRequest requestHTTP = (HttpServletRequest) request;
-			if(Arrays.asList(jax_RS).contains(requestHTTP.getMethod()))
+			
+			if(pickupHandle.isJAX_RS(requestHTTP))
 			{
 				new Thread(new Runnable()
 				{	
