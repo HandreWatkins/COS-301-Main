@@ -1,6 +1,7 @@
 package Filter;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -19,6 +20,7 @@ public class Proxyfilter implements Filter
 {
 	private Translate trance = new Translate();
 	private PickupMain pickupHandle = new PickupMain(trance);
+	private String [] jax_RS = {"GET","POST","PUT"};
 	
 	public boolean accept(Object entry) throws IOException {
 		// TODO Auto-generated method stub
@@ -26,32 +28,35 @@ public class Proxyfilter implements Filter
 		return false;
 	}
 
-	public void destroy()
-	{
-		
-		
-	}
+	public void destroy(){}
 
-	public void doFilter(final ServletRequest requestHTTP, final ServletResponse responseHTTP,FilterChain arg2) throws IOException, ServletException
+	public void init(FilterConfig arg0) throws ServletException{}
+
+	public void doFilter(ServletRequest request, final ServletResponse response, FilterChain chain) throws IOException, ServletException
 	{
-		if((requestHTTP instanceof HttpServletRequest) && (responseHTTP instanceof HttpServletResponse))
+		if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
 		{
-			new Thread(new Runnable()
-			{	
-				public void run()
-				{
-					// TODO Auto-generated method stub
-					System.out.println(requestHTTP.toString()+ "test");
-					pickupHandle.pickupListener(requestHTTP, responseHTTP);
-				}
-			}).start();
+			final HttpServletRequest requestHTTP = (HttpServletRequest) request;
+			if(Arrays.asList(jax_RS).contains(requestHTTP.getMethod()))
+			{
+				new Thread(new Runnable()
+				{	
+					public void run()
+					{
+						//System.out.println(requestHTTP.getMethod()+ "test");
+						pickupHandle.pickupListener(requestHTTP, response);
+					}
+				}).start();
+			}
+			else
+			{
+				chain.doFilter(request, response);
+			}
 		}
 		else
 		{
 			return;
 		}
+		
 	}
-
-	public void init(FilterConfig arg0) throws ServletException{}
-
 }
