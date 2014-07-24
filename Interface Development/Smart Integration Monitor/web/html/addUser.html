@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+  
+    <head>
+        <link rel="stylesheet" type="text/css" href="../css/css.css"> 
+        <title>Smart Integration Monitor</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>       
+
+        <div id="header" class="topCenter">
+            
+            <div class="wrap">
+                <img id="epiLogo" src="../images/epiuse_logo.png" class="topCenter"/>
+              <h1 id="indexH1" class="head1">SMART INTEGRATION MONITOR</h1>
+            </div>
+         </div>
+        <div id="addUser">
+            <form id="addUserForm" method="post" action="html/home.html">
+
+                <h2 id="loginH2">ADD NEW USER</h2>
+                <label>Username:</label><input type='text' id="addUserBox" autofocus="" placeholder="USERNAME" required=""/>
+                </br>
+                <label>Password:</label>   <input type='password' id="addPassBox" placeholder="PASSWORD" required=""/>
+                                 </br>
+
+                                 <label>Confirm Password:</label><input type='password' id="addConfirmBox" placeholder="CONFIRM PASSWORD" required=""/>
+                    <button id="submit">ENTER</button>               
+            </form>
+        </div>
+    </body>
+</html>
+

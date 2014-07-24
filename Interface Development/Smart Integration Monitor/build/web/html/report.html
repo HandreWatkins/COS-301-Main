@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="../css/css.css"> 
+        <title>Generate Report</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+       <div id="headerHome" class="topCenter">
+            
+            <div class="wrap">
+              <h1 id="indexH1" class="head1">GENERATE REPORT</h1>
+            </div>
+         </div>
+         <div id="homeBody">
+            <div id="homeMenu">
+                <ul>
+                    <li><a href='../html/home.html'><span>Home</span></a></li>
+                    <li><a href='../html/detailedStats.html'><span>Detailed Statistics</span></a></li>
+                    <li><a href='../html/report.html'><span>Generate Report</span></a></li>
+                    <li class='last'><a href='../index.html' onclick="return confirm('Are you sure you want to exit?')"><span>Exit</span></a></li>
+                </ul>
+            </div>
+            <div id="reportBody">
+                <form method="get" action="../files/file.pdf">
+                     <p class="thFont">This function allows you to generate a documented report of archived network statistics on the dates of your preference. </p>
+                   <label>From:</label> </br>
+                   
+                   <label>Date:</label> <input id="fromDate" type="date"/>
+                   <label>Time:</label> <input id="fromTime" type="time"/>
+                   
+                   </br>
+                   </br>
+                   <label>To:</label> </br>
+                   <label>Date:</label> <input id="toDate" type="date"/>
+                   <label>Time:</label> <input id="toTime" type="time"/>
+                   </br>
+                   </br>
+                   <label>Format:</label><select>
+                        <option value="PDF">PDF</option>
+                        <option value="XLS">XLS</option>
+                        <option value="CSV">CSV</option>
+                        <option value="TEXT">TEXT</option>
+                  </select>
+                   </br>
+                   </br>
+                   </br>
+
+                    <button type="submit" id="dlBut">Download!</button>
+                </form>
+            </div>
+            
+        </div>
+    </body>
+</html>

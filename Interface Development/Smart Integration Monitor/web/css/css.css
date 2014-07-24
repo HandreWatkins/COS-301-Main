@@ -1,0 +1,310 @@
+/*******************************************INDEX********************************************************************/
+/*----------------HEADER----------------------*/
+#indexH1
+{
+    color: #0066ff ;
+    text-align :center;
+    font-family: headingFont;
+    text-shadow: 1px 4px 6px    black;
+}
+
+@font-face
+{
+	font-family : headingFont;
+        src: url(../fonts/Xolonium-Bold.otf)
+}
+
+#header
+        {
+		width:50%;
+                   text-align: left;
+                  background-color: rgba(1,1,1,.9);
+                  border: 2px solid #a1a1a1;
+                                     
+                
+                 padding: 10px 40px; 
+                 border-radius: 5px;
+                  
+                
+	}
+/*----------------HEADER---------------------*/
+html
+{
+    background-image: url(../images/IT.jpg);
+}
+/*----------------LOGIN---------------------*/
+#loginForm
+{
+    background-color: rgba(1,1,1,.9);
+
+    border: 2px solid #a1a1a1;
+     border-radius: 5px;
+    padding: 10px 40px; 
+    
+    text-align: center;
+}
+.absoluteCenter
+{
+   
+    width:300px;
+    height:200px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin:-100px 0 0 -150px;
+}
+.topCenter
+{
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.topCenter
+{
+    display: block;
+    margin-left: auto;
+     margin-right: auto;
+}
+#loginH2
+{
+    color:  #cccccc;
+    text-align :center;
+    font-family: headingFont;
+    text-shadow: 1px 4px 6px    black;
+   
+}
+#usernameBox
+{
+    font-family: headingFont;
+    text-align: center;
+    border-radius: 5px;
+
+}
+#PasswordBox
+{
+    font-family: headingFont;
+    text-align: center;
+    border-radius: 5px;
+    
+}
+
+#submit
+{
+    font-family: headingFont;
+    width : 100px;
+    height : 30px;
+    border: 2px solid #a1a1a1;
+    border-radius: 5px;
+    
+}
+#epiLogo
+{
+     position: relative;
+}
+#loginDiv
+{
+    text-align: center;
+}
+/*----------------LOGIN---------------------*/
+/*******************************************INDEX********************************************************************/
+/*ADDUSER*/
+#addUserBox
+{
+    font-family: headingFont;
+    border-radius: 5px;
+   
+}
+#addPassBox
+{
+    font-family: headingFont;
+    border-radius: 5px;
+    
+}
+#addConfirmBox
+{
+    font-family: headingFont;
+    border-radius: 5px;
+    
+}
+label
+{
+    font-family: headingFont;
+     color: white;
+    text-shadow: 1px 4px 6px    black;
+}
+
+#addUserForm
+{
+     background-color: rgba(1,1,1,.9);
+    border: 2px solid #a1a1a1;
+    border-radius: 5px;
+    padding: 10px 40px; 
+    
+    text-align: left;
+    width:500px;
+    height:250px;
+    position:absolute;
+    left:40%;
+    top:50%;
+    margin:-100px 0 0 -150px;
+}
+#addLink
+{
+    font-family: headingFont;
+    color : #ff6666;
+    cursor: pointer;
+    text-decoration: underline;
+}
+/*ADDUSER*/
+/*******************************************HOME********************************************************************/
+html, body 
+{ 
+    overflow: hidden;
+    height :100%;
+}
+#headerHome
+        {
+		
+                  text-align: center;
+                  background-color: rgba(15,15,15,.9);
+                 border: 2px solid gba(1,1,1,0.1);                   
+                
+                 padding: 10px 40px; 
+                 border-radius: 5px;       
+	}
+#homeBody 
+{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    
+}
+/*---------------------------------------------MENU----------------------------------------------*/
+#homeMenu {
+   background-color: rgba(15,15,15,.9);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 12em;
+  opacity: 1;
+  bottom: 0;
+  
+  float: left;
+    width: 200px;
+   
+    padding-bottom: 10px;
+    height: 98%;
+}
+#homeMenu  li {
+  font-size: 12px;
+  font-family: headingFont;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#homeMenu  a {
+  background: black;
+  border-bottom: 1px solid #393939;
+  color: #ccc;
+  display: block;
+  margin: 0;
+  padding: 8px 12px;
+  text-decoration: none;
+  font-weight: normal;
+}
+#homeMenu  a:hover {
+  background: #2580a2 url('../images/hover.gif') left center no-repeat;
+  color: #fff;
+  padding-bottom: 8px;
+}
+/*---------------------------------------------MENU----------------------------------------------*/
+/*---------------------------------------------CONTENT----------------------------------------------*/
+#homeContent
+{
+  width: 100%;
+  opacity: 1;
+  float: left;
+    width: 84.9%;
+    padding-bottom: 10px;
+    height: 100%;
+}
+#info1
+{
+     float:left; 
+     width : 50%;
+    height:50%;
+}
+#info1Frame
+{
+    background-color: rgba(1,1,1,.7);
+    float:left; 
+        width : 100%;
+            height:100%;
+    border : none;
+}
+#info2
+{
+     float:left; 
+     width : 50%;
+    height:50%;
+}
+#info2Frame
+{
+    background-color: rgba(1,1,1,.7);
+    float:left; 
+        width : 100%;
+            height:100%;
+    border : none;
+}
+#info3
+{
+     float:left; 
+     width : 100%;
+    height:50%;
+}
+#info3Frame
+{
+    background-color: rgba(1,1,1,.7);
+    float:left; 
+        width : 100%;
+            height:100%;
+    border : none;
+}
+/*---------------------------------------------CONTENT----------------------------------------------*/
+/*******************************************HOME********************************************************************/
+/*******************************************DETAILED STATS********************************************************************/
+#statsBody
+{
+   background-color: rgba(1,1,1,.7);
+  float: left;
+    width: 84.9%;
+    padding-bottom: 10px;
+    height: 100%;
+   
+}
+table
+{
+    width: 100%;
+    font-family: headingFont;
+    color: white;
+    font-size: 10px;
+    text-align :center;
+}
+.thFont
+{
+     color: white ;
+     font-size: 16px;
+    text-align :center;
+    font-family: headingFont;
+    text-shadow: 1px 4px 6px    black;
+}
+/*******************************************DETAILED STATS********************************************************************/
+/*******************************************REPORT********************************************************************/
+#dlBut
+{
+    font-family: headingFont;
+    width : 200px;
+    height : 50px;
+    margin-left: 10%;
+}
+/*******************************************REPORT********************************************************************/

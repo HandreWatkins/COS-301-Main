@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="../css/css.css"> 
+        <title>Home</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+         <div id="headerHome" class="topCenter">
+            
+            <div class="wrap">
+              <h1 id="indexH1" class="head1">SMART INTEGRATION MONITOR</h1>
+            </div>
+         </div>
+        <div id="homeBody">
+            <div id="homeMenu">
+                <ul>
+                    <li><a href='../html/home.html'><span>Home</span></a></li>
+                    <li><a href='../html/detailedStats.html'><span>Detailed Statistics</span></a></li>
+                    <li><a href='../html/report.html'><span>Generate Report</span></a></li>
+                    <li class='last'><a href='../index.html' onclick="return confirm('Are you sure you want to exit?')"><span>Exit</span></a></li>
+                </ul>
+            </div>
+            <div id="homeContent">
+                <div id="info1" >
+                    <iframe id="info1Frame" src="../html/gauge.html" scrolling="no" >
+                        <p>ResponseTime Gauge</p>
+                    </iframe>
+                </div>
+                <div id="info2" >
+                    <iframe id="info2Frame" src="../html/graph.html" scrolling="no" >
+                        <p>Your browser does not support iframes.</p>
+                    </iframe>
+                </div>
+                <div id="info3" >
+                    <iframe id="info3Frame" src="../html/gauge2.html" >
+                        <p>Your browser does not support iframes.</p>
+                    </iframe>
+                </div>
+            </div>
+            
+        </div>
+    </body>
+</html>
