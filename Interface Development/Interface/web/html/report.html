@@ -25,15 +25,14 @@
                 <form  id="reportForm" method="get" action="../files/file.pdf">
                      <p class="thFont">This function allows you to generate a documented report of archived network statistics on the dates of your preference. </p>
                    <label>From:</label> </br>
-                   
-                   <label>Date:</label> <input id="fromDate" type="date"/>
-                   <label>Time:</label> <input id="fromTime" type="time"/>
+                   <label>Date:</label> <input id="fromDate" type="date" required=""/>
+                   <label>Time:</label> <input id="fromTime" type="time" required=""/>
                    
                    </br>
                    </br>
                    <label>To:</label> </br>
-                   <label>Date:</label> <input id="toDate" type="date"/>
-                   <label>Time:</label> <input id="toTime" type="time"/>
+                   <label>Date:</label> <input id="toDate" type="date" required=""/>
+                   <label>Time:</label> <input id="toTime" type="time" required=""/>
                    </br>
                    </br>
                    <label>Format:</label><select>
@@ -46,7 +45,7 @@
                    </br>
                    </br>
 
-                    <button type="submit" id="dlBut">Download!</button>
+                   <button type="submit" id="dlBut" class="button">Download!</button>
                 </form>
             </div>
             
