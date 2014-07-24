@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+  
+    <head>
+        <link rel="stylesheet" type="text/css" href="../css/css.css"> 
+        <title>Smart Integration Monitor</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>       
+
+        <div id="header" class="topCenter">
+            
+            <div class="wrap">
+                <img id="epiLogo" src="../images/epiuse_logo.png" class="topCenter"/>
+              <h1 id="indexH1" class="head1">SMART INTEGRATION MONITOR</h1>
+            </div>
+         </div>
+        <div id="addUser">
+            <form id="addUserForm" method="post" action="html/home.html">
+                <table>
+                    <tr>
+                        <h2 id="loginH2">ADD NEW USER</h2>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>Username:</label></td>
+                         <td><input type='text' id="addUserBox" autofocus="" placeholder="USERNAME" required=""/></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>Password:</label> </td>
+                        <td><input type='password' id="addPassBox" placeholder="PASSWORD" required=""/></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>Confirm Password:</label></td>
+                        <td><input type='password' id="addConfirmBox" placeholder="CONFIRM PASSWORD" required=""/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button id="submitBut" class="button">ENTER</button></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button id="cancelBut" class="button" formaction="../index.html">CANCEL</button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>
+

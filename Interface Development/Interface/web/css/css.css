@@ -88,7 +88,7 @@ html
     
 }
 
-#submit
+.button
 {
     font-family: headingFont;
     width : 100px;
@@ -112,7 +112,7 @@ html
 {
     font-family: headingFont;
     border-radius: 5px;
-   
+    
 }
 #addPassBox
 {
@@ -131,6 +131,8 @@ label
     font-family: headingFont;
      color: white;
     text-shadow: 1px 4px 6px    black;
+    font-size : 16px;
+    text-align: right;
 }
 
 #addUserForm
@@ -140,7 +142,7 @@ label
     border-radius: 5px;
     padding: 10px 40px; 
     
-    text-align: left;
+
     width:500px;
     height:250px;
     position:absolute;
@@ -155,6 +157,7 @@ label
     cursor: pointer;
     text-decoration: underline;
 }
+
 /*ADDUSER*/
 /*******************************************HOME********************************************************************/
 html, body 
@@ -306,5 +309,23 @@ table
     width : 200px;
     height : 50px;
     margin-left: 10%;
+}
+#reportBody
+{
+    background-color: rgba(1,1,1,.7);
+  float: left;
+    width: 84.9%;
+    padding-bottom: 10px;
+    height: 100%;
+}
+#reportForm
+{
+     background-color: rgba(1,1,1,.9);
+
+    border: 2px solid #a1a1a1;
+     border-radius: 5px;
+    padding: 10px 40px; 
+    
+    text-align: center;
 }
 /*******************************************REPORT********************************************************************/
