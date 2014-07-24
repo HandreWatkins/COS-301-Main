@@ -126,6 +126,12 @@ html
     border-radius: 5px;
     
 }
+#addMasterBox
+{
+    font-family: headingFont;
+    border-radius: 5px;
+    
+}
 label
 {
     font-family: headingFont;
@@ -153,7 +159,7 @@ label
 #addLink
 {
     font-family: headingFont;
-    color : #ff6666;
+    color : #ccffff;
     cursor: pointer;
     text-decoration: underline;
 }

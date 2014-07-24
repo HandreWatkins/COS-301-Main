@@ -22,7 +22,7 @@ and open the template in the editor.
             </div>
          </div>
         <div id="addUser">
-            <form id="addUserForm" method="post" action="html/home.html">
+            <form id="addUserForm" method="post" action="../index.html" onsubmit="return validateForm();">
                 <table>
                     <tr>
                         <h2 id="loginH2">ADD NEW USER</h2>
@@ -44,10 +44,26 @@ and open the template in the editor.
                     </tr>
                     <tr>
                         <td align="right"><label>MASTER PASSWORD:</label></td>
-                        <td><input type='password' id="addConfirmBox" placeholder="MASTER PASSWORD" required=""/></td>
+                        <td><input type='password' name="addMasterBox" id="addMasterBox" placeholder="MASTER PASSWORD"  required=""/></td>
                     </tr>
+                    <script>
+                        function validateForm()
+                        {
+                            var pw = document.getElementById("addMasterBox").value;
+                            var password = "theansweris42";
+                            if (pw == password)
+                            {
+                                alert('User successfully added.');
+                                return true;
+                            }
+                            else {
+                                alert('Master Password Incorrect!');
+                                return false;
+                            }
+                        }
+                    </script>
                     <tr>
-                        <td><button id="submitBut" class="button" align="left">ENTER</button></td>
+                        <td><input type="submit" id="submitBut" class="button" align="left" value="ENTER"/></td>
                          <td><button id="cancelBut" class="button" formaction="../index.html" align="right">CANCEL</button></td>
                     </tr>
                     <tr>
