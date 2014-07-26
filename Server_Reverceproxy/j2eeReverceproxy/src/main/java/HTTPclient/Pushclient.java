@@ -1,9 +1,6 @@
 package HTTPclient;
 
-import javax.servlet.ServletResponse;
-
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 
 import Util.UrlLinker;
 
@@ -17,12 +14,23 @@ public class Pushclient
 	
 	public void responsewriter(UrlLinker urlresponse)
 	{
-		urlLink = urlresponse;
-		HttpEntity rEntity = urlLink.getResponse().getEntity();
+		if(urlresponse.getResponse() != null)
+		{
+			HttpEntity rEntity = urlresponse.getResponse().getEntity();
 		
-		
-		
-		
+			try 
+			{
+				setcontext(rEntity);
+			}
+			catch (Exception e)
+			{
+				// TODO: handle exception
+			}
+		}
+		else
+		{
+			return;
+		}
 	}
 	
 	private void setcontext(HttpEntity entity) throws Exception
@@ -31,6 +39,8 @@ public class Pushclient
 		{
 			throw new Exception();
 		}
+		
+		
 		
 	}
 }

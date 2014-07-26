@@ -1,5 +1,6 @@
 package pickup;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -22,7 +23,7 @@ public class PickupMain
 	
 	public PickupMain(Translate trance){}
 	
-	public void pickupListener(HttpServletRequest requestHTTP, ServletResponse responseHTTP)
+	public void pickupListener(HttpServletRequest requestHTTP, ServletResponse responseHTTP) throws IOException
 	{
 		UrlLinker requestcontrol = translate.linkurl(requestHTTP,responseHTTP);
 		
