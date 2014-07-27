@@ -31,7 +31,7 @@ public class UrlLinker
 		method = smethod;
 	}
 	
-	public void setcontext(String urlB)
+	public void setContext(String urlB)
 	{
 		url = urlB;
 	}

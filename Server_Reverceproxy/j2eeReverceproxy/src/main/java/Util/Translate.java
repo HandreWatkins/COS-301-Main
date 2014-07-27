@@ -20,14 +20,20 @@ public class Translate
 		}
 		
 		UrlLinker urlSaver = new UrlLinker();
-		urlSaver.setcontext(request.getMethod());
+		urlSaver.setmethod(request.getMethod());
 		String url = request.getRequestURL().toString();
 		urlSaver.setURL(url);
-		String newUrl = /*"http://localhost/" +*/ request.getRequestURL().toString();
+		String newUrl = getnewUrl(url);
 		System.out.println(newUrl);
 		urlSaver.setNURL(newUrl);
 		
 		return urlSaver;
+	}
+	
+	public String getnewUrl(String url)
+	{
+		url = url.substring(url.indexOf("/", url.indexOf("//")+1));
+		return url;
 	}
 	
 	public class texttranslate
@@ -36,6 +42,8 @@ public class Translate
 		{
 			// TODO Auto-generated constructor stub
 		}
+		
+		
 		
 		
 		
