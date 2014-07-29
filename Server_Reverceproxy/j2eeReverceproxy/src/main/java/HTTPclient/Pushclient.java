@@ -18,7 +18,7 @@ public class Pushclient
 	public void responsewriter(UrlLinker urlresponse)
 	{
 		urlLink = urlresponse;
-		if(urlresponse.getResponse() != null)
+		if(urlresponse != null)
 		{
 			HttpEntity rEntity = urlresponse.getResponse().getEntity();
 		

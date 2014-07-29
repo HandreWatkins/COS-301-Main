@@ -13,46 +13,59 @@ import javax.servlet.http.HttpServletResponse;
 
 import pickup.PickupMain;
 import Util.Translate;
+import Util.UrlLinker;
 
 
 public class Proxyfilter implements Filter
 {
 	private Translate trance = new Translate();
-	private PickupMain pickupHandle = new PickupMain(trance);
+	private PickupMain pickupHandle = null;
+	private Translate translate = new Translate();
 	
-	public boolean accept(Object entry) throws IOException {
-		// TODO Auto-generated method stub
+	public boolean accept(Object entry) throws IOException
+	{
 		System.out.println("test");
 		return false;
 	}
 
 	public void destroy(){}
 
-	public void init(FilterConfig arg0) throws ServletException{}
+	public void init(FilterConfig arg0) throws ServletException
+	{
+		try {
+			pickupHandle = new PickupMain(trance);
+			
+			if(!pickupHandle.hasStart())
+				pickupHandle.start();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public void doFilter(final ServletRequest request, final ServletResponse response, FilterChain chain) throws IOException, ServletException
 	{
+		
 		if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
 		{
 			final HttpServletRequest requestHTTP = (HttpServletRequest) request;
-			
+			if(!pickupHandle.hasStart())
+				pickupHandle.start();
 			if(pickupHandle.isJAX_RS(requestHTTP))
 			{
-				/*new Thread(new Runnable()
-				{	
-					public void run()
-					{*/
-						//http://www.developerscrappad.com/1781/java/java-ee/rest-jax-rs/java-ee-7-jax-rs-2-0-cors-on-rest-how-to-make-rest-apis-accessible-from-a-different-domain/
-						try {
-							String test = requestHTTP.getRequestURI().toString();
-							System.out.println(test+ "test");
-							pickupHandle.pickupListener(requestHTTP, response);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					/*}
-				}).start();*/
+						
+				try {
+					UrlLinker urlfile = translate.linkurl(requestHTTP,response);
+					pickupHandle.pickupListener(urlfile);
+					
+					//String test = requestHTTP.getRequestURI().toString();
+					//System.out.println(test+ "test");
+					//pickupHandle.pickupListener(requestHTTP, response);
+						
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+				}
 			}
 			else
 			{
@@ -66,3 +79,7 @@ public class Proxyfilter implements Filter
 		
 	}
 }
+
+
+
+//http://www.developerscrappad.com/1781/java/java-ee/rest-jax-rs/java-ee-7-jax-rs-2-0-cors-on-rest-how-to-make-rest-apis-accessible-from-a-different-domain/
