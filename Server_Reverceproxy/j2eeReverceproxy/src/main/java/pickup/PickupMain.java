@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import HTTPclient.Pushclient;
@@ -16,8 +15,10 @@ import Util.UrlLinker;
 public class PickupMain
 {
 	//=================================================================================
+	@SuppressWarnings("unused")
 	private Pushclient	callClient = new Pushclient();
 	private static ArrayList<Runnable> requestpickup = new ArrayList<Runnable>();
+	@SuppressWarnings("unused")
 	private Translate translate = new Translate();
 	private ExecutorService executor = null;
 	private Boolean singleton = false;

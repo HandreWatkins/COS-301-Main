@@ -1,7 +1,15 @@
 package HTTPclient;
 
-import static org.apache.commons.lang.StringUtils.*;
+import static org.apache.commons.lang.StringUtils.containsIgnoreCase;
+import static org.apache.commons.lang.StringUtils.endsWithIgnoreCase;
+import static org.apache.commons.lang.StringUtils.substringBefore;
+import static org.apache.commons.lang.StringUtils.trimToEmpty;
 
+import java.io.InputStream;
+
+import javax.servlet.ServletOutputStream;
+
+import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 
@@ -26,6 +34,9 @@ public class Pushclient
 			{
 				setcontext(rEntity);
 				
+				InputStream content = rEntity.getContent();
+				ServletOutputStream outputStream = urlLink.getServlet().getOutputStream();
+				IOUtils.copy(content, outputStream);						
 			}
 			catch (Exception e)
 			{

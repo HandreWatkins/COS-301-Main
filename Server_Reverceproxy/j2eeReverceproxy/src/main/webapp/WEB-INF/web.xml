@@ -1,17 +1,16 @@
-<web-app xmlns="http://java.sun.com/xml/ns/javaee" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         version="2.5" >
-         
-	<display-name></display-name>
-		
-  	<filter>
-    	<filter-name>proxyFilter</filter-name>
-    	<filter-class>Filter.Proxyfilter</filter-class>
-  	</filter>
-
-  	<filter-mapping>
-    	<filter-name>proxyFilter</filter-name>
-    	<url-pattern>*</url-pattern>
-  	</filter-mapping>
-</web-app> 
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>proxy</display-name>
+  <filter>
+    <display-name>Proxyfilter</display-name>
+    <filter-name>Proxyfilter</filter-name>
+    <filter-class>Filter.Proxyfilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>Proxyfilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher> 
+  	<dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+</web-app>
