@@ -41,7 +41,7 @@ public class GetRequest extends responseCall
 				urlproxy.setHttp(null);
 				
 			}
-			
+			System.out.println(urlproxy.getNURL());
 			return urlproxy;
 			
 		} catch (Exception e)

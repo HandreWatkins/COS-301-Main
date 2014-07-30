@@ -5,6 +5,7 @@ import static org.apache.commons.lang.StringUtils.endsWithIgnoreCase;
 import static org.apache.commons.lang.StringUtils.substringBefore;
 import static org.apache.commons.lang.StringUtils.trimToEmpty;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.servlet.ServletOutputStream;
@@ -32,11 +33,23 @@ public class Pushclient
 		
 			try 
 			{
-				setcontext(rEntity);
+				//setcontext(rEntity);
 				
-				InputStream content = rEntity.getContent();
+				/*InputStream content = rEntity.getContent();
 				ServletOutputStream outputStream = urlLink.getServlet().getOutputStream();
-				IOUtils.copy(content, outputStream);						
+				IOUtils.copy(content, outputStream);*/
+				
+				//while(rEntity.getContent().available() > 0)
+					String text = IOUtils.toString(rEntity.getContent(), "UTF-8");
+					System.out.println(text);
+					
+					urlLink.getServlet().setContentType("text/html; charset=ISO-8859-4");
+				    try {
+				    	urlLink.getServlet().getWriter().print("hi");
+				    	urlLink.getServlet().flushBuffer();
+				    } catch (IOException e) {
+
+				    }
 			}
 			catch (Exception e)
 			{

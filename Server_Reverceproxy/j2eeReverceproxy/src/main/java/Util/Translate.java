@@ -23,6 +23,7 @@ public class Translate
 		urlSaver.setmethod(request.getMethod());
 		String url = request.getRequestURL().toString();
 		urlSaver.setURL(url);
+		urlSaver.setServlet(response);
 		String newUrl = getnewUrl(url);
 		System.out.println(newUrl);
 		urlSaver.setNURL(newUrl);
@@ -32,8 +33,8 @@ public class Translate
 	
 	public String getnewUrl(String url)
 	{
-		url = url.substring(url.indexOf("/", url.indexOf("//")+1));
-		return url;
+		//url = url.substring(url.indexOf("/", url.indexOf("//")+1)+1);
+		return "http://localhost:8081/servlet"; //url;
 	}
 	
 	public class texttranslate

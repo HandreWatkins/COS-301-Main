@@ -57,11 +57,7 @@ public class Proxyfilter implements Filter
 				try {
 					UrlLinker urlfile = translate.linkurl(requestHTTP,response);
 					pickupHandle.pickupListener(urlfile);
-					
-					//String test = requestHTTP.getRequestURI().toString();
-					//System.out.println(test+ "test");
-					//pickupHandle.pickupListener(requestHTTP, response);
-						
+
 				} catch (Exception e)
 				{
 					e.printStackTrace();
