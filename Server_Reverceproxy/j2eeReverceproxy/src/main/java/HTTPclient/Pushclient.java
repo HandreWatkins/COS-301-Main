@@ -24,32 +24,22 @@ public class Pushclient
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void responsewriter(UrlLinker urlresponse)
+	public void responsewriter(UrlLinker urlresponse) throws IllegalStateException, IOException
 	{
 		urlLink = urlresponse;
 		if(urlresponse != null)
 		{
 			HttpEntity rEntity = urlresponse.getResponse().getEntity();
-		
+			//InputStream input = rEntity.getContent();
+			
 			try 
 			{
-				//setcontext(rEntity);
-				
-				/*InputStream content = rEntity.getContent();
-				ServletOutputStream outputStream = urlLink.getServlet().getOutputStream();
-				IOUtils.copy(content, outputStream);*/
-				
-				//while(rEntity.getContent().available() > 0)
-					String text = IOUtils.toString(rEntity.getContent(), "UTF-8");
-					System.out.println(text);
-					
-					urlLink.getServlet().setContentType("text/html; charset=ISO-8859-4");
-				    try {
-				    	urlLink.getServlet().getWriter().print("hi");
-				    	urlLink.getServlet().flushBuffer();
-				    } catch (IOException e) {
-
-				    }
+			    try {
+			        InputStream content = rEntity.getContent();
+			        ServletOutputStream outputStream = urlLink.getServlet().getOutputStream();
+			        IOUtils.copy(content, outputStream);
+			      } catch (IOException e){
+			      }
 			}
 			catch (Exception e)
 			{
@@ -72,9 +62,6 @@ public class Pushclient
 		//set return context type for return display
 		Contextset context = new Contextset();
 		context.getContext(entity,urlLink);
-		
-		
-		
 	}
 	
 	private class Contextset

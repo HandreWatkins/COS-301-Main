@@ -37,37 +37,6 @@ public class PickupMain
 		
 		Runnable connect = new PickupHandle(requestcontrol);
 		requestpickup.add(connect);
-		
-		
-		
-		/*synchronized (requestcontrol)
-		{
-			requestpickup.add(requestcontrol);
-		}*/
-		/*while(!requestpickup.isEmpty())
-		{
-			UrlLinker httpFragment = requestpickup.get(0);
-			requestpickup.remove(0);
-			
-			switch (Arrays.asList(jax_RS).indexOf(httpFragment.getMethod())) 
-			{
-				case 0:
-					responseCall getrequest = new GetRequest();
-					httpFragment = getrequest.clientreqeust(httpFragment);
-					break;
-				case 1:
-					responseCall postrequest = new PostRequest();
-					httpFragment = postrequest.clientreqeust(httpFragment);
-					break;
-				case 2:
-					responseCall putrequest = new PutRequest();
-					httpFragment = putrequest.clientreqeust(httpFragment);
-					break;
-				default:
-					break;
-			}
-			callClient.responsewriter(httpFragment);
-		}*/
 	}
 	
 	//Test if httpRequest is JAX-RS or JAX-WS

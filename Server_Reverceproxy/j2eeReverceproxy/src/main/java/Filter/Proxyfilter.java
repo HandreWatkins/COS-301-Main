@@ -45,15 +45,14 @@ public class Proxyfilter implements Filter
 
 	public void doFilter(final ServletRequest request, final ServletResponse response, FilterChain chain) throws IOException, ServletException
 	{
-		
 		if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
 		{
 			final HttpServletRequest requestHTTP = (HttpServletRequest) request;
 			if(!pickupHandle.hasStart())
 				pickupHandle.start();
+			
 			if(pickupHandle.isJAX_RS(requestHTTP))
-			{
-						
+			{	
 				try {
 					UrlLinker urlfile = translate.linkurl(requestHTTP,response);
 					pickupHandle.pickupListener(urlfile);
@@ -72,7 +71,6 @@ public class Proxyfilter implements Filter
 		{
 			return;
 		}
-		
 	}
 }
 
