@@ -14,35 +14,35 @@ public class GetRequest extends responseCall
 		// TODO Auto-generated method stub
 		try 
 		{
-			DefaultHttpClient httpclient = new DefaultHttpClient();
-			Long stime = retime();
-			Long etime = null;
-			
-			HttpGet getCall = new HttpGet(urlproxy.getNURL());
-			
-			HttpResponse response = httpclient.execute(getCall);
-			
-			if(response.getStatusLine().getStatusCode() != 0)
-			{
-				etime = System.currentTimeMillis();
-			}
-			
-			Long ftime = null;
-			
-			if(etime != null)
-			{
-				ftime= etime - stime;
-				urlproxy.settime(ftime);
-				urlproxy.setHttp(response);
-			}
-			else
-			{
-				urlproxy.settime(ftime);
-				urlproxy.setHttp(null);
-				
-			}
-			System.out.println(urlproxy.getNURL());
-			return urlproxy;
+                    DefaultHttpClient httpclient = new DefaultHttpClient();
+                    Long stime = retime();
+                    Long etime = null;
+
+                    HttpGet getCall = new HttpGet(urlproxy.getNURL());
+
+                    HttpResponse response = httpclient.execute(getCall);
+
+                    if(response.getStatusLine().getStatusCode() != 0)
+                    {
+                            etime = System.currentTimeMillis();
+                    }
+
+                    Long ftime = null;
+
+                    if(etime != null)
+                    {
+                            ftime= etime - stime;
+                            urlproxy.settime(ftime);
+                            urlproxy.setHttp(response);
+                    }
+                    else
+                    {
+                            urlproxy.settime(ftime);
+                            urlproxy.setHttp(null);
+
+                    }
+                    System.out.println(urlproxy.getNURL());
+                    return urlproxy;
 			
 		} catch (Exception e)
 		{

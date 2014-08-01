@@ -3,26 +3,17 @@ package HTTPclient;
 import static org.apache.commons.lang.StringUtils.containsIgnoreCase;
 import static org.apache.commons.lang.StringUtils.endsWithIgnoreCase;
 import static org.apache.commons.lang.StringUtils.substringBefore;
-import static org.apache.commons.lang.StringUtils.trimToEmpty;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.jsoup.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import Util.Translate;
 import Util.UrlLinker;
 
 public class Pushclient 
@@ -50,7 +41,7 @@ public class Pushclient
 			
 			try 
 			{
-				if(urlLink.getContext() != "binary")
+				if(!"binary".equals(urlLink.getContext()))
 				{
 					//String text = Translate.traString(rEntity,"UTF-8");
 					Document document = null;
@@ -69,17 +60,19 @@ public class Pushclient
 					    }
 					}
 					
-
 					ServletResponse respond =  urlLink.getServlet();
 					
 					respond.setContentType("text/html;charset=UTF-8");
+                                        String test = respond.getCharacterEncoding();
+                                        //respond.
+                                        System.out.println(test);
 					respond.getWriter().write(document.html());
 					respond.getWriter().flush();
 				}
 				else
 				{
-					ServletResponse respond =  urlLink.getServlet();
-					//respond.setContentType(url.getMimeType(urlLink.getPathInfo()));
+                                    ServletResponse respond =  urlLink.getServlet();
+                                    //respond.setContentType(url.getMimeType(urlLink.getPathInfo()));
 				    OutputStream output = respond.getOutputStream();
 				    byte[] buffer = new byte[8192];
 
