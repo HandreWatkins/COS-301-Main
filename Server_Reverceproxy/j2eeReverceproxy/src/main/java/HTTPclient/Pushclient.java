@@ -7,13 +7,22 @@ import static org.apache.commons.lang.StringUtils.trimToEmpty;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.jsoup.*;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
+import Util.Translate;
 import Util.UrlLinker;
 
 public class Pushclient 
@@ -30,20 +39,59 @@ public class Pushclient
 		if(urlresponse != null)
 		{
 			HttpEntity rEntity = urlresponse.getResponse().getEntity();
-			//InputStream input = rEntity.getContent();
+
+			InputStream content = rEntity.getContent();
+			try {
+				setcontext(rEntity);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				System.out.println("context");
+			}
 			
 			try 
 			{
-			    try {
-			        InputStream content = rEntity.getContent();
-			        ServletOutputStream outputStream = urlLink.getServlet().getOutputStream();
-			        IOUtils.copy(content, outputStream);
-			      } catch (IOException e){
-			      }
+				if(urlLink.getContext() != "binary")
+				{
+					//String text = Translate.traString(rEntity,"UTF-8");
+					Document document = null;
+					
+					document = Jsoup.parse(content, "UTF-8", urlLink.getURL());
+					System.out.println(urlLink.getContext());
+					
+					if(urlLink.getContext().equals("text"))
+					{
+					    for (Element element : document.select("[href]")) {
+					        element.attr("href", element.attr("href"));
+					    }
+
+					    for (Element element : document.select("[src]")) {
+					        element.attr("src", element.attr("src"));
+					    }
+					}
+					
+
+					ServletResponse respond =  urlLink.getServlet();
+					
+					respond.setContentType("text/html;charset=UTF-8");
+					respond.getWriter().write(document.html());
+					respond.getWriter().flush();
+				}
+				else
+				{
+					ServletResponse respond =  urlLink.getServlet();
+					//respond.setContentType(url.getMimeType(urlLink.getPathInfo()));
+				    OutputStream output = respond.getOutputStream();
+				    byte[] buffer = new byte[8192];
+
+				    for (int length = 0; (length = rEntity.getContent().read(buffer)) > 0;) {
+				        output.write(buffer, 0, length);
+				    }
+				}
 			}
 			catch (Exception e)
 			{
 				// TODO: handle exception
+				System.out.println("line");
 			}
 		}
 		else
@@ -61,18 +109,18 @@ public class Pushclient
 		
 		//set return context type for return display
 		Contextset context = new Contextset();
-		context.getContext(entity,urlLink);
+		context.getContext(urlLink);
 	}
 	
 	private class Contextset
 	{
-		HttpEntity context = null;
+		UrlLinker context = null;
 		
 		public Contextset() {}
 		
-		public UrlLinker getContext(HttpEntity entity,UrlLinker urlFrag) throws Exception
+		public UrlLinker getContext(UrlLinker urlFrag) throws Exception
 		{
-			context = entity;
+			context = urlFrag;
 			
 			if(isText())
 				if(isJava())
@@ -86,8 +134,8 @@ public class Pushclient
 		}
 				
 		private boolean isText()
-		{
-			 if (containsIgnoreCase(trimToEmpty(((Header) context).getValue().toString()), "image"))
+		{			
+			 if (containsIgnoreCase(context.getNURL(), ".html"))
 				 return false;
 			 else
 			    return true;

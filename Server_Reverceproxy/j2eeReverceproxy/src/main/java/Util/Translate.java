@@ -5,6 +5,9 @@ import java.io.IOException;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpEntity;
+
 public class Translate
 {
 	public Translate()
@@ -36,18 +39,15 @@ public class Translate
 		//url = url.substring(url.indexOf("/", url.indexOf("//")+1)+1);
 		return "http://localhost:8081/servlet"; //url;
 	}
-	
-	public class texttranslate
+
+	public static String traString(HttpEntity entityHttp, String charsetT)
 	{
-		public texttranslate() 
+		try 
 		{
-			// TODO Auto-generated constructor stub
-		}
+			return IOUtils.toString(entityHttp.getContent(), charsetT);
+		} 
+		catch (Exception e) {}
 		
-		
-		
-		
-		
-		
+		return "";
 	}
 }

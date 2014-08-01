@@ -39,11 +39,14 @@ public class PickupHandle implements Runnable
 			default:
 				break;
 		}
+		
 			try 
 			{
 				callClient.responsewriter(url);
 			} 
-			catch (Exception e){}
+			catch (Exception e){
+				System.out.println();
+			}
 
 	}
 }

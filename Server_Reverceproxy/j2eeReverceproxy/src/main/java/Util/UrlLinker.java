@@ -33,7 +33,7 @@ public class UrlLinker
 	
 	public void setContext(String urlB)
 	{
-		url = urlB;
+		contextType = urlB;
 	}
 	
 	public void settime(Long fTime)
