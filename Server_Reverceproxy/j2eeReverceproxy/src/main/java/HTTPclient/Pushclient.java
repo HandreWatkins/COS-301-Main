@@ -1,20 +1,18 @@
 package HTTPclient;
 
-import static org.apache.commons.lang.StringUtils.containsIgnoreCase;
-import static org.apache.commons.lang.StringUtils.endsWithIgnoreCase;
-import static org.apache.commons.lang.StringUtils.substringBefore;
-
+import Util.Translate;
+import Util.UrlLinker;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import javax.servlet.ServletResponse;
+import static org.apache.commons.lang.StringUtils.containsIgnoreCase;
+import static org.apache.commons.lang.StringUtils.endsWithIgnoreCase;
+import static org.apache.commons.lang.StringUtils.substringBefore;
 import org.apache.http.HttpEntity;
 import org.jsoup.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-
-import Util.UrlLinker;
 
 public class Pushclient 
 {
@@ -43,7 +41,9 @@ public class Pushclient
 			{
 				if(!"binary".equals(urlLink.getContext()))
 				{
-					//String text = Translate.traString(rEntity,"UTF-8");
+					String text = Translate.traString(rEntity,"UTF-8");
+                                    
+                                        
 					Document document = null;
 					
 					document = Jsoup.parse(content, "UTF-8", urlLink.getURL());
