@@ -6,7 +6,7 @@ import HTTPclient.Pushclient;
 import HTTPclient.responseCall;
 import Util.UrlLinker;
 
-public class PickupHandle implements Runnable
+public class PickupHandle
 {
 	private final String [] jax_RS = {"GET","POST","PUT"};
 	private final Pushclient callClient = new Pushclient();
@@ -18,10 +18,7 @@ public class PickupHandle implements Runnable
 	}
 	
 	public void run() 
-	{
-		//UrlLinker httpFragment = requestpickup.get(0);
-		//requestpickup.remove(0);
-		
+	{	
             switch (Arrays.asList(jax_RS).indexOf(url.getMethod())) 
             {
                 case 0:
@@ -47,6 +44,5 @@ public class PickupHandle implements Runnable
             catch (Exception e){
                     System.out.println();
             }
-
 	}
 }

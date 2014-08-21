@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import pickup.PickupMain;
 import Util.Translate;
 import Util.UrlLinker;
+import pickup.PickupHandle;
 
 
 public class Proxyfilter implements Filter
@@ -21,6 +22,7 @@ public class Proxyfilter implements Filter
 	private Translate trance = new Translate();
 	private PickupMain pickupHandle = null;
 	private Translate translate = new Translate();
+    PickupHandle pickup = null;
 	
 	public boolean accept(Object entry) throws IOException
 	{
@@ -35,8 +37,6 @@ public class Proxyfilter implements Filter
 		try {
 			pickupHandle = new PickupMain(trance);
 			
-			if(!pickupHandle.hasStart())
-				pickupHandle.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,17 +47,17 @@ public class Proxyfilter implements Filter
 	{
 		if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
 		{
-			final HttpServletRequest requestHTTP = (HttpServletRequest) request;
-			if(!pickupHandle.hasStart())
-				pickupHandle.start();
+			HttpServletRequest requestHTTP = (HttpServletRequest) request;
 			
 			if(pickupHandle.isJAX_RS(requestHTTP))
 			{	
-				try {
+				try 
+				{
 					UrlLinker urlfile = translate.linkurl(requestHTTP,response);
-					pickupHandle.pickupListener(urlfile);
-
-				} catch (Exception e)
+                    pickup = new PickupHandle(urlfile);
+                    pickup.run();
+				} 
+				catch (Exception e)
 				{
 					e.printStackTrace();
 				}

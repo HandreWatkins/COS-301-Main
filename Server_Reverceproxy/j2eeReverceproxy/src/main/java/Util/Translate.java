@@ -36,8 +36,7 @@ public class Translate
 	
 	public String getnewUrl(String url)
 	{
-		//url = url.substring(url.indexOf("/", url.indexOf("//")+1)+1);
-		return "http://localhost:8081/servlet"; //url;
+		return "http://localhost:8081/servlet";
 	}
 
 	public static String traString(HttpEntity entityHttp, String charsetT)

@@ -45,7 +45,6 @@ public class Pushclient
 				{
 					//String text = Translate.traString(rEntity,"UTF-8");
 					Document document = null;
-					
 					document = Jsoup.parse(content, "UTF-8", urlLink.getURL());
 					System.out.println(urlLink.getContext());
 					
@@ -61,18 +60,16 @@ public class Pushclient
 					}
 					
 					ServletResponse respond =  urlLink.getServlet();
-					
 					respond.setContentType("text/html;charset=UTF-8");
-                                        String test = respond.getCharacterEncoding();
-                                        //respond.
-                                        System.out.println(test);
+                    String test = respond.getCharacterEncoding();
+                    System.out.println(test);
 					respond.getWriter().write(document.html());
 					respond.getWriter().flush();
 				}
 				else
 				{
-                                    ServletResponse respond =  urlLink.getServlet();
-                                    //respond.setContentType(url.getMimeType(urlLink.getPathInfo()));
+                    ServletResponse respond =  urlLink.getServlet();
+                    //respond.setContentType(url.getMimeType(urlLink.getPathInfo()));
 				    OutputStream output = respond.getOutputStream();
 				    byte[] buffer = new byte[8192];
 
