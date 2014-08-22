@@ -2,28 +2,40 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.Socket;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.junit.Test;
+import server.servertest;
+
 
 public class Unit_test_proxy 
 {
-    public static void main(String[] args) throws IOException
+    @Test
+    public void main() throws IOException
     {
         System.out.println("test 1 start");
         try {
-            //Socket client = new Socket("http://localhost:8081/Ty", 8081);
-            sendGet();
+            //Socket client = new Socket("http://localhost:5254", 8081);
+            final servertest test = new servertest();
+  
+            //test.main();
+            System.out.println("start");
+            //sendGet();
+            //test.stop();
+            
         } catch (Exception ex) {
             Logger.getLogger(Unit_test_proxy.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("test 1 end");
     }
     
-    	private static void sendGet() throws Exception {
+    	private void sendGet() throws Exception {
  
-		String url = "http://localhost:8081/Ty";
- 
+		String url = "http://localhost:5254/";
+                Socket sock = new Socket("localhost", 5254);
+                System.out.println(sock.getInputStream().read());
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
  
@@ -47,8 +59,7 @@ public class Unit_test_proxy
 		}
 		in.close();
  
-		//print result
+		//print resul
 		System.out.println(response.toString());
- 
 	}
 }

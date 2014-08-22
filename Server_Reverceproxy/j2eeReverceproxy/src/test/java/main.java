@@ -3,7 +3,8 @@ import org.junit.Test;
 
 public class main 
 {
-    public static void main(String[] args)
+    @Test
+    public void main()
     {
         System.out.println("-------------------test line----------------------------------");
         System.out.println("get test" + getRequest());
@@ -11,17 +12,16 @@ public class main
         System.out.println("--------------------------------------------------------------");
     }
     
-    @Test
-    private static boolean getRequest()
+    
+    private boolean getRequest()
     {
         
-        return false;
+        return true;
     }
     
-    @Test
-    private static boolean postRequest()
+    private boolean postRequest()
     {
-        return false;
+        return true;
     } 
     
 }

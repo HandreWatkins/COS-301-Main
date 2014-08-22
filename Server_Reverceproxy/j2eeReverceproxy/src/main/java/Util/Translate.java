@@ -36,7 +36,7 @@ public class Translate
 	
 	public String getnewUrl(String url)
 	{
-		return "http://localhost:8081/servlet";
+		return "http://localhost:8080/servlet";
 	}
 
 	public static String traString(HttpEntity entityHttp, String charsetT)

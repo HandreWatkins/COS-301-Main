@@ -1,7 +1,10 @@
 package Filter;
 
+import HTTPclient.Pushclient;
+import Util.Translate;
+import Util.UrlLinker;
+import analisis.Interface;
 import java.io.IOException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -10,68 +13,69 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import pickup.PickupMain;
-import Util.Translate;
-import Util.UrlLinker;
 import pickup.PickupHandle;
+import pickup.PickupMain;
 
 
 public class Proxyfilter implements Filter
 {
-	private Translate trance = new Translate();
-	private PickupMain pickupHandle = null;
-	private Translate translate = new Translate();
+    private final Translate trance = new Translate();
+    private PickupMain pickupHandle = null;
+    private final Translate translate = new Translate();
+    private final Pushclient callClient = new Pushclient();
+    private Interface inter = new Interface();
+    
     PickupHandle pickup = null;
 	
-	public boolean accept(Object entry) throws IOException
-	{
-		System.out.println("test");
-		return false;
-	}
+    public boolean accept(Object entry) throws IOException
+    {
+        System.out.println("test");
+        return false;
+    }
 
-	public void destroy(){}
+    @Override
+    public void destroy(){}
 
-	public void init(FilterConfig arg0) throws ServletException
-	{
-		try {
-			pickupHandle = new PickupMain(trance);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+    @Override
+    public void init(FilterConfig arg0) throws ServletException
+    {
+            try
+            {
+                pickupHandle = new PickupMain(trance);
+            }
+            catch (IOException e) {}
+    }
 
-	public void doFilter(final ServletRequest request, final ServletResponse response, FilterChain chain) throws IOException, ServletException
-	{
-		if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
-		{
-			HttpServletRequest requestHTTP = (HttpServletRequest) request;
-			
-			if(pickupHandle.isJAX_RS(requestHTTP))
-			{	
-				try 
-				{
-					UrlLinker urlfile = translate.linkurl(requestHTTP,response);
-                    pickup = new PickupHandle(urlfile);
-                    pickup.run();
-				} 
-				catch (Exception e)
-				{
-					e.printStackTrace();
-				}
-			}
-			else
-			{
-				chain.doFilter(request, response);
-			}
-		}
-		else
-		{
-			return;
-		}
-	}
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
+    {
+        if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
+        {
+            HttpServletRequest requestHTTP = (HttpServletRequest) request;
+            if(pickupHandle.isJAX_RS(requestHTTP))
+            {	
+                UrlLinker urlfile = translate.linkurl(requestHTTP,response);
+                pickup = new PickupHandle(urlfile);
+                
+                try 
+                {
+                    urlfile = pickup.run();
+                    //response.getWriter().print(urlfile.getResponse().getEntity());
+                    callClient.responsewriter(urlfile,response);
+                    inter.analisHandle(urlfile);
+                } 
+                catch (IOException e){}
+            }
+            else
+            {
+                chain.doFilter(request, response);
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
 }
 
 

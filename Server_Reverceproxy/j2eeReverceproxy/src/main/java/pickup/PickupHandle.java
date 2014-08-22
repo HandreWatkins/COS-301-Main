@@ -1,15 +1,13 @@
 package pickup;
 
 import java.util.Arrays;
-
-import HTTPclient.Pushclient;
 import HTTPclient.responseCall;
 import Util.UrlLinker;
 
 public class PickupHandle
 {
 	private final String [] jax_RS = {"GET","POST","PUT"};
-	private final Pushclient callClient = new Pushclient();
+	
 	private UrlLinker url = null;
 	
 	public PickupHandle(UrlLinker urlFile)
@@ -17,7 +15,7 @@ public class PickupHandle
             url = urlFile;
 	}
 	
-	public void run() 
+	public UrlLinker run() 
 	{	
             switch (Arrays.asList(jax_RS).indexOf(url.getMethod())) 
             {
@@ -37,12 +35,13 @@ public class PickupHandle
                     break;
             }
 
-            try 
+            /*try 
             {
                 callClient.responsewriter(url);
             } 
-            catch (Exception e){
-                    System.out.println();
-            }
+            catch (IllegalStateException | IOException e){
+                    System.out.println(e.getCause());
+            }*/
+            return url;
 	}
 }
