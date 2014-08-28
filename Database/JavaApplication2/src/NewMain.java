@@ -20,15 +20,17 @@ public class NewMain {
          String password = "1";
         DBConnection a = new DBConnection(url,user,password);
         System.out.println();
+        a.insertRules("admin", "http://www.google.com", 10.512);
         String[] jk = a.selectRules("http://www.google.com", 10.512);
-        
+        System.out.println(a.updateRules("admin", "http://www.google.com", 11));
+        System.out.println(a.deleteRules("admin", "http://www.google.com", 11));
         /*for (String jk1 : jk) {
             System.out.print(jk1);
         }*/
         System.out.println(jk[0]);
         
-         System.out.println(a.selectUser("admi", "admin"));
-         String [] jk2 = a.selectMainActivity();
+         System.out.println(a.selectUser("admin", "admin"));
+         String [] jk2 = a.selectDistress();
         // a.insertUser("boy", "boy");
         for (String jk1 : jk2) {
             System.out.println(jk1);

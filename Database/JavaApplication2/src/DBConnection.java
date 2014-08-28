@@ -70,7 +70,7 @@ public class DBConnection {
      /*MAIN ACTIVITY*/
      public boolean insertMainActivity(String ip,String uri,double respondtime)  
      {
-         PreparedStatement pst = null;
+         PreparedStatement pst;
          String stm = "INSERT INTO mainactivity" +
             		" (ip, uri, \"responseTime\") " +
             		" VALUES(?,?, ?)";
@@ -97,19 +97,11 @@ public class DBConnection {
          //System.out.println("jksdhfkjjsdkhfkjashdskjf");
          try 
         {
-           // System.out.println("jksdhfkjjsdkhfkjashdskjf");
              st = con.createStatement();
-            //ResultSet rs = st.executeQuery("SELECT count(uri) as rulescount FROM rules ORDER BY rules_id");
-            //rs.next();
-            //System.out.println("jksdhfkjjsdkhfkjashdskjf");
-            //rs.getInt(1);
-            
-
             rs = st.executeQuery("SELECT count(*) FROM MainActivity");
             rs.next();
             
             int c = rs.getInt(1);
-            //System.out.println(c);
             temp = new String[c];
             int i = 0;
             rs = st.executeQuery("SELECT * FROM MainActivity");
@@ -121,14 +113,13 @@ public class DBConnection {
               temp[i] += rs.getString ("ip")+",";
               temp[i] += rs.getString ("uri")+",";
               temp[i] += rs.getString ("responseTime");
-              //listOfBlogs.add(blog);
               i++;
             }
             rs.close();
             st.close();
           }
           catch (SQLException se) {
-            System.err.println("Threw a SQLException creating the list of blogs.");
+            System.err.println("Threw a SQLException at select in Main Activity.");
             System.err.println(se.getMessage());
           }
          return temp;
@@ -151,7 +142,7 @@ public class DBConnection {
             pst.setDouble(3, respondtime);
             pst.setDouble(4, expt);
             pst.executeUpdate();
-            System.out.println("New new distress: ip, uri and respond time inserted");
+            System.out.println("New distress: ip, uri and respond time inserted");
          return true;
          } catch (SQLException ex) {
              
@@ -162,22 +153,13 @@ public class DBConnection {
      public String[] selectDistress() 
      {
          String [] temp = null ;
-         //System.out.println("jksdhfkjjsdkhfkjashdskjf");
          try 
         {
-           // System.out.println("jksdhfkjjsdkhfkjashdskjf");
              st = con.createStatement();
-            //ResultSet rs = st.executeQuery("SELECT count(uri) as rulescount FROM rules ORDER BY rules_id");
-            //rs.next();
-            //System.out.println("jksdhfkjjsdkhfkjashdskjf");
-            //rs.getInt(1);
-            
-
             rs = st.executeQuery("SELECT count(*) FROM distressedresources");
             rs.next();
             
             int c = rs.getInt(1);
-            //System.out.println(c);
             temp = new String[c];
             int i = 0;
             rs = st.executeQuery("SELECT * FROM distressedresources");
@@ -197,33 +179,94 @@ public class DBConnection {
             st.close();
           }
           catch (SQLException se) {
-            System.err.println("Threw a SQLException creating the list of blogs.");
+            System.err.println("Threw a SQLException at selecting in distressed resources.");
             System.err.println(se.getMessage());
           }
          return temp;
      }
      
      
-     /*RULES*/
+     /*RULES   CRUD needed*/
+     public boolean updateRules(String user_requesting,String uri,double expected_time) 
+     {
+         //String temp;
+         boolean state = false;
+         try 
+        {
+            Statement st = con.createStatement();
+
+            st.executeUpdate("UPDATE rules set uri = '"+uri+"', expected_time="+expected_time+" where user_requesting ='"+user_requesting+"'");
+            rs.close();
+            st.close();
+            state = true;
+          }
+          catch (SQLException se) {
+            System.err.println("Threw a SQLException at update in bookmark.");
+            System.err.println(se.getMessage());
+          }
+            return state;
+     }
+     public boolean deleteRules(String user_requesting,String uri,double expected_time) 
+     {
+         //String temp;
+         boolean state = false;
+         try 
+        {
+            Statement st = con.createStatement();
+
+            st.executeUpdate("DELETE from rules where user_requesting = '"+user_requesting+"'and expected_time="+expected_time+" and uri = '"+uri+"'");
+            //int c = 0;
+
+            
+            //con.commit();
+            rs.close();
+            st.close();
+            state = true;
+          }
+          catch (SQLException se) {
+            System.err.println("Threw a SQLException at deleting in rules.");
+            System.err.println(se.getMessage());
+          }
+            return state;
+     }
+     public boolean insertRules(String user,String uri, double expt) 
+     {
+         PreparedStatement pst;
+         String stm = "INSERT INTO rules" +
+            		" (user_requesting, expected_time, uri) " +
+            		" VALUES(?,?, ?)";
+            try {
+                pst = con.prepareStatement(stm);
+            
+            
+            pst.setString(1, user);
+            pst.setDouble(2, expt);
+            pst.setString(3, uri);
+            pst.executeUpdate();
+            System.out.println("New rules: user, uri, expected time inserted");
+         return true;
+         } catch (SQLException ex) {
+             
+                Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+     }
+     
      public String[] selectRules(String uri,double expt) 
      {
          String [] temp = null;
-         //System.out.println("jksdhfkjjsdkhfkjashdskjf");
          try 
         {
-           // System.out.println("jksdhfkjjsdkhfkjashdskjf");
             Statement st = con.createStatement();
-            //ResultSet rs = st.executeQuery("SELECT count(uri) as rulescount FROM rules ORDER BY rules_id");
-            //rs.next();
-            //System.out.println("jksdhfkjjsdkhfkjashdskjf");
-            int i = 1;//rs.getInt(1);
+
+            int i = 1;
             temp = new String[i];
 
-            rs = st.executeQuery("SELECT * FROM rules WHERE uri = '"+uri+"' AND expected_time = "+expt);
+            rs = st.executeQuery("SELECT * FROM rules WHERE uri like '%"+uri+"%' AND expected_time = "+expt);
             int c = 0;
 
-            while ( rs.next() )
-            {
+            rs.next(); 
+
 
               temp[c]  = rs.getString ("rules_id")+",";
               temp[c] += rs.getString ("date_time")+",";
@@ -231,14 +274,14 @@ public class DBConnection {
               temp[c] += rs.getString ("expected_time")+",";
               temp[c] += rs.getString ("uri");
               //listOfBlogs.add(blog);
-              c++;
-            }
+
             rs.close();
             st.close();
           }
           catch (SQLException se) {
-            System.err.println("Threw a SQLException creating the list of blogs.");
+            System.err.println("Threw a SQLException when retrieving the rules.");
             System.err.println(se.getMessage());
+            //return null;
           }
          return temp;
      }
@@ -252,8 +295,6 @@ public class DBConnection {
             		" VALUES(?,?)";
             try {
                 pst = con.prepareStatement(stm);
-            
-            
             pst.setString(1, user);
             pst.setString(2, pass);
             pst.executeUpdate();
@@ -265,43 +306,138 @@ public class DBConnection {
                 return false;
             }
      }
+     
+     
      public boolean selectUser(String user, String pass)
      {
          String temp;
          boolean state = false;
-         //System.out.println("jksdhfkjjsdkhfkjashdskjf");
          try 
         {
-           // System.out.println("jksdhfkjjsdkhfkjashdskjf");
             Statement st = con.createStatement();
-            //ResultSet rs = st.executeQuery("SELECT count(uri) as rulescount FROM rules ORDER BY rules_id");
-            //rs.next();
-            //System.out.println("jksdhfkjjsdkhfkjashdskjf");
-            //int i = 1;//rs.getInt(1);
-            
 
             rs = st.executeQuery("SELECT * FROM users WHERE username = '"+user+"' AND password = '"+pass+"'");
             //int c = 0;
 
             while ( rs.next() )
             {
-
-              temp  = rs.getString ("username")+",";
+              //temp  = rs.getString ("user_id")+",";          
+              temp = rs.getString ("username")+",";
               temp += rs.getString ("password");
               if(temp.equals(user+","+pass))
                   state = true;
-             // else if(temp)
-              //listOfBlogs.add(blog);
-              //c++;
             }
             rs.close();
             st.close();
           }
           catch (SQLException se) {
-            System.err.println("Threw a SQLException creating the list of blogs.");
+            System.err.println("Threw a SQLException at user identification.");
             System.err.println(se.getMessage());
           }
             return state;
+     }
+     /* Bookmark   CRUD  */
+     public boolean insertBookmark(String user,String discription) 
+     {
+         PreparedStatement pst;
+         String stm = "INSERT INTO distressedresources" +
+            		" (user_requesting, discription) " +
+            		" VALUES(?,?)";
+            try {
+                pst = con.prepareStatement(stm);
+            
+            
+            pst.setString(1, user);
+            pst.setString(2, discription);
+            pst.executeUpdate();
+            System.out.println("New distress: user and discription inserted");
+         return true;
+         } catch (SQLException ex) {
+             
+                Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+     }
+     public boolean updateBookmark(String user,String discription) 
+     {
+         //String temp;
+         boolean state = false;
+         try 
+        {
+            Statement st = con.createStatement();
+
+            st.executeUpdate("UPDATE bookmark set discription = '"+discription+"' where user_requesting ='"+user+"'");
+            //int c = 0;
+
+            
+            //con.commit();
+            rs.close();
+            st.close();
+            state = true;
+          }
+          catch (SQLException se) {
+            System.err.println("Threw a SQLException at update in bookmark.");
+            System.err.println(se.getMessage());
+          }
+            return state;
+     }
+     public boolean deleteBookmark(String user,String discription) 
+     {
+         //String temp;
+         boolean state = false;
+         try 
+        {
+            Statement st = con.createStatement();
+
+            st.executeUpdate("DELETE from bookmark where user_requesting = '"+user+"' and discription = '"+discription+"'");
+            //int c = 0;
+
+            
+            //con.commit();
+            rs.close();
+            st.close();
+            state = true;
+          }
+          catch (SQLException se) {
+            System.err.println("Threw a SQLException at deleting in bookmark.");
+            System.err.println(se.getMessage());
+          }
+            return state;
+     }
+     public String [] selectBookmark(String user,String discription)
+     {
+         String [] temp = null;
+         //boolean state = false;
+         try 
+        {
+            Statement st = con.createStatement();
+            //st = con.createStatement();
+            rs = st.executeQuery("SELECT count(*) FROM bookmark WHERE user_requesting = '"+user+"' AND discription =  '"+discription+"'");
+            rs.next();
+            
+            
+            //int c = 0;
+            int c = rs.getInt(1);
+            temp = new String[c];
+            int i = 0;
+            rs = st.executeQuery("SELECT * FROM bookmark WHERE user_requesting = '"+user+"' AND discription =  '"+discription+"'");
+            while ( rs.next() )
+            {
+
+              temp[i]  = rs.getString ("user_requesting")+",";
+              temp[i] += rs.getString ("discription");
+              //if(temp.equals(user+","+pass))
+                  
+            }
+            //state = true;
+            rs.close();
+            st.close();
+          }
+          catch (SQLException se) {
+            System.err.println("Threw a SQLException at selecting in bookmark.");
+            System.err.println(se.getMessage());
+          }
+            return temp;
      }
      
 }
