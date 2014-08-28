@@ -1,3 +1,24 @@
+
+
+-- Table: users
+
+-- DROP TABLE users;
+
+CREATE TABLE users
+(
+  username text NOT NULL,
+  password text NOT NULL,
+  user_id integer NOT NULL DEFAULT nextval('user_id_sq'::regclass),
+  CONSTRAINT user_id_pk PRIMARY KEY (user_id),
+  CONSTRAINT uni_username UNIQUE (username)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE users
+  OWNER TO postgres;
+
+
 -- Table: bookmark
 
 -- DROP TABLE bookmark;
@@ -64,9 +85,7 @@ WITH (
 ALTER TABLE mainactivity
   OWNER TO postgres;
   
-  -- Table: mainactivity
 
--- DROP TABLE mainactivity;
 
 CREATE TABLE rules
 (
@@ -94,33 +113,5 @@ CREATE INDEX fki_user_name_fk
   ON rules
   USING btree
   (user_requesting COLLATE pg_catalog."default");
--- Table: users
 
--- DROP TABLE users;
 
-CREATE TABLE rules
-(
-  rules_id integer NOT NULL DEFAULT nextval('rules_id_seq'::regclass),
-  date_time timestamp without time zone DEFAULT now(),
-  user_requesting text NOT NULL,
-  expected_time double precision NOT NULL,
-  uri text,
-  CONSTRAINT rules_id_pkey PRIMARY KEY (rules_id),
-  CONSTRAINT user_name_fk FOREIGN KEY (user_requesting)
-      REFERENCES users (username) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE rules
-  OWNER TO postgres;
-
--- Index: fki_user_name_fk
-
--- DROP INDEX fki_user_name_fk;
-
-CREATE INDEX fki_user_name_fk
-  ON rules
-  USING btree
-  (user_requesting COLLATE pg_catalog."default");

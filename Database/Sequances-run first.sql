@@ -51,3 +51,17 @@ CREATE SEQUENCE rules_id_seq
   CACHE 1;
 ALTER TABLE rules_id_seq
   OWNER TO postgres;
+  
+  -- Sequence: user_id_sq
+
+-- DROP SEQUENCE user_id_sq;
+
+CREATE SEQUENCE user_id_sq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
+ALTER TABLE user_id_sq
+  OWNER TO postgres;
+
