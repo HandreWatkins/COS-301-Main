@@ -33,7 +33,7 @@ public class DBConnection {
             rs = st.executeQuery("SELECT VERSION()");
 
             if (rs.next()) {
-                //System.out.println("Database is connected\n"+rs.getString(1));
+                System.out.println("Database is connected\n"+rs.getString(1));
             }
 
         } catch (SQLException ex) {
@@ -102,7 +102,7 @@ public class DBConnection {
             //ResultSet rs = st.executeQuery("SELECT count(uri) as rulescount FROM rules ORDER BY rules_id");
             //rs.next();
             //System.out.println("jksdhfkjjsdkhfkjashdskjf");
-            ;//rs.getInt(1);
+            //rs.getInt(1);
             
 
             rs = st.executeQuery("SELECT count(*) FROM MainActivity");
@@ -170,7 +170,7 @@ public class DBConnection {
             //ResultSet rs = st.executeQuery("SELECT count(uri) as rulescount FROM rules ORDER BY rules_id");
             //rs.next();
             //System.out.println("jksdhfkjjsdkhfkjashdskjf");
-            ;//rs.getInt(1);
+            //rs.getInt(1);
             
 
             rs = st.executeQuery("SELECT count(*) FROM distressedresources");

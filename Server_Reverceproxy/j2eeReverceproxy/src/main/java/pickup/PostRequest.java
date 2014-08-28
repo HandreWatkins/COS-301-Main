@@ -45,14 +45,13 @@ public class PostRequest extends responseCall
 			
 		} catch (Exception e)
 		{
-			// TODO: handle exception
 			return null;
 		}
 	}
 
 	@Override
-	public Long retime() {
-		// TODO Auto-generated method stub
+	public Long retime()
+	{
 		return System.currentTimeMillis();
 	}
 }

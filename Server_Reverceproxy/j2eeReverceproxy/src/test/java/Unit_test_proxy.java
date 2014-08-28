@@ -23,7 +23,7 @@ public class Unit_test_proxy
             //test.main();
             System.out.println("start");
             //sendGet();
-            //test.stop();
+           // test.stop();
             
         } catch (Exception ex) {
             Logger.getLogger(Unit_test_proxy.class.getName()).log(Level.SEVERE, null, ex);
@@ -61,5 +61,6 @@ public class Unit_test_proxy
  
 		//print resul
 		System.out.println(response.toString());
+		sock.close();
 	}
 }

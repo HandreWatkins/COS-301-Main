@@ -4,7 +4,7 @@ import org.junit.Test;
 public class main 
 {
     @Test
-    public void main()
+    public void test1()
     {
         System.out.println("-------------------test line----------------------------------");
         System.out.println("get test" + getRequest());
