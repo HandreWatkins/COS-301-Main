@@ -1,6 +1,6 @@
 package Util;
 
-import org.apache.http.HttpRequest;
+import javax.servlet.http.HttpServletRequest;
 import org.apache.http.HttpResponse;
 
 public class UrlLinker
@@ -10,11 +10,11 @@ public class UrlLinker
 	private static String method;
 	private static String contextType;
 	private static Long time;
-	private static HttpRequest httpRequest;
+	private static HttpServletRequest httpRequest;
         private static HttpResponse httpResponce;
 	//==============================================================
 	
-        public void setrequest(HttpRequest _httpRequest)
+        public void setrequest(HttpServletRequest _httpRequest)
         {
             httpRequest = _httpRequest;
         }
@@ -50,7 +50,7 @@ public class UrlLinker
             return httpResponce;
         }
 	
-        public HttpRequest getRequest()
+        public HttpServletRequest getRequest()
         {
             return httpRequest;
         }

@@ -7,7 +7,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import HTTPclient.responseCall;
 import Util.UrlLinker;
 import java.io.IOException;
-import org.apache.http.Header;
+import java.util.Enumeration;
+import org.apache.http.HeaderIterator;
 
 public class PutRequest extends responseCall
 {
@@ -20,14 +21,12 @@ public class PutRequest extends responseCall
                     Long etime = null;
 
                     HttpPut putCall = new HttpPut(urlproxy.getNURL());
-                    Header [] head = urlproxy.getRequest().getHeaders("");
-
-                    for(Header header : head)
+                    Enumeration header = urlproxy.getRequest().getHeaderNames();
+                    while (header.hasMoreElements())
                     {
-                        putCall.setHeader(header);
+                        String name = (String) header.nextElement();
+                        putCall.addHeader(name, urlproxy.getRequest().getHeader(name));
                     }
-
-                    putCall.setParams(urlproxy.getRequest().getParams());
 
                     HttpResponse response = httpclient.execute(putCall);
 

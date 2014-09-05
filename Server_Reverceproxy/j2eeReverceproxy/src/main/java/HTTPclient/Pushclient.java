@@ -16,9 +16,10 @@ import Util.UrlLinker;
 public class Pushclient 
 {
     UrlLinker urlLink;
+    Contextset context = new Contextset();
     public Pushclient(){}
 
-    public void responsewriter(UrlLinker urlresponse , ServletResponse resonsewrite) throws IllegalStateException, IOException
+    public void responsewriter(UrlLinker urlresponse , ServletResponse resonsewrite) throws IllegalStateException, IOException, Exception
     {
         urlLink = urlresponse;
         if(urlresponse != null)
@@ -26,22 +27,21 @@ public class Pushclient
             HttpEntity rEntity = urlresponse.getResponse().getEntity();
 
             InputStream content = rEntity.getContent();
-            try {
+            /*try {
                 setcontext(rEntity);
             } catch (Exception e1) {
                 System.out.println("context");
-            }
+            }*/
 
             try 
             {
-                if(!"binary".equals(urlLink.getContext()))
+                if(!"binary".equals(context.getContext(urlLink)))
                 {
-                    //String text = Translate.traString(rEntity,"UTF-8");
                     Document document = null;
                     document = Jsoup.parse(content, "UTF-8", urlLink.getURL());
                     System.out.println(urlLink.getContext());
 
-                    if(urlLink.getContext().equals("text"))
+                    if(context.getContext(urlLink).equals("text"))
                     {
                         for (Element element : document.select("[href]")) {
                             element.attr("href", element.attr("href"));
@@ -81,39 +81,25 @@ public class Pushclient
             return;
         }
     }
-	
-    private void setcontext(HttpEntity entity) throws Exception
-    {
-        if(entity == null)
-        {
-            throw new Exception();
-        }
-
-        //set return context type for return display
-        Contextset context = new Contextset();
-        //context.getContext(urlLink);
-    }
-	
+    
     private class Contextset
     {
         UrlLinker context = null;
 
         public Contextset() {}
 
-        /*public UrlLinker getContext(UrlLinker urlFrag) throws Exception
+        public String getContext(UrlLinker urlFrag) throws Exception
         {
             context = urlFrag;
 
             if(isText())
                 if(isJava())
-                    urlFrag.setContext("js");
+                    return "js";
                 else
-                    urlFrag.setContext("text");
+                    return "text";
             else
-                urlFrag.setContext("binary");
-
-            return urlFrag;
-        }*/
+                return "binary";
+        }
 
         private boolean isText()
         {			

@@ -6,6 +6,8 @@ import Util.Translate;
 import Util.UrlLinker;
 import analisis.Interface;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Asynchronous;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -57,7 +59,6 @@ public class ServletFilter extends HttpServlet implements Filter
     {
         if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
         {
-            //HttpServletRequest requestHTTP = (HttpServletRequest) request;
             if(pickupHandle.isJAX_RS(request))
             {
                 UrlLinker urltrans = trance.linkurl(request);
@@ -74,8 +75,7 @@ public class ServletFilter extends HttpServlet implements Filter
     {
         if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
         {
-            HttpServletRequest requestHTTP = (HttpServletRequest) request;
-            if(pickupHandle.isJAX_RS(requestHTTP))
+            if(pickupHandle.isJAX_RS(request))
             {
                 UrlLinker urltrans = trance.linkurl(request);
                 responseCall postrequest = new PostRequest();
@@ -91,8 +91,7 @@ public class ServletFilter extends HttpServlet implements Filter
     {
         if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
         {
-            HttpServletRequest requestHTTP = (HttpServletRequest) request;
-            if(pickupHandle.isJAX_RS(requestHTTP))
+            if(pickupHandle.isJAX_RS(request))
             {
                 UrlLinker urltrans = trance.linkurl(request);
                 responseCall putRequest = new PutRequest();
@@ -108,8 +107,7 @@ public class ServletFilter extends HttpServlet implements Filter
     {
         if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
         {
-            HttpServletRequest requestHTTP = (HttpServletRequest) request;
-            if(pickupHandle.isJAX_RS(requestHTTP))
+            if(pickupHandle.isJAX_RS(request))
             {
                 UrlLinker urltrans = trance.linkurl(request);
                 responseCall detrequest = new DeleteRequest();
@@ -119,10 +117,16 @@ public class ServletFilter extends HttpServlet implements Filter
         }        
     }
     
-    protected void callback(HttpServletResponse response,UrlLinker url) throws IllegalStateException, IOException
+    protected void callback(HttpServletResponse response,UrlLinker url)
     {
-        callClient.responsewriter(url,response);
-        inter.analisHandle(url);
+        try {
+            callClient.responsewriter(url,response);
+            inter.analisHandle(url);
+        } catch (IOException ex) {
+            Logger.getLogger(ServletFilter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(ServletFilter.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -137,8 +141,9 @@ public class ServletFilter extends HttpServlet implements Filter
 
     @GET @POST @PUT @DELETE
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
+    @Asynchronous
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException 
+    {
         if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
         {
             HttpServletRequest requestHTTP = (HttpServletRequest) request;
@@ -153,16 +158,14 @@ public class ServletFilter extends HttpServlet implements Filter
                     callClient.responsewriter(urlfile,response);
                     inter.analisHandle(urlfile);
                 } 
-                catch (IOException e){}
+                catch (IOException e){} catch (Exception ex) {
+                    Logger.getLogger(ServletFilter.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             else
             {
                 chain.doFilter(request, response);
             }
-        }
-        else
-        {
-            return;
         }
     }
 

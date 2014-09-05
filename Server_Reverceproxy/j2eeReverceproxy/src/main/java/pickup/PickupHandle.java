@@ -6,7 +6,7 @@ import Util.UrlLinker;
 
 public class PickupHandle
 {
-	private final String [] jax_RS = {"GET","POST","PUT"};
+	private final String [] jax_RS = {"GET","POST","PUT","DELETE"};
 	
 	private UrlLinker url = null;
 	
@@ -31,17 +31,13 @@ public class PickupHandle
                     responseCall putrequest = new PutRequest();
                     url = putrequest.clientreqeust(url);
                     break;
+                case 3:
+                    responseCall deleterequest = new DeleteRequest();
+                    url = deleterequest.clientreqeust(url);
+                    break;
                 default:
                     break;
             }
-
-            /*try 
-            {
-                callClient.responsewriter(url);
-            } 
-            catch (IllegalStateException | IOException e){
-                    System.out.println(e.getCause());
-            }*/
             return url;
 	}
 }

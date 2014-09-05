@@ -1,10 +1,7 @@
 package Util;
 
 import java.io.IOException;
-
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 
@@ -29,6 +26,7 @@ public class Translate
 		String newUrl = getnewUrl(url);
 		System.out.println(newUrl);
 		urlSaver.setNURL(newUrl);
+                urlSaver.setrequest(request);
 		
 		return urlSaver;
 	}
@@ -44,7 +42,7 @@ public class Translate
 		{
 			return IOUtils.toString(entityHttp.getContent(), charsetT);
 		} 
-		catch (Exception e) {}
+		catch (IOException | IllegalStateException e) {}
 		
 		return "";
 	}

@@ -3,9 +3,11 @@ package pickup;
 import HTTPclient.responseCall;
 import Util.UrlLinker;
 import java.io.IOException;
-import org.apache.http.Header;
+import java.util.Enumeration;
+import org.apache.http.HeaderIterator;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 public class GetRequest extends responseCall
@@ -20,14 +22,13 @@ public class GetRequest extends responseCall
                 Long etime = null;
                 
                 HttpGet getCall = new HttpGet(urlproxy.getNURL());
-                Header [] head = urlproxy.getRequest().getHeaders("");
-                
-                for(Header header : head)
+
+                Enumeration header = urlproxy.getRequest().getHeaderNames();
+                while (header.hasMoreElements())
                 {
-                    getCall.setHeader(header);
+                    String name = (String) header.nextElement();
+                    getCall.addHeader(name, urlproxy.getRequest().getHeader(name));
                 }
-                
-                getCall.setParams(urlproxy.getRequest().getParams());
 
                 HttpResponse response = httpclient.execute(getCall);
 
