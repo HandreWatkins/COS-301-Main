@@ -25,14 +25,15 @@ ALTER TABLE users
 
 CREATE TABLE bookmark
 (
-  bookmark_id integer NOT NULL DEFAULT nextval('bookmark_id_seq'::regclass),
+   bookmark_id integer NOT NULL DEFAULT nextval('bookmark_id_seq'::regclass),
   date_time timestamp without time zone DEFAULT now(),
   user_requesting text NOT NULL,
   discription text NOT NULL,
   CONSTRAINT bookmark_id_pkey PRIMARY KEY (bookmark_id),
-  CONSTRAINT user_name_bookmark_fk FOREIGN KEY (user_requesting)
+  CONSTRAINT user_bookmark_fk FOREIGN KEY (user_requesting)
       REFERENCES users (username) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT discription_unique UNIQUE (discription)
 )
 WITH (
   OIDS=FALSE

@@ -30,11 +30,20 @@ public class NewMain {
         System.out.println(jk[0]);
         
          System.out.println(a.selectUser("admin", "admin"));
-         String [] jk2 = a.selectDistress();
+         String [] jk2 = a.selectMainActivity();
         // a.insertUser("boy", "boy");
-        for (String jk1 : jk2) {
-            System.out.println(jk1);
-        }
+     /* for (int i = 0; i < 1000; i++) {
+                System.out.println(jk2[i]);
+          }*/
+
+        
+        String jb =a.insertBookmark("admin",  "my special");
+        String[] jk1 = new String[12];
+         jk1=a.selectBookmark("admin","my special", jb);
+        System.out.println(jk1[0]);
+        /*System.out.println(a.updateBookmark("admin", "http://www.google.com", 11));
+        System.out.println(a.deleteBookmark("admin", "http://www.google.com", 11));
+        */
         //DBConnection b = new DBConnection(url,user,password);
         //for(int i = 0;i<9999;i++)
             //DBConnection a = new DBConnection(url,user,password);

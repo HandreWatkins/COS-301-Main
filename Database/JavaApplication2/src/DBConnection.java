@@ -8,6 +8,8 @@
  * @author user
  */
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -337,28 +339,32 @@ public class DBConnection {
             return state;
      }
      /* Bookmark   CRUD  */
-     public boolean insertBookmark(String user,String discription) 
+     public String insertBookmark(String user_requesting,String discription) 
      {
+         
          PreparedStatement pst;
-         String stm = "INSERT INTO distressedresources" +
+         String stm = "INSERT INTO Bookmark" +
             		" (user_requesting, discription) " +
             		" VALUES(?,?)";
             try {
                 pst = con.prepareStatement(stm);
             
             
-            pst.setString(1, user);
+            pst.setString(1, user_requesting);
             pst.setString(2, discription);
             pst.executeUpdate();
             System.out.println("New distress: user and discription inserted");
-         return true;
+            Statement st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM bookmark WHERE user_requesting = '"+user_requesting+"' and discription = '"+discription+"'");
+            rs.next();
+         return rs.getString("date_time");
          } catch (SQLException ex) {
              
                 Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
-                return false;
+                return null;
             }
      }
-     public boolean updateBookmark(String user,String discription) 
+     public boolean updateBookmark(String user_requesting,String discription,String date_time) 
      {
          //String temp;
          boolean state = false;
@@ -366,7 +372,7 @@ public class DBConnection {
         {
             Statement st = con.createStatement();
 
-            st.executeUpdate("UPDATE bookmark set discription = '"+discription+"' where user_requesting ='"+user+"'");
+            st.executeUpdate("UPDATE bookmark set discription = '"+discription+"' where user_requesting ='"+user_requesting+"'");
             //int c = 0;
 
             
@@ -381,7 +387,7 @@ public class DBConnection {
           }
             return state;
      }
-     public boolean deleteBookmark(String user,String discription) 
+     public boolean deleteBookmark(String user_requesting,String discription,String date_time) 
      {
          //String temp;
          boolean state = false;
@@ -389,7 +395,7 @@ public class DBConnection {
         {
             Statement st = con.createStatement();
 
-            st.executeUpdate("DELETE from bookmark where user_requesting = '"+user+"' and discription = '"+discription+"'");
+            st.executeUpdate("DELETE from bookmark where user_requesting = '"+user_requesting+"' and date_time='"+date_time+"' and discription = '"+discription+"'");
             //int c = 0;
 
             
@@ -404,27 +410,24 @@ public class DBConnection {
           }
             return state;
      }
-     public String [] selectBookmark(String user,String discription)
+     public String [] selectBookmark(String user_requesting,String discription,String date_time)
      {
          String [] temp = null;
          //boolean state = false;
          try 
         {
             Statement st = con.createStatement();
-            //st = con.createStatement();
-            rs = st.executeQuery("SELECT count(*) FROM bookmark WHERE user_requesting = '"+user+"' AND discription =  '"+discription+"'");
+            rs = st.executeQuery("SELECT count(*) FROM bookmark WHERE user_requesting = '"+user_requesting+"' and discription = '"+discription+"' and date_time ='"+date_time+"'");
             rs.next();
-            
-            
-            //int c = 0;
             int c = rs.getInt(1);
             temp = new String[c];
             int i = 0;
-            rs = st.executeQuery("SELECT * FROM bookmark WHERE user_requesting = '"+user+"' AND discription =  '"+discription+"'");
+            rs = st.executeQuery("SELECT * FROM bookmark WHERE user_requesting = '"+user_requesting+"' and discription = '"+discription+"' and date_time ='"+date_time+"'");
             while ( rs.next() )
             {
-
-              temp[i]  = rs.getString ("user_requesting")+",";
+              temp[i]  = rs.getString ("bookmark_id")+","; 
+              temp[i]  += rs.getString ("date_time")+",";
+              temp[i] += rs.getString ("user_requesting")+",";
               temp[i] += rs.getString ("discription");
               //if(temp.equals(user+","+pass))
                   
