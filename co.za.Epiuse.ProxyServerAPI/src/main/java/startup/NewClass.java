@@ -8,7 +8,6 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Stateful;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import javax.persistence.PersistenceContext;
 
@@ -29,6 +28,7 @@ public class NewClass implements Filter
 {
     @Id
     private Long webLogic;
+    
     public NewClass() throws IOException
     {
         Network netInterface = new Network();
