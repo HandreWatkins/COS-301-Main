@@ -1,15 +1,15 @@
 package pickup;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import HTTPclient.responseCall;
 import Util.UrlLinker;
 import java.io.IOException;
 import org.apache.http.Header;
+import org.apache.http.client.methods.HttpDelete;
 
-public class PutRequest extends responseCall
+public class DeleteRequest extends responseCall
 {
     @Override
     public UrlLinker clientreqeust(UrlLinker urlproxy) {
@@ -19,17 +19,17 @@ public class PutRequest extends responseCall
                     Long stime = retime();
                     Long etime = null;
 
-                    HttpPut putCall = new HttpPut(urlproxy.getNURL());
+                    HttpDelete deleteCall = new HttpDelete(urlproxy.getNURL());
                     Header [] head = urlproxy.getRequest().getHeaders("");
 
                     for(Header header : head)
                     {
-                        putCall.setHeader(header);
+                        deleteCall.setHeader(header);
                     }
 
-                    putCall.setParams(urlproxy.getRequest().getParams());
+                    deleteCall.setParams(urlproxy.getRequest().getParams());
 
-                    HttpResponse response = httpclient.execute(putCall);
+                    HttpResponse response = httpclient.execute(deleteCall);
 
                     if(response.getStatusLine().getStatusCode() != 0)
                     {

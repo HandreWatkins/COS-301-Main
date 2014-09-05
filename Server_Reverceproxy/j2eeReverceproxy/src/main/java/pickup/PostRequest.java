@@ -6,6 +6,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import HTTPclient.responseCall;
 import Util.UrlLinker;
+import java.io.IOException;
+import org.apache.http.Header;
 
 public class PostRequest extends responseCall
 {
@@ -18,7 +20,15 @@ public class PostRequest extends responseCall
 			Long etime = null;
 			
 			HttpPost postCall = new HttpPost(urlproxy.getNURL());
-			
+			Header [] head = urlproxy.getRequest().getHeaders("");
+                
+                        for(Header header : head)
+                        {
+                            postCall.setHeader(header);
+                        }
+                
+                        postCall.setParams(urlproxy.getRequest().getParams());
+                        
 			HttpResponse response = httpclient.execute(postCall);
 			
 			if(response.getStatusLine().getStatusCode() != 0)
@@ -43,7 +53,7 @@ public class PostRequest extends responseCall
 			
 			return urlproxy;
 			
-		} catch (Exception e)
+		} catch (IOException e)
 		{
 			return null;
 		}

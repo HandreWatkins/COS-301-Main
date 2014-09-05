@@ -1,12 +1,12 @@
 package pickup;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import HTTPclient.responseCall;
 import Util.UrlLinker;
 import java.io.IOException;
+import org.apache.http.Header;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 public class GetRequest extends responseCall
 {
@@ -18,8 +18,16 @@ public class GetRequest extends responseCall
                 DefaultHttpClient httpclient = new DefaultHttpClient();
                 Long stime = retime();
                 Long etime = null;
-
+                
                 HttpGet getCall = new HttpGet(urlproxy.getNURL());
+                Header [] head = urlproxy.getRequest().getHeaders("");
+                
+                for(Header header : head)
+                {
+                    getCall.setHeader(header);
+                }
+                
+                getCall.setParams(urlproxy.getRequest().getParams());
 
                 HttpResponse response = httpclient.execute(getCall);
 

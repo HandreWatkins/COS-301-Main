@@ -117,5 +117,11 @@
 	  <scope>test</scope>
 	  <type>jar</type>
 	 </dependency>
+	 <dependency>
+	  <groupId>javax</groupId>
+	  <artifactId>javaee-api</artifactId>
+	  <version>7.0</version>
+	  <type>jar</type>
+	 </dependency>
 	</dependencies>    
 </project>

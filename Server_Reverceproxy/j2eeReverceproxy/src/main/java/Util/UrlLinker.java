@@ -1,7 +1,6 @@
 package Util;
 
-import javax.servlet.ServletResponse;
-
+import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 
 public class UrlLinker
@@ -10,12 +9,21 @@ public class UrlLinker
 	private static String nUrl;
 	private static String method;
 	private static String contextType;
-	private static ServletResponse responsewriter;
-	private static HttpResponse response;
 	private static Long time;
-	
+	private static HttpRequest httpRequest;
+        private static HttpResponse httpResponce;
 	//==============================================================
 	
+        public void setrequest(HttpRequest _httpRequest)
+        {
+            httpRequest = _httpRequest;
+        }
+        
+        public void setHttp(HttpResponse _httpResponce)
+        {
+            httpResponce = _httpResponce;
+        }
+        
 	public void setURL(String urlB)
 	{
 		url = urlB;
@@ -31,27 +39,22 @@ public class UrlLinker
 		method = smethod;
 	}
 	
-	public void setContext(String urlB)
-	{
-		contextType = urlB;
-	}
-	
 	public void settime(Long fTime)
 	{
 		time = fTime;
 	}
 	
-	public void setServlet(ServletResponse responseSer)
-	{
-		responsewriter = responseSer;
-	}
-	
-	public void setHttp(HttpResponse responseHttp)
-	{
-		response = responseHttp;
-	}
 	//===============================================================
+        public HttpResponse getResponse()
+        {
+            return httpResponce;
+        }
 	
+        public HttpRequest getRequest()
+        {
+            return httpRequest;
+        }
+        
 	public String getURL()
 	{
 		return url;
@@ -75,15 +78,5 @@ public class UrlLinker
 	public Long getTime()
 	{
 		return time;
-	}
-	
-	public ServletResponse getServlet()
-	{
-		return responsewriter;
-	}
-	
-	public HttpResponse getResponse()
-	{
-		return response;
-	}
+        }
 }

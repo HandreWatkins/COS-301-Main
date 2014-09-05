@@ -2,6 +2,7 @@ package analisis;
 
 import Util.UrlLinker;
 import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,40 +25,16 @@ public class Interface
     public Interface()
     {
         socketCon = (SSLSocketFactory) SSLSocketFactory.getDefault();
+
     }
     
-    public void startConnection() throws IOException
+    public void startConnection()
     {
-        SSLSocket lSocket = null;
-        try {
-        lSocket = (SSLSocket) socketCon.createSocket("localhost", 8280);   
-        } catch (Exception e)
-        {
-            System.out.println("con");
-        }
-        //SSLSocket lSocket = (SSLSocket) socketCon.createSocket("localhost", 8280);
-        printSocketInfo(lSocket);
-        lSocket.startHandshake();
+
+
     }
     
-    //testCode
-       private static void printSocketInfo(SSLSocket s)
-       {
-            System.out.println("Socket class: "+s.getClass());
-            System.out.println("   Remote address = "
-               +s.getInetAddress().toString());
-            System.out.println("   Remote port = "+s.getPort());
-            System.out.println("   Local socket address = "
-               +s.getLocalSocketAddress().toString());
-            System.out.println("   Local address = "
-               +s.getLocalAddress().toString());
-            System.out.println("   Local port = "+s.getLocalPort());
-            System.out.println("   Need client authentication = "
-               +s.getNeedClientAuth());
-            SSLSession ss = s.getSession();
-            System.out.println("   Cipher suite = "+ss.getCipherSuite());
-            System.out.println("   Protocol = "+ss.getProtocol());
-    }
+
 
     public void analisHandle(UrlLinker data) throws IOException 
     {

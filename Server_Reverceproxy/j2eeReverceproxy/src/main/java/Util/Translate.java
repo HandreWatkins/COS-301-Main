@@ -15,7 +15,7 @@ public class Translate
 		
 	}
 	
-	public UrlLinker linkurl(HttpServletRequest request , ServletResponse response) throws IOException
+	public UrlLinker linkurl(HttpServletRequest request) throws IOException
 	{
 		if(request == null)
 		{
@@ -26,7 +26,6 @@ public class Translate
 		urlSaver.setmethod(request.getMethod());
 		String url = request.getRequestURL().toString();
 		urlSaver.setURL(url);
-		urlSaver.setServlet(response);
 		String newUrl = getnewUrl(url);
 		System.out.println(newUrl);
 		urlSaver.setNURL(newUrl);

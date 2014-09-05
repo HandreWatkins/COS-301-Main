@@ -91,7 +91,7 @@ public class Pushclient
 
         //set return context type for return display
         Contextset context = new Contextset();
-        context.getContext(urlLink);
+        //context.getContext(urlLink);
     }
 	
     private class Contextset
@@ -100,7 +100,7 @@ public class Pushclient
 
         public Contextset() {}
 
-        public UrlLinker getContext(UrlLinker urlFrag) throws Exception
+        /*public UrlLinker getContext(UrlLinker urlFrag) throws Exception
         {
             context = urlFrag;
 
@@ -113,7 +113,7 @@ public class Pushclient
                 urlFrag.setContext("binary");
 
             return urlFrag;
-        }
+        }*/
 
         private boolean isText()
         {			

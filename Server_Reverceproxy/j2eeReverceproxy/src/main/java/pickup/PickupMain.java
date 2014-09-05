@@ -16,7 +16,7 @@ public class PickupMain
 	private final Pushclient callClient = new Pushclient();
 	@SuppressWarnings("unused")
 	private final Translate translate = new Translate();
-	private final String [] jax_RS = {"GET","POST","PUT"};
+	private final String [] jax_RS = {"GET","POST","PUT","DELETE"};
 	//=================================================================================
 	
 	public PickupMain(Translate trance) throws IOException{}
