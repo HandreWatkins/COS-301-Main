@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+         <link rel="stylesheet" type="text/css" href="../css/css.css"/> 
+        <title>Smart Integration Monitor</title>
+        <script type="text/javascript">
+                        function validateForm()
+                        {
+                            var pw = document.getElementById("addMasterBox").value;
+                            var password = "theansweris42";
+                            if (pw == password)
+                            {
+                                alert('User successfully added.');
+                                return true;
+                            }
+                            else {
+                                alert('Master Password Incorrect!');
+                                return false;
+                            }
+                        }
+                    </script>
+    </h:head>
+    <h:body>
+          <div id="header" class="topCenter">
+            
+            <div class="wrap">
+                <img id="epiLogo" src="../images/epiuse_logo.png" class="topCenter"/>
+              <h1 id="indexH1" class="head1">SMART INTEGRATION MONITOR</h1>
+            </div>
+         </div>
+        <div id="addUser">
+            <form id="addUserForm" method="post" action="../index.xhtml" onsubmit="return validateForm();">
+                <table>
+                    <tr>
+                        <td colspan="2">
+                            <h1 id="loginH2">Add New User</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>Username:</label></td>
+                         <td><input type='text' id="addUserBox" autofocus="" placeholder="USERNAME" required=""/></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>Password:</label> </td>
+                        <td><input type='password' id="addPassBox" placeholder="PASSWORD" required=""/></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>Confirm Password:</label></td>
+                        <td><input type='password' id="addConfirmBox" placeholder="CONFIRM PASSWORD" required=""/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>MASTER PASSWORD:</label></td>
+                        <td><input type='password' name="addMasterBox" id="addMasterBox" placeholder="MASTER PASSWORD"  required=""/></td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="2"><button id="submit" class="button">ENTER</button></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><a id="addLink" href="../index.xhtml">Cancel</a></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </h:body>
+</html>
+
