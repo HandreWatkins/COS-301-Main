@@ -1,17 +1,24 @@
 package analisis;
 
 import Util.UrlLinker;
-import java.io.IOException;
-import javax.ejb.Asynchronous;
+import java.util.Queue;
+import javax.annotation.Resource;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.jms.Destination;
+import javax.jms.JMSContext;
 
+@Stateless
 public class Interface
-{
+{ 
+    @Resource(lookup = "jms/queue/myqueue")
+    private Queue queue;
+
+    @Inject
+    private JMSContext jmsContext;
     
-    public Interface(){}
-    
-    @Asynchronous
-    public void analisHandle(UrlLinker data) throws IOException 
+    public void analisHandle(UrlLinker data)
     {
-        //EntityManager entity = new EntityManager
+        jmsContext.createProducer().send((Destination) queue, data.getNURL());
     }
 }

@@ -1,38 +1,45 @@
 package connection;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import javax.ejb.Asynchronous;
-import javax.net.ssl.SSLServerSocketFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Resource;
+import javax.ejb.ActivationConfigProperty;
+import javax.ejb.MessageDriven;
+import javax.ejb.MessageDrivenContext;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.TextMessage;
 
-public class Network 
+@MessageDriven(activationConfig = {
+    @ActivationConfigProperty(propertyName = "destinationLookup",
+            propertyValue = "jms/MyQueue"),
+    @ActivationConfigProperty(propertyName = "destinationType",
+            propertyValue = "javax.jms.Queue")
+})
+public class Network implements MessageListener
 {
-    SSLServerSocketFactory  slServ;
-    ServerSocket ss;
-    boolean server = false;
-    ServerSocket servesock;
+    static final Logger logger = Logger.getLogger("SimpleMessageBean");
     
     public Network() throws IOException
     {
-        slServ = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
-        ss = slServ.createServerSocket(8280);
-        
-        servesock = new ServerSocket(8858);
-        serverin();
         
     }
-    
-    @Asynchronous
-    private void serverin() throws IOException
+
+    @Override
+    public void onMessage(Message message)
     {
-        while(server)
-        {
-            //Socket s = ss.accept();
-            Socket x = servesock.accept();
-        }
+       if (message instanceof TextMessage)
+       {
+           try 
+           {
+               logger.log(Level.INFO,"MESSAGE BEAN: Message received: {0}", message.getBody(String.class));
+               
+           } catch (JMSException ex) 
+           {
+               Logger.getLogger(Network.class.getName()).log(Level.SEVERE, null, ex);
+           }
+       }
     }
-    
-    
-    
 }
