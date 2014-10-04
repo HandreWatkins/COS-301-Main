@@ -1,0 +1,13 @@
+@font-face
+{
+	font-family : headingFont;
+        src: url(../fonts/Xolonium-Bold.otf)
+}
+
+h2
+{
+    color: white ;
+    text-align :center;
+    font-family: headingFont;
+    text-shadow: 1px 4px 6px    black;
+}
