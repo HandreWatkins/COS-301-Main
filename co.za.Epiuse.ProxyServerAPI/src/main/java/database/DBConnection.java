@@ -3,19 +3,21 @@ package database;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Asynchronous;
+import javax.inject.Singleton;
 
-public class DBConnection {
-        
-
-        private Connection con = null;
-        private Statement st = null;
-        private ResultSet rs = null;
-        private final String url ;
-        private final String user; 
-        private final String password ;
+public class DBConnection
+{
+    private Connection con = null;
+    private Statement st = null;
+    private ResultSet rs = null;
+    private final String url ;
+    private final String user; 
+    private final String password ;
+    
+    @Singleton 
     public DBConnection(String urlT,String userT,String passwordT) throws SQLException, ClassNotFoundException
     {
-         
         Class.forName("org.postgresql.Driver");
         this.url = urlT;
         this.user = userT;
@@ -35,32 +37,30 @@ public class DBConnection {
 
         } finally {
             closeDB(null,st,rs);
-        }
-       
-        
+        } 
     }
-     public final void closeDB( Connection conT, Statement stT , ResultSet rsT)
-        {
-            try {
-                if (rsT != null) {
-                    rsT.close();
-                }
-                if (stT != null) {
-                    stT.close();
-                }
-                if (conT != null) {
-                    conT.close();
-                }
-                //System.out.println("Connected");
-
-            } catch (SQLException ex) {
-                Logger lgr = Logger.getLogger(DBConnection.class.getName());
-                lgr.log(Level.WARNING, ex.getMessage(), ex);
+    
+    public final void closeDB( Connection conT, Statement stT , ResultSet rsT)
+    {
+        try {
+            if (rsT != null) {
+                rsT.close();
             }
+            if (stT != null) {
+                stT.close();
+            }
+            if (conT != null) {
+                conT.close();
+            }
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(DBConnection.class.getName());
+            lgr.log(Level.WARNING, ex.getMessage(), ex);
         }
+    }
      
      
      /*MAIN ACTIVITY*/
+    @Asynchronous
      public boolean insertMainActivity(String ip,String uri,double respondtime)  
      {
          PreparedStatement pst;
@@ -76,14 +76,14 @@ public class DBConnection {
                 pst.setDouble(3, respondtime);
                 pst.executeUpdate();
                 System.out.println("New ip, uri and respond time inserted");
-                //System.out.println("successful inserted");
-               // closeDB(con,st,rs);
             return true;   
       } catch (SQLException ex) {
                 Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
             }
      }
+     
+     @Asynchronous
      public String[] selectMainActivity() 
      {
          String [] temp = null ;
@@ -118,7 +118,7 @@ public class DBConnection {
          return temp;
      }
      
-     
+     @Asynchronous
      /*DESTRESS RESOURCES*/
      public boolean insertDistress(String ip,String uri,double respondtime, double expt) 
      {
@@ -143,6 +143,8 @@ public class DBConnection {
                 return false;
             }
      }
+     
+     @Asynchronous
      public String[] selectDistress() 
      {
          String [] temp = null ;
@@ -178,7 +180,7 @@ public class DBConnection {
          return temp;
      }
      
-     
+     @Asynchronous
      /*RULES   CRUD needed*/
      public boolean updateRules(String user_requesting,String uri,double expected_time) 
      {
@@ -199,6 +201,8 @@ public class DBConnection {
           }
             return state;
      }
+     
+     @Asynchronous
      public boolean deleteRules(String user_requesting,String uri,double expected_time) 
      {
          //String temp;
@@ -222,64 +226,67 @@ public class DBConnection {
           }
             return state;
      }
+     
+     @Asynchronous
      public boolean insertRules(String user,String uri, double expt) 
      {
          PreparedStatement pst;
          String stm = "INSERT INTO rules" +
             		" (user_requesting, expected_time, uri) " +
             		" VALUES(?,?, ?)";
-            try {
-                pst = con.prepareStatement(stm);
-            
-            
+        try 
+        {
+            pst = con.prepareStatement(stm);
             pst.setString(1, user);
             pst.setDouble(2, expt);
             pst.setString(3, uri);
             pst.executeUpdate();
             System.out.println("New rules: user, uri, expected time inserted");
-         return true;
-         } catch (SQLException ex) {
-             
-                Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
-                return false;
-            }
+            return true;
+        } 
+        catch (SQLException ex)
+        {
+            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
      }
      
-     public String[] selectRules(String uri,double expt) 
-     {
-         String [] temp = null;
-         try 
+    @Asynchronous
+    public String[] selectRules(String uri,double expt) 
+    {
+        String [] temp = null;
+        try 
         {
-            Statement st = con.createStatement();
-
-            int i = 1;
-            temp = new String[i];
-
-            rs = st.executeQuery("SELECT * FROM rules WHERE uri like '%"+uri+"%' AND expected_time = "+expt);
-            int c = 0;
-
-            rs.next(); 
-
-
-              temp[c]  = rs.getString ("rules_id")+",";
-              temp[c] += rs.getString ("date_time")+",";
-              temp[c] += rs.getString ("user_requesting")+",";
-              temp[c] += rs.getString ("expected_time")+",";
-              temp[c] += rs.getString ("uri");
-              //listOfBlogs.add(blog);
-
-            rs.close();
-            st.close();
-          }
-          catch (SQLException se) {
+            try (Statement st = con.createStatement()) {
+                int i = 1;
+                temp = new String[i];
+                
+                rs = st.executeQuery("SELECT * FROM rules WHERE uri like '%"+uri+"%' AND expected_time = "+expt);
+                int c = 0;
+                
+                rs.next();
+                
+                
+                temp[c]  = rs.getString ("rules_id")+",";
+                temp[c] += rs.getString ("date_time")+",";
+                temp[c] += rs.getString ("user_requesting")+",";
+                temp[c] += rs.getString ("expected_time")+",";
+                temp[c] += rs.getString ("uri");
+                //listOfBlogs.add(blog);
+                
+                rs.close();
+            }
+        }
+        catch (SQLException se) {
             System.err.println("Threw a SQLException when retrieving the rules.");
             System.err.println(se.getMessage());
             //return null;
-          }
-         return temp;
-     }
+        }
+        return temp;
+    }
      
      /*USER*/
+    @Asynchronous
      public boolean insertUser(String user, String pass)
      {
          PreparedStatement pst;
@@ -300,36 +307,37 @@ public class DBConnection {
             }
      }
      
-     
+    @Asynchronous
      public boolean selectUser(String user, String pass)
      {
-         String temp;
-         boolean state = false;
-         try 
+        String temp;
+        boolean state = false;
+        try 
         {
-            Statement st = con.createStatement();
-
-            rs = st.executeQuery("SELECT * FROM users WHERE username = '"+user+"' AND password = '"+pass+"'");
-            //int c = 0;
-
-            while ( rs.next() )
-            {
-              //temp  = rs.getString ("user_id")+",";          
-              temp = rs.getString ("username")+",";
-              temp += rs.getString ("password");
-              if(temp.equals(user+","+pass))
-                  state = true;
+            try (Statement st = con.createStatement()) {
+                rs = st.executeQuery("SELECT * FROM users WHERE username = '"+user+"' AND password = '"+pass+"'");
+                
+                while ( rs.next() )
+                {
+                    temp = rs.getString ("username")+",";
+                    temp += rs.getString ("password");
+                    if(temp.equals(user+","+pass))
+                        state = true;
+                }
+                rs.close();
             }
-            rs.close();
-            st.close();
-          }
-          catch (SQLException se) {
+        }
+        catch (SQLException se)
+        {
             System.err.println("Threw a SQLException at user identification.");
             System.err.println(se.getMessage());
-          }
+        }
             return state;
      }
+     
+     
      /* Bookmark   CRUD  */
+     @Asynchronous
      public String insertBookmark(String user_requesting,String discription) 
      {
          
@@ -355,21 +363,17 @@ public class DBConnection {
                 return null;
             }
      }
+     
+     @Asynchronous
      public boolean updateBookmark(String user_requesting,String discription,String date_time) 
      {
-         //String temp;
          boolean state = false;
          try 
         {
-            Statement st = con.createStatement();
-
-            st.executeUpdate("UPDATE bookmark set discription = '"+discription+"' where user_requesting ='"+user_requesting+"'");
-            //int c = 0;
-
-            
-            //con.commit();
-            rs.close();
-            st.close();
+             try (Statement st = con.createStatement()) {
+                 st.executeUpdate("UPDATE bookmark set discription = '"+discription+"' where user_requesting ='"+user_requesting+"'");
+                 rs.close();
+             }
             state = true;
           }
           catch (SQLException se) {
@@ -378,21 +382,18 @@ public class DBConnection {
           }
             return state;
      }
+     
+     @Asynchronous
      public boolean deleteBookmark(String user_requesting,String discription,String date_time) 
      {
          //String temp;
          boolean state = false;
          try 
         {
-            Statement st = con.createStatement();
-
-            st.executeUpdate("DELETE from bookmark where user_requesting = '"+user_requesting+"' and date_time='"+date_time+"' and discription = '"+discription+"'");
-            //int c = 0;
-
-            
-            //con.commit();
-            rs.close();
-            st.close();
+             try (Statement st = con.createStatement()) {
+                 st.executeUpdate("DELETE from bookmark where user_requesting = '"+user_requesting+"' and date_time='"+date_time+"' and discription = '"+discription+"'");
+                 rs.close();
+             }
             state = true;
           }
           catch (SQLException se) {
@@ -401,37 +402,37 @@ public class DBConnection {
           }
             return state;
      }
+     
+     @Asynchronous
      public String [] selectBookmark(String user_requesting,String discription,String date_time)
-     {
-         String [] temp = null;
-         //boolean state = false;
-         try 
+    {
+        String [] temp = null;
+        try 
         {
-            Statement st = con.createStatement();
-            rs = st.executeQuery("SELECT count(*) FROM bookmark WHERE user_requesting = '"+user_requesting+"' and discription = '"+discription+"' and date_time ='"+date_time+"'");
-            rs.next();
-            int c = rs.getInt(1);
-            temp = new String[c];
-            int i = 0;
-            rs = st.executeQuery("SELECT * FROM bookmark WHERE user_requesting = '"+user_requesting+"' and discription = '"+discription+"' and date_time ='"+date_time+"'");
-            while ( rs.next() )
-            {
-              temp[i]  = rs.getString ("bookmark_id")+","; 
-              temp[i]  += rs.getString ("date_time")+",";
-              temp[i] += rs.getString ("user_requesting")+",";
-              temp[i] += rs.getString ("discription");
-              //if(temp.equals(user+","+pass))
-                  
+            try (Statement st = con.createStatement()) {
+                rs = st.executeQuery("SELECT count(*) FROM bookmark WHERE user_requesting = '"+user_requesting+"' and discription = '"+discription+"' and date_time ='"+date_time+"'");
+                rs.next();
+                int c = rs.getInt(1);
+                temp = new String[c];
+                int i = 0;
+                rs = st.executeQuery("SELECT * FROM bookmark WHERE user_requesting = '"+user_requesting+"' and discription = '"+discription+"' and date_time ='"+date_time+"'");
+                
+                while ( rs.next() )
+                {
+                    temp[i]  = rs.getString ("bookmark_id")+",";
+                    temp[i]  += rs.getString ("date_time")+",";
+                    temp[i] += rs.getString ("user_requesting")+",";
+                    temp[i] += rs.getString ("discription");
+                }
+                
+                rs.close();
             }
-            //state = true;
-            rs.close();
-            st.close();
-          }
-          catch (SQLException se) {
-            System.err.println("Threw a SQLException at selecting in bookmark.");
-            System.err.println(se.getMessage());
-          }
-            return temp;
-     }
+        }
+        catch (SQLException se) {
+        System.err.println("Threw a SQLException at selecting in bookmark.");
+        System.err.println(se.getMessage());
+        }
+        return temp;
+    }
      
 }

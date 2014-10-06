@@ -142,6 +142,11 @@
                 <artifactId>postgresql</artifactId>
                 <version>9.1-901-1.jdbc4</version>
             </dependency>
-
+            
+            <dependency>
+                <groupId>org.jboss.spec.javax.jms</groupId>
+                <artifactId>jboss-jms-api_2.0_spec</artifactId>
+                <version>1.0.0.Alpha1</version>
+            </dependency>
 	</dependencies>    
 </project>
