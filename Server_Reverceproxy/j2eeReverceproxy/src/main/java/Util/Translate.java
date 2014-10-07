@@ -33,7 +33,7 @@ public class Translate
 	
 	public String getnewUrl(String url)
 	{
-            int posSlash = url.indexOf("/", 8);
+            int posSlash = url.indexOf("/", url.indexOf("/", 8)+1);
             String nurl = url.substring(0, posSlash+1) + url.substring(url.indexOf("/", posSlash+1)+1) ;
             return nurl; 
             //"http://localhost:8080/servlet";

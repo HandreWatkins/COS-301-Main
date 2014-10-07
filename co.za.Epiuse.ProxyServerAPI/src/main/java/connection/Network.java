@@ -3,7 +3,9 @@ package connection;
 import Analisis.AnalisisInterface;
 import Analisis.ClientRule.ClientRule;
 import Analisis.Smart.AIInterface;
+import database.DatabaseControl;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,16 +23,18 @@ import javax.jms.TextMessage;
     @ActivationConfigProperty(propertyName = "destinationType",
             propertyValue = "javax.jms.Queue")
 })
+
 public class Network implements MessageListener
 {
     volatile Queue <String> inmessage;
     AnalisisInterface testClient = new ClientRule();
     AnalisisInterface testAI = new AIInterface();
     static final Logger logger = Logger.getLogger("SimpleMessageBean");
+    DatabaseControl cntrolBD = null;
     
-    public Network() throws IOException
+    public Network() throws IOException, SQLException, ClassNotFoundException
     {
-       
+       cntrolBD = new DatabaseControl();
     }
 
     @Override
@@ -40,8 +44,10 @@ public class Network implements MessageListener
        {
            try 
            {
-               logger.log(Level.INFO,"MESSAGE BEAN: Message received: {0}", message.getBody(String.class));
-               inmessage.add(message.getBody(String.class));
+               
+               String mess =  message.getBody(String.class);
+               logger.log(Level.INFO,"MESSAGE BEAN: Message received: {0}",mess);
+               inmessage.add(mess);
                messageLoop();
                
            } catch (JMSException ex) 
@@ -61,7 +67,11 @@ public class Network implements MessageListener
             
             if(!testClient.testRequest(parced) && !testAI.testRequest(parced))
             {
-                
+                cntrolBD.mainDB(message, message, message);
+            }
+            else
+            {
+                cntrolBD.disDB(message, message, message, message);
             }
         }
     }

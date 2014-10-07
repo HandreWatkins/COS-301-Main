@@ -57,6 +57,10 @@ public class DBConnection
             lgr.log(Level.WARNING, ex.getMessage(), ex);
         }
     }
+    public boolean testconn()
+    {
+        return con != null;       
+    }
      
      
      /*MAIN ACTIVITY*/
@@ -147,10 +151,10 @@ public class DBConnection
      @Asynchronous
      public String[] selectDistress() 
      {
-         String [] temp = null ;
-         try 
+        String [] temp = null ;
+        try 
         {
-             st = con.createStatement();
+            st = con.createStatement();
             rs = st.executeQuery("SELECT count(*) FROM distressedresources");
             rs.next();
             
@@ -167,7 +171,7 @@ public class DBConnection
               temp[i] += rs.getString ("uri")+",";
               temp[i] += rs.getString ("responseTime");
               temp[i] += rs.getString ("ip");
-              //listOfBlogs.add(blog);
+
               i++;
             }
             rs.close();
@@ -209,15 +213,10 @@ public class DBConnection
          boolean state = false;
          try 
         {
-            Statement st = con.createStatement();
-
-            st.executeUpdate("DELETE from rules where user_requesting = '"+user_requesting+"'and expected_time="+expected_time+" and uri = '"+uri+"'");
-            //int c = 0;
-
-            
-            //con.commit();
-            rs.close();
-            st.close();
+             try (Statement st = con.createStatement()) {
+                 st.executeUpdate("DELETE from rules where user_requesting = '"+user_requesting+"'and expected_time="+expected_time+" and uri = '"+uri+"'");
+                 rs.close();
+             }
             state = true;
           }
           catch (SQLException se) {
@@ -257,30 +256,26 @@ public class DBConnection
         String [] temp = null;
         try 
         {
-            try (Statement st = con.createStatement()) {
+            try (Statement st = con.createStatement())
+            {
                 int i = 1;
                 temp = new String[i];
-                
                 rs = st.executeQuery("SELECT * FROM rules WHERE uri like '%"+uri+"%' AND expected_time = "+expt);
                 int c = 0;
-                
                 rs.next();
-                
                 
                 temp[c]  = rs.getString ("rules_id")+",";
                 temp[c] += rs.getString ("date_time")+",";
                 temp[c] += rs.getString ("user_requesting")+",";
                 temp[c] += rs.getString ("expected_time")+",";
                 temp[c] += rs.getString ("uri");
-                //listOfBlogs.add(blog);
-                
+
                 rs.close();
             }
         }
         catch (SQLException se) {
             System.err.println("Threw a SQLException when retrieving the rules.");
             System.err.println(se.getMessage());
-            //return null;
         }
         return temp;
     }

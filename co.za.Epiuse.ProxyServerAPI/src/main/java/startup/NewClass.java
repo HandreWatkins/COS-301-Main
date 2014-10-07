@@ -29,6 +29,7 @@ public class NewClass implements Filter
     
     public NewClass() throws IOException
     {
+        System.out.println("asd");
     }
 
     @Override

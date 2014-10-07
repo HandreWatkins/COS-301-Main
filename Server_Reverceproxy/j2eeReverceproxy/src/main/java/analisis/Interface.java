@@ -34,6 +34,8 @@ public class Interface
     
     public void analisHandle(UrlLinker data)
     {
-        jmsContext.createProducer().send(queue, data.getNURL());
+        String dataT  = data.getNURL()+","+data.getResponse().getFirstHeader("HTTP")+
+                ","+String.valueOf(data.getTime());
+        jmsContext.createProducer().send(queue, dataT);
     }
 }
