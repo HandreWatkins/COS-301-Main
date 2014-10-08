@@ -33,8 +33,8 @@ import pickup.PostRequest;
 import pickup.PutRequest;
 
 
-@WebServlet("/proxy/*")
-@WebFilter(filterName="proxyfilter", urlPatterns="/proxy/*")
+//@WebServlet("/proxFil/*")
+@WebFilter(filterName="proxyfilter", urlPatterns="/proxFil/*")
 @Asynchronous
 public class ServletFilter extends HttpServlet implements Filter
 {
@@ -57,10 +57,14 @@ public class ServletFilter extends HttpServlet implements Filter
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        HttpServletRequest requestHTTP = (HttpServletRequest) request;
         if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
         {
+            pickupHandle = new PickupMain(null);
             if(pickupHandle.isJAX_RS(request))
             {
+                UrlLinker urlfile = translate.linkurl(requestHTTP);
+                pickup = new PickupHandle(urlfile);
                 UrlLinker urltrans = trance.linkurl(request);
                 responseCall getrequest = new GetRequest();
                 UrlLinker url = getrequest.clientreqeust(urltrans);
@@ -73,10 +77,14 @@ public class ServletFilter extends HttpServlet implements Filter
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        HttpServletRequest requestHTTP = (HttpServletRequest) request;
         if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
         {
+            pickupHandle = new PickupMain(null);
             if(pickupHandle.isJAX_RS(request))
             {
+                UrlLinker urlfile = translate.linkurl(requestHTTP);
+                pickup = new PickupHandle(urlfile);
                 UrlLinker urltrans = trance.linkurl(request);
                 responseCall postrequest = new PostRequest();
                 UrlLinker url = postrequest.clientreqeust(urltrans);
@@ -89,10 +97,14 @@ public class ServletFilter extends HttpServlet implements Filter
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        HttpServletRequest requestHTTP = (HttpServletRequest) request;
         if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
         {
+            pickupHandle = new PickupMain(null);
             if(pickupHandle.isJAX_RS(request))
             {
+                UrlLinker urlfile = translate.linkurl(requestHTTP);
+                pickup = new PickupHandle(urlfile);
                 UrlLinker urltrans = trance.linkurl(request);
                 responseCall putRequest = new PutRequest();
                 UrlLinker url = putRequest.clientreqeust(urltrans);
@@ -105,10 +117,14 @@ public class ServletFilter extends HttpServlet implements Filter
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        HttpServletRequest requestHTTP = (HttpServletRequest) request;
         if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
         {
+            pickupHandle = new PickupMain(null);
             if(pickupHandle.isJAX_RS(request))
             {
+                UrlLinker urlfile = translate.linkurl(requestHTTP);
+                pickup = new PickupHandle(urlfile);
                 UrlLinker urltrans = trance.linkurl(request);
                 responseCall detrequest = new DeleteRequest();
                 UrlLinker url = detrequest.clientreqeust(urltrans);
