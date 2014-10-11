@@ -17,7 +17,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,8 +31,6 @@ import pickup.PickupMain;
 import pickup.PostRequest;
 import pickup.PutRequest;
 
-
-//@WebServlet("/proxFil/*")
 @WebFilter(filterName="proxyfilter", urlPatterns="/proxFil/*")
 @Asynchronous
 public class ServletFilter extends HttpServlet implements Filter
@@ -51,7 +48,24 @@ public class ServletFilter extends HttpServlet implements Filter
     }
 
     @Override
-    public void init(ServletConfig config) throws ServletException{}
+    public void init(FilterConfig fc) throws ServletException 
+    {
+        try
+        {
+            pickupHandle = new PickupMain(trance);
+        }
+        catch (IOException e) {}
+    }
+    
+    @Override
+    public void init(ServletConfig config) throws ServletException
+{
+        try
+        {
+            pickupHandle = new PickupMain(trance);
+        }
+        catch (IOException e) {}
+    }
 
     @GET
     @Override
@@ -60,7 +74,6 @@ public class ServletFilter extends HttpServlet implements Filter
         HttpServletRequest requestHTTP = (HttpServletRequest) request;
         if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
         {
-            pickupHandle = new PickupMain(null);
             if(pickupHandle.isJAX_RS(request))
             {
                 UrlLinker urlfile = translate.linkurl(requestHTTP);
@@ -80,7 +93,6 @@ public class ServletFilter extends HttpServlet implements Filter
         HttpServletRequest requestHTTP = (HttpServletRequest) request;
         if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
         {
-            pickupHandle = new PickupMain(null);
             if(pickupHandle.isJAX_RS(request))
             {
                 UrlLinker urlfile = translate.linkurl(requestHTTP);
@@ -100,7 +112,6 @@ public class ServletFilter extends HttpServlet implements Filter
         HttpServletRequest requestHTTP = (HttpServletRequest) request;
         if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
         {
-            pickupHandle = new PickupMain(null);
             if(pickupHandle.isJAX_RS(request))
             {
                 UrlLinker urlfile = translate.linkurl(requestHTTP);
@@ -120,7 +131,6 @@ public class ServletFilter extends HttpServlet implements Filter
         HttpServletRequest requestHTTP = (HttpServletRequest) request;
         if((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
         {
-            pickupHandle = new PickupMain(null);
             if(pickupHandle.isJAX_RS(request))
             {
                 UrlLinker urlfile = translate.linkurl(requestHTTP);
@@ -143,16 +153,6 @@ public class ServletFilter extends HttpServlet implements Filter
         } catch (Exception ex) {
             Logger.getLogger(ServletFilter.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @Override
-    public void init(FilterConfig fc) throws ServletException 
-    {
-            try
-            {
-                pickupHandle = new PickupMain(trance);
-            }
-            catch (IOException e) {}
     }
 
     @GET @POST @PUT @DELETE

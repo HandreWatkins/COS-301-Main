@@ -12,6 +12,13 @@ public class AIInterface implements AnalisisInterface
     @Override
     public boolean testRequest(String[] data)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO To change body of generated methods, choose Tools | Templates.
+        return false;
+        
     }
+
+    @Override
+    public Long getexpected() {
+        return null;
+        
+    } 
 }

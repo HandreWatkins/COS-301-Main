@@ -27,14 +27,16 @@ import javax.jms.TextMessage;
 public class Network implements MessageListener
 {
     volatile Queue <String> inmessage;
-    AnalisisInterface testClient = new ClientRule();
-    AnalisisInterface testAI = new AIInterface();
+    AnalisisInterface testClient = null;
+    AnalisisInterface testAI = null;
     static final Logger logger = Logger.getLogger("SimpleMessageBean");
     DatabaseControl cntrolBD = null;
     
     public Network() throws IOException, SQLException, ClassNotFoundException
     {
        cntrolBD = new DatabaseControl();
+       testClient = new ClientRule(cntrolBD);
+       testAI = new AIInterface();
     }
 
     @Override
@@ -65,13 +67,28 @@ public class Network implements MessageListener
             String message = inmessage.remove();
             String [] parced = message.split(",");
             
-            if(!testClient.testRequest(parced) && !testAI.testRequest(parced))
+            if(parced[1].equals("200"))
             {
-                cntrolBD.mainDB(message, message, message);
+                if(!testClient.testRequest(parced))
+                {
+                    cntrolBD.disDB(null, parced[0], parced[2], String.valueOf(testClient.getexpected()));
+                }
+                else
+                {
+                    if(!testAI.testRequest(parced))
+                    {
+                        cntrolBD.disDB(null, parced[0], parced[2], String.valueOf(testClient.getexpected()));
+                    }
+                    else
+                    {
+                        cntrolBD.mainDB(null,parced[0], parced[2]);
+                    }           
+
+                }
             }
             else
             {
-                cntrolBD.disDB(message, message, message, message);
+                cntrolBD.disDB(null, parced[0], "ServerError: " + parced[1], null);
             }
         }
     }

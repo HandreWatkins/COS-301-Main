@@ -260,7 +260,7 @@ public class DBConnection
             {
                 int i = 1;
                 temp = new String[i];
-                rs = st.executeQuery("SELECT * FROM rules WHERE uri like '%"+uri+"%' AND expected_time = "+expt);
+                rs = st.executeQuery("SELECT * FROM rules WHERE uri like '%"+uri+"%'");
                 int c = 0;
                 rs.next();
                 
