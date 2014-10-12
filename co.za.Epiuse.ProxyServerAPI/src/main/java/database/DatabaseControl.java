@@ -1,22 +1,57 @@
 package database;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Path;
+import static java.nio.file.Paths.get;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.Queue;
 import javax.annotation.PreDestroy;
 import javax.ejb.Asynchronous;
 import javax.inject.Singleton;
 
+@Singleton
 public class DatabaseControl 
 {
     DBConnection cntrl = null;
     volatile Queue <String []> backlogDQ;
     volatile Queue <Integer> backlogNQ;
     static boolean runPool;
+    final String server;
+    final String user;
+    final String password;
+    Properties properties;
     
-    @Singleton
-    public DatabaseControl() throws SQLException, ClassNotFoundException
+
+    public DatabaseControl() throws ClassNotFoundException, IOException, SQLException
     {
-        cntrl = new DBConnection(null, null, null);
+        Properties properties = new Properties();
+        try
+        {
+            String propS = "config.properties";
+            InputStream inputStream  = this.getClass().getResourceAsStream(propS);
+            this.properties = new Properties();
+
+            properties.load(inputStream);
+        }
+        catch(Exception e)
+        {
+            properties.setProperty("Server", "Localhost");
+            properties.setProperty("User", "Postgsql");
+            properties.setProperty("Password", "");
+        }
+        
+        server = properties.getProperty("Server");
+        user = properties.getProperty("User");
+        password = properties.getProperty("Password");
+        
+        cntrl = new DBConnection(server, user, password);
+        
         runPool = true;
         pooler();
     }
@@ -24,7 +59,7 @@ public class DatabaseControl
     @PreDestroy
     public void closeDB()
     {
-        cntrl.closeDB(null, null, null);
+
     }
     
     @Asynchronous

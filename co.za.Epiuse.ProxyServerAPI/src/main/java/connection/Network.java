@@ -7,10 +7,10 @@ import database.DatabaseControl;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
-import javax.ejb.Asynchronous;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -34,9 +34,10 @@ public class Network implements MessageListener
     
     public Network() throws IOException, SQLException, ClassNotFoundException
     {
+       inmessage = new ConcurrentLinkedQueue<>();
        cntrolBD = new DatabaseControl();
        testClient = new ClientRule(cntrolBD);
-       testAI = new AIInterface();
+       testAI = new AIInterface(cntrolBD);
     }
 
     @Override
@@ -46,12 +47,11 @@ public class Network implements MessageListener
        {
            try 
            {
-               
                String mess =  message.getBody(String.class);
-               logger.log(Level.INFO,"MESSAGE BEAN: Message received: {0}",mess);
+               message.acknowledge();
+               //logger.log(Level.INFO,"MESSAGE BEAN: Message received: {0}",mess);
                inmessage.add(mess);
                messageLoop();
-               
            } catch (JMSException ex) 
            {
                Logger.getLogger(Network.class.getName()).log(Level.SEVERE, null, ex);
@@ -59,36 +59,27 @@ public class Network implements MessageListener
        }
     }
     
-    @Asynchronous
     private void messageLoop()
     {
         while(!inmessage.isEmpty())
         {
             String message = inmessage.remove();
+            logger.log(Level.INFO,"MESSAGE BEAN: Message received: {0}",message);
             String [] parced = message.split(",");
             
             if(parced[1].equals("200"))
             {
-                if(!testClient.testRequest(parced))
+                if(testClient.testRequest(parced))
                 {
-                    cntrolBD.disDB(null, parced[0], parced[2], String.valueOf(testClient.getexpected()));
-                }
-                else
-                {
-                    if(!testAI.testRequest(parced))
+                    if(testAI.testRequest(parced))
                     {
-                        cntrolBD.disDB(null, parced[0], parced[2], String.valueOf(testClient.getexpected()));
+                        cntrolBD.mainDB(parced[0].substring(0, parced[0].indexOf("/")),parced[0].substring(parced[0].indexOf("/")), parced[2]);
                     }
-                    else
-                    {
-                        cntrolBD.mainDB(null,parced[0], parced[2]);
-                    }           
-
                 }
             }
             else
             {
-                cntrolBD.disDB(null, parced[0], "ServerError: " + parced[1], null);
+                cntrolBD.disDB(parced[0].substring(0, parced[0].indexOf("/")), parced[0].substring(parced[0].indexOf("/")), "ServerError: " + parced[1], null);
             }
         }
     }

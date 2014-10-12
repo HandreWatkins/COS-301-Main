@@ -9,6 +9,7 @@ public class ClientRule implements AnalisisInterface
 {
     DatabaseControl connect = null;
     Long expt;
+    
     public ClientRule(DatabaseControl _connect)
     {
         connect = _connect;
@@ -23,7 +24,16 @@ public class ClientRule implements AnalisisInterface
         String [] daStrings = connect.ruleDB(uri, 0);
         expt = Long.parseLong(daStrings[3]);
         
-        return !(daStrings != null && expt <= respomce);
+        if(daStrings != null && expt <= respomce)
+        {
+            connect.disDB(data[0].substring(0, data[0].indexOf("/")),data[0].substring(data[0].indexOf("/")), data[2], String.valueOf(expt));
+        }
+        else
+        {
+            return true;
+        }
+        
+        return false;
     }
     
     @Override
