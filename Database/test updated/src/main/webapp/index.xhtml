@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        
+        <link rel="stylesheet" type="text/css" href="css/css.css"/>
+        <title>Smart Integration Monitor</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <div id="header" class="topCenter">
+            <div class="wrap">
+                <img id="epiLogo" src="images/epiuse_logo.png" class="topCenter"/>
+              <h1 id="indexH1" class="head1">SMART INTEGRATION MONITOR</h1>
+            </div>
+         </div>
+        <div id="loginDiv" class="absoluteCenter">
+            <h:form id="loginForm">   
+                <h2 id="loginH2">USER VERIFICATION</h2>
+                <h:inputText id="usernameBox" value="#{loginBean.username}" required="true" requiredMessage="Please enter username" />
+                <h:inputSecret id="PasswordBox" value="#{loginBean.password}" required="true" requiredMessage="Please enter password"/>
+                <h:commandButton id="submit" class="button" value="Login" action="#{loginBean.doLogin()}"/>
+                <h:messages style="color: #ffffff"/>
+                </h:form>
+            <a id="addLink" href="register/addUser.xhtml">Add New User</a>
+        </div>
+    </h:body>
+</html>
+
+ <!--<form id="loginForm" method="post" action="xhtml/dashboard.xhtml">
+                <h2 id="loginH2">USER VERIFICATION</h2>
+                <input type='text' id="usernameBox" autofocus="" placeholder="USERNAME" required="required" value="#{usersBean.username}"/>
+                <input type='password' id="PasswordBox" placeholder="PASSWORD" required="required"/>
+                <button id="submit" class="button">ENTER</button>               
+            </form>-->
