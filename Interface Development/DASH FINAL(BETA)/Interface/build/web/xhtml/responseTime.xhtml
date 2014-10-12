@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+         <link rel="stylesheet" type="text/css" href="../css/css.css"/> 
+        <title>Response Time</title>
+    </h:head>
+    <h:body>
+        <div id="headerHome" class="topCenter">
+            
+            <div class="wrap">
+              <h1 id="indexH1" class="head1" >RESPONSE TIME</h1>
+            </div>
+         </div>
+         <div id="homeBody">
+            <div id="homeMenu">
+                    <ui:include src="/xhtml/menu.xhtml" />
+            </div>
+            
+            <div id="rtBody">
+                <h2 class="thFont" style="text-align: center;">RESPONSE TIME</h2>
+                 <p:panel style="background-color:   rgba(1,1,1,.0); border: none">  
+                    <p:lineChart id="linear" value="#{responseBean.model}"   
+                      minY="0" maxY="1000" style="height:300px; width: 100%;"/>
+                 </p:panel>
+                
+            </div>
+         </div>
+    </h:body>
+</html>
+
