@@ -115,4 +115,18 @@ CREATE INDEX fki_user_name_fk
   USING btree
   (user_requesting COLLATE pg_catalog."default");
 
-
+CREATE TABLE ai
+(
+  ai_id integer NOT NULL DEFAULT nextval('ai_id_seq'::regclass),
+  _date text NOT NULL,
+  _time text NOT NULL,
+  uri text NOT NULL,
+  count integer NOT NULL,
+  total integer NOT NULL,
+  CONSTRAINT ai_id_pkey PRIMARY KEY (ai_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE ai
+  OWNER TO postgres;

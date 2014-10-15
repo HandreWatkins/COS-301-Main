@@ -17,14 +17,14 @@ public class DBConnection {
         
 
         private Connection con = null;
-        private Statement st = null;
-        private ResultSet rs = null;
+        
         private final String url ;
         private final String user; 
         private final String password ;
     public DBConnection(String urlT,String userT,String passwordT) throws SQLException, ClassNotFoundException
     {
-         
+          Statement st = null;
+         ResultSet rs = null;
         Class.forName("org.postgresql.Driver");
         this.url = urlT;
         this.user = userT;
@@ -67,7 +67,67 @@ public class DBConnection {
                 lgr.log(Level.WARNING, ex.getMessage(), ex);
             }
         }
+     /*AI*/
      
+     public boolean insertAI(String uri,String date,String time,int count,int total)  
+     {
+         PreparedStatement pst;
+         String stm = "INSERT INTO mainactivity" +
+            		" (_date,_time, uri, count,total) " +
+            		" VALUES(?,?,?,?,?)";
+            try {
+                pst = con.prepareStatement(stm);
+            
+            
+                pst.setString(1, date);
+                pst.setString(2, time);
+                pst.setString(3, uri);
+                pst.setInt(4, count);
+                pst.setInt(5, total);
+                pst.executeUpdate();
+                System.out.println("New AI inserted");
+                //System.out.println("successful inserted");
+               // closeDB(con,st,rs);
+            return true;   
+      } catch (SQLException ex) {
+                Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+     }
+     public String[] selectAI(String uri,String date,String time) 
+     {
+         String [] temp = null ;
+         //System.out.println("jksdhfkjjsdkhfkjashdskjf");
+         try 
+        {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT count(*) FROM ai where uri='"+uri+"' AND _date='"+date+"' AND _time='"+time+"'");
+            rs.next();
+            
+            int c = rs.getInt(1);
+            temp = new String[c];
+            int i = 0;
+            rs = st.executeQuery("SELECT count(*) FROM ai where uri='"+uri+"' AND _date='"+date+"' AND _time='"+time+"'");
+            while ( rs.next() )
+            {
+
+              temp[i]  = rs.getString ("ai_id")+",";
+              temp[i] += rs.getString ("_date")+",";
+              temp[i] += rs.getString ("_time")+",";
+              temp[i] += rs.getString ("uri")+",";
+              temp[i] += rs.getString ("count")+",";
+              temp[i] += rs.getString ("total");
+              i++;
+            }
+            rs.close();
+            st.close();
+          }
+          catch (SQLException se) {
+            System.err.println("Threw a SQLException at select in AI.");
+            System.err.println(se.getMessage());
+          }
+         return temp;
+     }
      
      /*MAIN ACTIVITY*/
      public boolean insertMainActivity(String ip,String uri,double respondtime)  
@@ -99,8 +159,8 @@ public class DBConnection {
          //System.out.println("jksdhfkjjsdkhfkjashdskjf");
          try 
         {
-             st = con.createStatement();
-            rs = st.executeQuery("SELECT count(*) FROM MainActivity");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT count(*) FROM MainActivity");
             rs.next();
             
             int c = rs.getInt(1);
@@ -157,8 +217,8 @@ public class DBConnection {
          String [] temp = null ;
          try 
         {
-             st = con.createStatement();
-            rs = st.executeQuery("SELECT count(*) FROM distressedresources");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT count(*) FROM distressedresources");
             rs.next();
             
             int c = rs.getInt(1);
@@ -198,7 +258,7 @@ public class DBConnection {
             Statement st = con.createStatement();
 
             st.executeUpdate("UPDATE rules set uri = '"+uri+"', expected_time="+expected_time+" where user_requesting ='"+user_requesting+"'");
-            rs.close();
+            
             st.close();
             state = true;
           }
@@ -221,7 +281,7 @@ public class DBConnection {
 
             
             //con.commit();
-            rs.close();
+            
             st.close();
             state = true;
           }
@@ -264,7 +324,7 @@ public class DBConnection {
             int i = 1;
             temp = new String[i];
 
-            rs = st.executeQuery("SELECT * FROM rules WHERE uri like '%"+uri+"%' AND expected_time = "+expt);
+            ResultSet rs = st.executeQuery("SELECT * FROM rules WHERE uri like '%"+uri+"%' AND expected_time = "+expt);
             int c = 0;
 
             rs.next(); 
@@ -318,7 +378,7 @@ public class DBConnection {
         {
             Statement st = con.createStatement();
 
-            rs = st.executeQuery("SELECT * FROM users WHERE username = '"+user+"' AND password = '"+pass+"'");
+            ResultSet rs = st.executeQuery("SELECT * FROM users WHERE username = '"+user+"' AND password = '"+pass+"'");
             //int c = 0;
 
             while ( rs.next() )
@@ -355,7 +415,7 @@ public class DBConnection {
             pst.executeUpdate();
             System.out.println("New distress: user and discription inserted");
             Statement st = con.createStatement();
-            rs = st.executeQuery("SELECT * FROM bookmark WHERE user_requesting = '"+user_requesting+"' and discription = '"+discription+"'");
+            ResultSet rs = st.executeQuery("SELECT * FROM bookmark WHERE user_requesting = '"+user_requesting+"' and discription = '"+discription+"'");
             rs.next();
          return rs.getString("date_time");
          } catch (SQLException ex) {
@@ -377,7 +437,6 @@ public class DBConnection {
 
             
             //con.commit();
-            rs.close();
             st.close();
             state = true;
           }
@@ -400,7 +459,6 @@ public class DBConnection {
 
             
             //con.commit();
-            rs.close();
             st.close();
             state = true;
           }
@@ -417,7 +475,7 @@ public class DBConnection {
          try 
         {
             Statement st = con.createStatement();
-            rs = st.executeQuery("SELECT count(*) FROM bookmark WHERE user_requesting = '"+user_requesting+"' and discription = '"+discription+"' and date_time ='"+date_time+"'");
+            ResultSet rs = st.executeQuery("SELECT count(*) FROM bookmark WHERE user_requesting = '"+user_requesting+"' and discription = '"+discription+"' and date_time ='"+date_time+"'");
             rs.next();
             int c = rs.getInt(1);
             temp = new String[c];

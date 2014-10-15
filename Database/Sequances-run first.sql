@@ -64,4 +64,13 @@ CREATE SEQUENCE user_id_sq
   CACHE 1;
 ALTER TABLE user_id_sq
   OWNER TO postgres;
+  
+  CREATE SEQUENCE ai_id_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
+ALTER TABLE ai_id_seq
+  OWNER TO postgres;
 
