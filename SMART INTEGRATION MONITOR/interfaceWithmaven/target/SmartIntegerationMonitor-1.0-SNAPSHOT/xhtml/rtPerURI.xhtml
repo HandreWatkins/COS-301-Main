@@ -25,18 +25,22 @@
                 <div id="graphRT" style="width: 50%; float: left;">
                 <ui:include src="/xhtml/rtPerURIFace.xhtml" />
                 </div>
-                <div id="startsRT" style="width: 50%; float: left;">
-                    <p:dataTable var="main" value="#{rtPerURIBean.main}">
-    <p:column headerText="URI">
-        <h:outputText value="#{main.uri}" />
-    </p:column>
- 
-    <p:column headerText="REQUESTS">
-        <h:outputText value="#{main.count}" />
-    </p:column>
- 
-</p:dataTable>
-                </div>
+                <h:form>
+                    <p:poll interval="10" update="rqTable"/>
+                        <div id="startsRT" style="width: 50%; float: left;">
+                            <h2>Listed Requests</h2>
+                            <p:dataTable id="rqTable" var="main" value="#{rtPerURIBean.main}" scrollable="true" scrollHeight="50px">
+                                <p:column headerText="URI">
+                                    <h:outputText value="#{main.uri}" />
+                                </p:column>
+
+                                <p:column headerText="REQUESTS">
+                                    <h:outputText value="#{main.count}" />
+                                </p:column>
+
+                            </p:dataTable>
+                        </div>
+                </h:form>
             </div>
                 
          </div>

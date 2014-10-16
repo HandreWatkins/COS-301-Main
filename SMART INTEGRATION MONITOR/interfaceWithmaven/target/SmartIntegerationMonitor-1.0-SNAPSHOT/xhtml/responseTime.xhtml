@@ -25,12 +25,12 @@
              <div id="rtBody" class="page">
                 <h:form>
                 <h2 class="thFont" style="text-align: center;">Most Recent Response Time</h2>
-                 <p:poll interval="15" update="rtLin"/>
+                <p:poll interval="15" update="rtLin,status"/>
                  <p:panel style="background-color:   rgba(1,1,1,.0); border: none">  
                      <p:lineChart id="rtLin" value="#{responseBean.model}" animate="true" legendPosition="ne" showDatatip="true" showMarkers="true" yaxisLabel="Resonse Time (ms)"  xaxisLabel="Resonse ID"
                       minY="0" maxY="1000" style="height:300px; width: 100%;"/>
                  </p:panel>
-                 <p:dataTable id="status" scrollable="true" stickyHeader="true" styleClass="thFont" value="#{mainactivityBean.all15list}" var="mainActivity" >
+                <p:dataTable id="status" styleClass="thFont" value="#{mainactivityBean.all15list}" var="mainActivity"  rows="15">
 		<p:column>
 			<f:facet name="header">Mainactivity Id</f:facet>
                         <h:outputText value="#{mainActivity.mainactivityId}"></h:outputText>
