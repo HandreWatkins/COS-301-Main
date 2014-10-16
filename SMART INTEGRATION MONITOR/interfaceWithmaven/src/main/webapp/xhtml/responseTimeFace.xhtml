@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link rel="shorcut icon" href="../images/icon.ico" />
+          <link rel="stylesheet" type="text/css" href="../css/gauge.css"/> 
+        <title>Response Time</title>
+    </h:head>
+    <center><a class="formHeaders" href="../xhtml/responseTime.xhtml">Response Time</a></center>
+    <h:body>
+        <h:form>
+            <p:poll interval="1" update="rtMeter"/>
+            <p:meterGaugeChart id="rtMeter" value="#{rtBean.liveModel}" seriesColors="009933,009933,009933,009933,FFFF66,FFFF66,FF9933,FF9933,FF3333,FF3333" label="m/s" />
+        </h:form>
+         
+    </h:body>
+</html>
+
