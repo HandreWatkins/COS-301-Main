@@ -1,0 +1,152 @@
+@font-face
+{
+	font-family : headingFont;
+        src: url(../fonts/Xolonium-Bold.otf)
+}
+
+html
+{
+    background: transparent;
+}
+
+h2
+{
+    color: white ;
+    text-align :center;
+    font-family: headingFont;
+    text-shadow: 1px 4px 6px    black;
+}
+.first-circle { 
+  animation:fcircle 1s linear forwards;
+  -webkit-animation:fcircle 1s linear forwards;
+  opacity:0;
+}
+
+@keyframes fcircle {
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
+
+@-webkit-keyframes fcircle {
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
+
+.first-text { 
+  animation:ftext 1s linear forwards;
+  -webkit-animation:ftext 1s linear forwards;
+  opacity:0;
+}
+
+@keyframes ftext {
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
+
+@-webkit-keyframes ftext {
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
+
+.first-line {
+  stroke-dasharray:200;
+  stroke-dashoffset:200;
+  animation:fline 1s linear 1s forwards;
+  -webkit-animation:fline 1s linear 1s forwards;
+}
+
+@keyframes fline {
+  to {
+    stroke-dashoffset:0;
+  }
+}
+
+@-webkit-keyframes fline {
+  to {
+    stroke-dashoffset:0;
+  }
+}
+
+.second-circle {
+  animation:scircle 1s linear 2s forwards;
+  -webkit-animation:scircle 1s linear 2s forwards;
+  opacity:0;
+}
+
+@keyframes scircle {
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
+
+@-webkit-keyframes scircle {
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
+
+.second-text { 
+  animation:stext 1s linear 2s forwards;
+  -webkit-animation:stext 1s linear 2s forwards;
+  opacity:0;
+}
+
+@keyframes stext {
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
+
+@-webkit-keyframes stext {
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
+
+.second-line {
+  stroke-dasharray:220;
+  stroke-dashoffset:220;
+  animation:sline 1s linear 3s forwards;
+  -webkit-animation:sline 1s linear 3s forwards;
+}
+
+@keyframes sline {
+  to {
+    stroke-dashoffset:0;
+  }
+}
+
+@-webkit-keyframes sline {
+  to {
+    stroke-dashoffset:0;
+  }
+}
+
+.third-circle {
+  animation:tcircle 1s linear 4s forwards;
+  -webkit-animation:tcircle 1s linear 4s forwards;
+  opacity:0;
+}
+
+@keyframes tcircle {
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
+
+@-webkit-keyframes tcircle {
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
+
+.third-text { 
+  animation:ttext 1s linear 4s forwards;
+  -webkit-animation:ttext 1s linear 4s forwards;
+  opacity:0;
+}
+
+@keyframes ttext {
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
+
+@-webkit-keyframes ttext 
+{
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
