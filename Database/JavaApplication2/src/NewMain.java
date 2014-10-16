@@ -36,11 +36,14 @@ public class NewMain {
                 System.out.println(jk2[i]);
           }*/
 
+         for (int i = 0; i < 100; i++) {
+                a.insertMainActivity("111.101.11.1", "http://www.cs.up.ac.za", 20+2*i);
+          }
         
-        String jb =a.insertBookmark("admin",  "my special");
+      /*  String jb =a.insertBookmark("admin",  "my special");
         String[] jk1 = new String[12];
          jk1=a.selectBookmark("admin","my special", jb);
-        System.out.println(jk1[0]);
+        System.out.println(jk1[0]);*/
         /*System.out.println(a.updateBookmark("admin", "http://www.google.com", 11));
         System.out.println(a.deleteBookmark("admin", "http://www.google.com", 11));
         */
