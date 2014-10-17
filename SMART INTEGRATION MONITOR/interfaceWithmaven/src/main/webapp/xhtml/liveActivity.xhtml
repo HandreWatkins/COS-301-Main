@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link rel="shorcut icon" href="../images/icon.ico" />
+         <link rel="stylesheet" type="text/css" href="../css/css.css"/> 
+        <title>Live Activity</title>
+    </h:head>
+    <h:body>
+        <div id="headerHome" class="topCenter">
+            
+            <div class="wrap">
+              <h1 id="indexH1" class="head1">LIVE ACTIVITY</h1>
+            </div>
+         </div>
+         <div id="homeBody">
+            <div id="homeMenu">
+                    <ui:include src="/xhtml/menu.xhtml" />
+            </div>
+            
+            <div id="liveBody">
+                <h:form>
+                    <div style="height: 30px; text-align: center; margin-top: 10px;">
+                         <p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server"/>
+                 </div>
+                    <p:poll interval="1" update="status"/>
+                    <p:dataTable id="status" styleClass="dataTableView" value="#{mainactivityBean.allMainactivity}" var="mainActivity"  scrollable="true" scrollHeight="30%">
+		<p:column>
+			<f:facet name="header">Mainactivity Id</f:facet>
+                        <h:outputText value="#{mainActivity.mainactivityId}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">Created date</f:facet>
+			<h:outputText value="#{mainActivity.createDate}"></h:outputText>
+		</p:column>
+                <p:column>
+			<f:facet name="header">IP</f:facet>
+			<h:outputText value="#{mainActivity.ip}"></h:outputText>
+		</p:column>
+                <p:column>
+			<f:facet name="header">URI</f:facet>
+			<h:outputText value="#{mainActivity.uri}"></h:outputText>
+		</p:column>
+                <p:column>
+			<f:facet name="header">Response Time</f:facet>
+                        <h:outputText value="#{mainActivity.responseTime}"></h:outputText>
+		</p:column>
+            </p:dataTable>
+                    <div style="text-align: center;">
+                         <p:commandButton value="Generate Report" onclick="PF('dlg3').show();"/>
+                    </div>
+                    
+                    <p:dataTable id="distress" styleClass="dataTableView" value="#{distressedresourceBean.allDistress}" var="distress"  scrollable="true" scrollHeight="30%">
+		<p:column>
+			<f:facet name="header">Distress Resource Id</f:facet>
+                        <h:outputText value="#{distress.distressedresourcesId}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">Created date</f:facet>
+                        <h:outputText value="#{distress.lastUpdate}"></h:outputText>
+		</p:column>
+                <p:column>
+			<f:facet name="header">IP</f:facet>
+                        <h:outputText value="#{distress.ip}"></h:outputText>
+		</p:column>
+                <p:column>
+			<f:facet name="header">URI</f:facet>
+                        <h:outputText value="#{distress.uri}"></h:outputText>
+		</p:column>
+                <p:column>
+			<f:facet name="header">Time Expected</f:facet>
+                        <h:outputText value="#{distress.timeExpected}"></h:outputText>
+		</p:column>
+                <p:column>
+			<f:facet name="header">Response Time</f:facet>
+                        <h:outputText value="#{distress.responsetime}"></h:outputText>
+		</p:column>
+            </p:dataTable>
+                    
+                    <p:dialog styleClass="dialogStyle" header="Generate Report" widgetVar="dlg3" showEffect="explode" hideEffect="explode" height="200">
+                        
+                         <h3 class="thFont">Please choose a report format:</h3>
+                         
+                         <h3 class="thFont" style="text-align: center;">XLS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PDF &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CSV</h3>
+                        <h:commandLink>
+                             <p:graphicImage url="/images/xls.png" style="width: 100px; height: 100px;" />
+                             <p:dataExporter type="pdf" target="status" pageOnly="true" fileName="Mainactivity" />
+                         </h:commandLink>
+                         
+                          <h:commandLink>
+                             <p:graphicImage url="/images/pdf.png" style="width: 95px; height: 95px;"/>
+                            <p:dataExporter type="pdf" target="status"  fileName="Mainactivity"/>
+                         </h:commandLink>
+ 
+                         <h:commandLink>
+                             <p:graphicImage url="/images/csv.png" style="width: 100px; height: 100px;"/>
+                            <p:dataExporter type="csv" target="status"  fileName="Mainactivity"/>
+                         </h:commandLink>
+                        
+                    </p:dialog>
+            </h:form>
+            </div>
+            
+        </div>
+    </h:body>
+</html>
+

@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link rel="shorcut icon" href="../images/icon.ico" />
+         <link rel="stylesheet" type="text/css" href="../css/css.css"/> 
+        <title>Response Time</title>
+    </h:head>
+    <h:body>
+        <div id="headerHome" class="topCenter">
+            
+            <div class="wrap">
+              <h1 id="indexH1" class="head1" >RESPONSE TIME</h1>
+            </div>
+         </div>
+         <div id="homeBody">
+            <div id="homeMenu">
+                    <ui:include src="/xhtml/menu.xhtml" />
+            </div>
+            
+             <div id="rtBody" class="page">
+                <h:form>
+                <h2 class="thFont" style="text-align: center;">Most Recent Response Time</h2>
+                <p:poll interval="15" update="rtLin,status"/>
+                 <p:panel style="background-color:   rgba(1,1,1,.0); border: none">  
+                     <p:lineChart id="rtLin" value="#{responseBean.model}" animate="true" legendPosition="ne" showDatatip="true" showMarkers="true" yaxisLabel="Resonse Time (ms)"  xaxisLabel="Resonse ID"
+                      minY="0" style="height:300px; width: 100%;"/>
+                 </p:panel>
+                <p:dataTable id="status" styleClass="thFont" value="#{mainactivityBean.all15list}" var="mainActivity"  rows="15">
+		<p:column>
+			<f:facet name="header">Mainactivity Id</f:facet>
+                        <h:outputText value="#{mainActivity.mainactivityId}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">Created date</f:facet>
+			<h:outputText value="#{mainActivity.createDate}"></h:outputText>
+		</p:column>
+                <p:column>
+			<f:facet name="header">IP</f:facet>
+			<h:outputText value="#{mainActivity.ip}"></h:outputText>
+		</p:column>
+                <p:column>
+			<f:facet name="header">URI</f:facet>
+			<h:outputText value="#{mainActivity.uri}"></h:outputText>
+		</p:column>
+                <p:column>
+			<f:facet name="header">Response Time</f:facet>
+                        <h:outputText value="#{mainActivity.responseTime}"></h:outputText>
+		</p:column>
+	</p:dataTable>
+                </h:form>
+            </div>
+         </div>
+    </h:body>
+</html>
+
