@@ -28,7 +28,7 @@
                          <p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server"/>
                  </div>
                     <p:poll interval="1" update="status"/>
-                    <p:dataTable id="status" styleClass="dataTableView" value="#{mainactivityBean.allMainactivity}" var="mainActivity"  scrollable="true" scrollHeight="30%">
+                    <p:dataTable id="status" styleClass="dataTableView" value="#{mainactivityBean.allMainactivity}" var="mainActivity"  scrollable="true" scrollHeight="30%" style="height: 50%;">
 		<p:column>
 			<f:facet name="header">Mainactivity Id</f:facet>
                         <h:outputText value="#{mainActivity.mainactivityId}"></h:outputText>
@@ -54,7 +54,7 @@
                          <p:commandButton value="Generate Report" onclick="PF('dlg3').show();"/>
                     </div>
                     
-                    <p:dataTable id="distress" styleClass="dataTableView" value="#{distressedresourceBean.allDistress}" var="distress"  scrollable="true" scrollHeight="30%">
+                    <p:dataTable id="distress" styleClass="dataTableView" value="#{distressedresourceBean.allDistress}" var="distress"  scrollable="true" scrollHeight="30%" style="height: 50%;">
 		<p:column>
 			<f:facet name="header">Distress Resource Id</f:facet>
                         <h:outputText value="#{distress.distressedresourcesId}"></h:outputText>

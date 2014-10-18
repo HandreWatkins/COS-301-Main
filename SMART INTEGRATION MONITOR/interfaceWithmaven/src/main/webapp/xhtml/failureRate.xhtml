@@ -27,7 +27,7 @@
                  </div>
                  <div style="width:50%; float: left;">
                      <h2 class="formHeaders">List of Failures</h2>
-                     <p:dataTable var="distress" value="#{frBean.failureMapreduce()}">
+                     <p:dataTable var="distress" value="#{frBean.failureMapreduce()}" scrollable="true" scrollHeight="100%">
                         
                          <p:column headerText="URI">
                              <h:outputText value="#{distress.uri}" />

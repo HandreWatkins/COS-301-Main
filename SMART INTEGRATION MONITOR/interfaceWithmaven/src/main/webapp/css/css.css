@@ -404,8 +404,6 @@ table
 table.jqplot-table-legend {
     width: auto;
     color: black;
-    display: block;
-    max-height: 150px;
 }
 
 table.jqplot-table-legend td {
@@ -449,8 +447,20 @@ table.jqplot-table-legend td {
 {
      font-family: headingFont;
 }
+.ui-dialog-heading
+{
+    font-size:  30px;
+}
 
 .ui-button
+{
+    font-family: headingFont;
+}
+.ui-messages.ui-widget
+{
+    font-family: headingFont;
+}
+#messageUser
 {
     font-family: headingFont;
 }
