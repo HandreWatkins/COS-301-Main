@@ -25,7 +25,7 @@ import ejb.UserEJB;
  *
  * @author itcuties
  */
-@ManagedBean
+@ManagedBean(name="loginBean")
 @SessionScoped
 public class LoginBean implements Serializable {
  

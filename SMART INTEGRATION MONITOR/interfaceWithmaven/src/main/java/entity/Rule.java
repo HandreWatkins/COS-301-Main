@@ -11,7 +11,11 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name="rules")
-@NamedQuery(name="Rule.findAll", query="SELECT r FROM Rule r")
+@NamedQueries({
+    @NamedQuery(name="Rule.findAll", query="SELECT r FROM Rule r"),
+    @NamedQuery(name="Rule.finduri", query="SELECT r FROM Rule r WHERE r.uri = :uri"),
+    @NamedQuery(name="Rule.finduser", query="SELECT r FROM Rule r WHERE r.user = :user ORDER BY r.rulesId DESC"),
+})
 public class Rule implements Serializable {
 	private static final long serialVersionUID = 1L;
 
