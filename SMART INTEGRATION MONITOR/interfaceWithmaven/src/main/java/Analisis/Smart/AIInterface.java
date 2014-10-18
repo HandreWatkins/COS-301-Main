@@ -79,7 +79,7 @@ public class AIInterface implements AnalisisInterface
         
     } 
     
-    private double standerd(double [] sumdata, int countV)
+    public double standerd(double [] sumdata, int countV)
     { 
         double sum = 0;
         double avg = 0;
@@ -100,7 +100,7 @@ public class AIInterface implements AnalisisInterface
         return Math.sqrt(sum/(countV-1));
     }
     
-    private double [] dataparce(String [] arr)
+    public double [] dataparce(String [] arr)
     {
         double [] rdata = new double[arr.length];
         
