@@ -5,6 +5,7 @@ import Analisis.ClientRule.ClientRule;
 import Analisis.Smart.AIInterface;
 import database.DatabaseControl;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -54,11 +55,13 @@ public class Network implements MessageListener
            } catch (JMSException ex) 
            {
                Logger.getLogger(Network.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (UnknownHostException ex) {
+               Logger.getLogger(Network.class.getName()).log(Level.SEVERE, null, ex);
            }
        }
     }
     
-    private void messageLoop()
+    private void messageLoop() throws UnknownHostException
     {
         while(!inmessage.isEmpty())
         {
@@ -68,19 +71,25 @@ public class Network implements MessageListener
             
             int serverTest = Integer.parseInt(parced[1]);
             
+            int ix = parced[0].indexOf("//")+2;//, parced[0].indexOf("/")+1);
+            int ic = parced[0].indexOf("/",ix);
+            char testS = parced[0].charAt(ic);
+            String serverText = parced[0].substring(ix, ic);
+            String uriS = parced[0].substring(ix+serverText.length());
+            
             if(serverTest >= 200 && serverTest < 300 )
             {
                 if(testClient.testRequest(parced))
                 {
                     if(testAI.testRequest(parced))
                     {
-                        cntrolBD.mainDB(parced[0].substring(0, parced[0].indexOf("/")),parced[0].substring(parced[0].indexOf("/")), parced[2]);
+                        cntrolBD.mainDB(serverText,uriS, parced[2]);
                     }
                 }
             }
             else
             {
-                cntrolBD.disDB(parced[0].substring(0, parced[0].indexOf("/")), parced[0].substring(parced[0].indexOf("/")), parced[1], "99999");
+                cntrolBD.disDB(serverText,uriS, parced[1], "99999");
             }
         }
     }

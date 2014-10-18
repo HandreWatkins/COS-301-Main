@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.UnknownHostException;
 import java.nio.file.Path;
 import static java.nio.file.Paths.get;
 import java.sql.SQLException;
@@ -66,9 +67,10 @@ public class DatabaseControl
     }
     
     @Asynchronous
-    public boolean mainDB(String server, String URI, String restime)
+    public boolean mainDB(String serverip, String URI, String restime) throws UnknownHostException
     {
-        if(cntrl.insertMainActivity(server,URI,Double.valueOf(restime)))
+        
+        if(cntrl.insertMainActivity(serverip,URI,Double.valueOf(restime)))
         {
             return true;
         }
@@ -86,51 +88,14 @@ public class DatabaseControl
         return cntrl.selectRules(uri);        
     }
     
-    /*@Asynchronous
-    private void backlog(int requestnum, String [] requestdata)
-    {
-        if(!cntrl.testconn())
-        {
-            backlogDQ.add(requestdata);
-            backlogNQ.add(requestnum);
-        }
-    }
-    
     @Asynchronous
-    private void pooler()
+    public String[] AIget(String uri, String dateF, String time)
     {
-        while(runPool)
+        if(cntrl.selectAI(uri,dateF,time) != null)
         {
-            if(cntrl.testconn())
-            {
-                while(!backlogDQ.isEmpty())
-                {
-                    String [] data = backlogDQ.remove();
-                    int num = backlogNQ.remove();
-                    
-                    switch(num)
-                    {
-                        case 1:
-                        { 
-                            mainDB(data[0],data[1],data[2]);
-                            break;
+            String [] data = cntrl.selectAI(uri,dateF,time);
+            return  data.length != 0?data:null;
                         }
-                        case 2:
-                        {
-                            disDB(data[0],data[1],data[2],data[3]);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-    }*/
-    
-    @Asynchronous
-    public String[] AIget(String uri, String date, String time)
-    {
-        if(cntrl.selectAI(uri,date,time) != null)
-            return cntrl.selectAI(uri,date,time); 
         return null;
     }
     

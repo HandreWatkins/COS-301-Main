@@ -469,7 +469,8 @@ public class DBConnection
             int c = rs.getInt(1);
             temp = new String[c];
             int i = 0;
-            rs = st.executeQuery("SELECT count(*) FROM ai where uri='"+uri+"' AND _date='"+date+"' AND _time='"+time+"'");
+            rs = st.executeQuery("SELECT * FROM ai where uri='"+uri+"' AND _date='"+date+"' AND _time='"+time+"'");
+            
             while ( rs.next() )
             {
                 temp[i] = rs.getString ("ai_id")+",";
@@ -480,6 +481,7 @@ public class DBConnection
                 temp[i] += rs.getString ("total");
                 i++;
             }
+
             rs.close();
             st.close();
         }

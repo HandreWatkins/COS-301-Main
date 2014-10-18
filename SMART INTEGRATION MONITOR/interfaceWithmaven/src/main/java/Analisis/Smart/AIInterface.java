@@ -22,9 +22,14 @@ public class AIInterface implements AnalisisInterface
     {
         int ntime = 0;
         int amount = 0;
-        String uri = data[0];
         int total = 0;
         double previous = 0;
+        
+        //split server and uri
+        int ix = data[0].indexOf("//")+2;
+        int ic = data[0].indexOf("/",ix);
+        String serverText = data[0].substring(ix, ic);
+        String uriS = data[0].substring(ix+serverText.length());
         
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK); 
@@ -36,32 +41,23 @@ public class AIInterface implements AnalisisInterface
         
         //database
         
-        String [] dataAI = connect.AIget(uri, String.valueOf(date), String.valueOf(time));
+        String [] dataAI = connect.AIget(uriS, String.valueOf(day), String.valueOf(time));
         
         if(dataAI != null)
         {
-            amount = Integer.parseInt(dataAI[4]);
-            previous = Integer.parseInt(dataAI[5]);
-            total = (int)previous + Integer.parseInt(data[2]);
+            amount = dataAI.length;
         }
-        else
-        {
-            total = Integer.parseInt(data[2]);
-            previous = 0;
-            
-        }
+        
         //test
-        if(amount < 10)
+        if(amount < 30)
         {
-            double stdNew = standerd(amount, total, previous, ntime);
-            //update db
-            connect.updateAI(uri,String.valueOf(date),String.valueOf(time),amount,total);
+            connect.updateAI(uriS,String.valueOf(day),String.valueOf(time),amount++,Integer.decode(data[2]));
             return true;
         }
         else
         {
-            double stdNew = standerd(amount, total, previous, ntime);
-            double news = Math.sqrt(stdNew/amount);
+            double [] datasum = dataparce(dataAI);
+            double news = standerd(datasum, amount);
             
             if(news < 2.00)
             {
@@ -69,9 +65,9 @@ public class AIInterface implements AnalisisInterface
             }
             else
             {
-                connect.disDB(data[0].substring(0, data[0].indexOf("/")),data[0].substring(data[0].indexOf("/")), data[2], String.valueOf(stdNew));
+                connect.disDB(serverText,uriS, data[2], String.valueOf(news));
             }
-            connect.updateAI(uri,String.valueOf(date),String.valueOf(time),amount,total);
+            connect.updateAI(uriS,String.valueOf(date),String.valueOf(time),amount,Integer.decode(data[2]));
         }
         return false;
         
@@ -83,8 +79,39 @@ public class AIInterface implements AnalisisInterface
         
     } 
     
-    private double standerd(int count, double total, double prevous, double time)
+    private double standerd(double [] sumdata, int countV)
     { 
-        return prevous+(time-(total/count))*(time-((total+time)/count++));
+        double sum = 0;
+        double avg = 0;
+        
+        for(double ave : sumdata)
+        {
+            sum = sum + ave;
+        }
+        
+        avg = sum/countV;
+        sum = 0;
+        
+        for(double ave : sumdata)
+        {
+            sum = sum + (Math.pow((ave - avg), 2.0));
+        } 
+        
+        return Math.sqrt(sum/(countV-1));
     }
+    
+    private double [] dataparce(String [] arr)
+    {
+        double [] rdata = new double[arr.length];
+        
+        int i = 0;
+        for(String sData : arr)
+        {
+            String [] nData = sData.split(",");
+            rdata[i] = Double.valueOf(nData[5]);
+        }
+        
+        return rdata;
+    }
+            
 }

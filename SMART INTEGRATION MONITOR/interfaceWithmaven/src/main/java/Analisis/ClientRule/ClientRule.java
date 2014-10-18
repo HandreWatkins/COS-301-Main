@@ -19,15 +19,20 @@ public class ClientRule implements AnalisisInterface
     @Override
     public boolean testRequest(String[] data)
     {
-        String uri = data[0];
+        int ix = data[0].indexOf("//")+2;
+        int ic = data[0].indexOf("/",ix);
+        String serverText = data[0].substring(ix, ic);
+        String uriS = data[0].substring(ix+serverText.length());
+
         Long respomce = Long.parseLong(data[2]);
-        String [] daStrings = connect.ruleDB(uri);
+        
+        String [] daStrings = connect.ruleDB(uriS);
         
         if(daStrings != null)
         {
             expt = Long.parseLong(daStrings[2]);
             if(expt <= respomce)
-                connect.disDB(data[0].substring(0, data[0].indexOf("/")),data[0].substring(data[0].indexOf("/")), data[2], String.valueOf(expt));
+                connect.disDB(serverText,uriS, data[2], String.valueOf(expt));
         }
         else
         {
