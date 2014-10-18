@@ -29,30 +29,53 @@
                     <table>
                         <TR>
                             <th><label>Response Time:</label></th>
-                            <th><p:inputText styleClass="loginBoxes" type="number"  id="userRT" required="true" requiredMessage="INPUT ERROR:Please provide a valid response time" a:placeholder="RESPONSE TIME"><f:validateLongRange minimum="0" /></p:inputText></th>
+                            <th><p:inputText value="#{ruleBean.expectedTime}" styleClass="loginBoxes" type="number"  id="userRT" required="true" requiredMessage="INPUT ERROR:Please provide a valid response time" a:placeholder="RESPONSE TIME"><f:validateLongRange minimum="0" /></p:inputText></th>
                             <p:tooltip styleClass="thFont" id="rtTool" for="userRT" value="Specify the cutoff response time that seperates successfull calls from failed calls" />
                        </TR>
                         <tr>
                         <th><label>URI:</label></th>
-                        <th><p:inputText styleClass="loginBoxes" type="text" id="userURI" required="true" requiredMessage="INPUT ERROR:Please provide an URI" a:placeholder="URI" /></th>
+                        <th><p:inputText value="#{ruleBean.uri}" styleClass="loginBoxes" type="text" id="userURI" required="true" requiredMessage="INPUT ERROR:Please provide an URI" a:placeholder="URI" /></th>
                             <p:tooltip styleClass="thFont" id="uriTool" for="userURI" value="Specify the URI for the Response Time given above" />
                         </tr>
                         <tr></tr>
                         <tr>
                             <th></th>
-                            <th><p:commandButton value="Submit"/></th>
+                            <th><p:commandButton value="Submit" id="submit" action="#{ruleBean.uriExists}"/></th>
                         </tr>
-                        <p:messages class="thFont" id="messageUser" autoUpdate="true" closable="true" />
                     </table>
+
                 </h:form>    
                 </div>
                  
                   <div id="userTable" style="width: 50%;" >
                     <h:form>
                         <h2 class="thFont" style="text-align: center;">Current User Defined Rules</h2>
-                        <p:dataTable scrollable="true" scrollHeight="100%">
-                            
-                        </p:dataTable>
+                       
+                            <p:dataTable id="status" styleClass="dataTableView" value="#{ruleBean.allrule}" var="rules"  scrollable="true" scrollHeight="100%" >
+		<p:column>
+			<f:facet name="header">Rules ID</f:facet>
+                        <h:outputText value="#{rules.rulesId}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">Created date</f:facet>
+                        <h:outputText value="#{rules.dateTime}"></h:outputText>
+		</p:column>
+                <p:column>
+			<f:facet name="header">User Defined</f:facet>
+                        <h:outputText value="#{rules.user.username}"></h:outputText>
+		</p:column>
+                <p:column>
+			<f:facet name="header">Expected Time</f:facet>
+                        <h:outputText value="#{rules.expectedTime}"></h:outputText>
+		</p:column>
+                <p:column>
+			<f:facet name="header">URI</f:facet>
+                        <h:outputText value="#{rules.uri}"></h:outputText>
+		</p:column>
+                
+            </p:dataTable>
+                    
+                    
                     </h:form>
                   </div>
             </div>

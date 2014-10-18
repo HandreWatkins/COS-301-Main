@@ -16,6 +16,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import org.springframework.web.context.support.HttpRequestHandlerServlet;
 
 /**
  *
@@ -24,16 +27,23 @@ import javax.inject.Inject;
 @ManagedBean
 @SessionScoped
 public class RuleBean {
+    
         @Inject
 	RuleEJB ruleEJB;
         @Inject
         UserEJB userEJB;
-        @ManagedProperty(value="#{loginBean}")
-	private LoginBean lBean;
+        
+        
+	
         
         private String uri;
         private int expectedTime;
 
+        private HttpServletRequest request = (HttpServletRequest)javax.faces.context.FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        private HttpSession session = request.getSession();
+        private LoginBean lBean = (LoginBean) session.getAttribute("loginBean");
+                
+               
     public int getExpectedTime() {
         return expectedTime;
     }
@@ -52,15 +62,22 @@ public class RuleBean {
         
         
         
-        public List<Rule> getAllMainactivity(){
-		return ruleEJB.getAllUserR(lBean.getUsername());
+        public List<Rule> getAllrule(){
+            
+		return ruleEJB.getAll();
 	}
         
         
-        public void UriExists()
+        public String uriExists()
         {
-            
-            if(!ruleEJB.uriExist(uri))
+            boolean b;
+            try{
+            b =ruleEJB.uriExist(uri);
+            }catch(NullPointerException e)
+            {
+                b=false;
+            }
+            if(!b)
             {
                 Rule r = new Rule();
                 r.setUri(uri);
@@ -74,5 +91,6 @@ public class RuleBean {
             {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "The uri already exists", "Error creation"));
             }
+            return null;
         }
 }

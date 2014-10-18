@@ -6,6 +6,7 @@
 package ejb;
 
 import entity.Rule;
+import entity.Users;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.LocalBean;
@@ -43,15 +44,17 @@ public class RuleEJB {
                     return true;
                 }
             }
-             } catch(NullPointerException e) {
+             } catch(NoResultException e) {
         
     }
             return false;
     }
-    public List<Rule> getAllUserR(String user){
+    
+    //@SuppressWarnings("unchecked")
+    public List<Rule> getAll(){
             
-                List<Rule> results = new ArrayList<Rule>();
-		results= em.createQuery("SELECT r FROM Rule r WHERE r.user = :user ORDER BY r.rulesId DESC").setParameter("user", user).getResultList();
+                List<Rule> results = new ArrayList<>();
+		results= em.createQuery("SELECT r FROM Rule r ORDER BY r.rulesId DESC").getResultList();
 		return  results.isEmpty() ? null : results;
             
 	}

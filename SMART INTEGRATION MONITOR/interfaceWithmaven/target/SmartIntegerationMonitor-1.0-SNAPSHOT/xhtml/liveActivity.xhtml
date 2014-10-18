@@ -32,7 +32,7 @@
                          <p:commandButton value="Generate Report for Distress" onclick="PF('distressDio').show();"/>
                          </div>
                     <p:poll interval="1" update="status,distress"/>
-                    <p:dataTable id="status" styleClass="dataTableView" value="#{mainactivityBean.allMainactivity}" var="mainActivity"  scrollable="true" scrollHeight="15%" >
+                    <p:dataTable id="status" styleClass="dataTableView" value="#{mainactivityBean.allMainactivity}" var="mainActivity" scrollHeight="300" scrollable="true"   scrollRows="20" rows="100" >
 		<p:column>
 			<f:facet name="header">Mainactivity Id</f:facet>
                         <h:outputText value="#{mainActivity.mainactivityId}"></h:outputText>
@@ -54,8 +54,8 @@
                         <h:outputText value="#{mainActivity.responseTime}"></h:outputText>
 		</p:column>
             </p:dataTable>
-                    
-                    <p:dataTable id="distress" styleClass="dataTableView" value="#{distressedresourceBean.allDistress}" var="distress"  scrollable="true" scrollHeight="15%" >
+                    <br/>
+                    <p:dataTable id="distress" styleClass="dataTableView" value="#{distressedresourceBean.allDistress}" var="distress"  scrollHeight="300" scrollable="true"  scrollRows="20" rows="100" >
 		<p:column>
 			<f:facet name="header">Distress Resource Id</f:facet>
                         <h:outputText value="#{distress.distressedresourcesId}"></h:outputText>
