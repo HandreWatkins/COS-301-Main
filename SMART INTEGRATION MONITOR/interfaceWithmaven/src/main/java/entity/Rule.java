@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name="rules")
 @NamedQueries({
-    @NamedQuery(name="Rule.findAll", query="SELECT r FROM Rule r"),
+    @NamedQuery(name="Rule.findAll", query="SELECT r FROM Rule r ORDER BY r.rulesId DESC"),
     @NamedQuery(name="Rule.finduri", query="SELECT r FROM Rule r WHERE r.uri = :uri"),
     @NamedQuery(name="Rule.finduser", query="SELECT r FROM Rule r WHERE r.user = :user ORDER BY r.rulesId DESC"),
 })
