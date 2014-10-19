@@ -1,6 +1,7 @@
 package Display;
 
 import HttpClient.HttpClientCreation;
+import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -56,6 +57,8 @@ public class ThreadHandle
                 HttpClientCreation httpClient = new HttpClientCreation(http);
                 httpClient.nReqest();
             } catch (InterruptedException ex) {
+                Logger.getLogger(ThreadHandle.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
                 Logger.getLogger(ThreadHandle.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

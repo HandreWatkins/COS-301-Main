@@ -3,6 +3,7 @@ package Display;
 import HttpClient.HttpClientCreation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -72,6 +73,8 @@ public class Display_make extends JFrame implements ActionListener
                 httpClient.nReqest();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Display_make.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Display_make.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -82,6 +85,8 @@ public class Display_make extends JFrame implements ActionListener
                 HttpClientCreation httpClient = new HttpClientCreation(http);
                 httpClient.nReqest();
             } catch (InterruptedException ex) {
+                Logger.getLogger(Display_make.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
                 Logger.getLogger(Display_make.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -94,6 +99,8 @@ public class Display_make extends JFrame implements ActionListener
                 httpClient.nReqest();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Display_make.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Display_make.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -104,6 +111,8 @@ public class Display_make extends JFrame implements ActionListener
                 HttpClientCreation httpClient = new HttpClientCreation(http);
                 httpClient.nReqest();
             } catch (InterruptedException ex) {
+                Logger.getLogger(Display_make.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
                 Logger.getLogger(Display_make.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

@@ -47,7 +47,7 @@ public class ClientRule implements AnalisisInterface
     {
         double rdata = 0;
         String [] nData = arr[0].split(",");
-        rdata = Double.valueOf(nData[5]);
+        rdata = Double.valueOf(nData[3]);
         return rdata;
     }
     
