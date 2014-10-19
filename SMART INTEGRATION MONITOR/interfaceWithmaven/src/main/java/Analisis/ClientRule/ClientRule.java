@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 public class ClientRule implements AnalisisInterface
 {
     DatabaseControl connect = null;
-    Long expt;
+    double expt;
     
     public ClientRule(DatabaseControl _connect)
     {
@@ -24,13 +24,14 @@ public class ClientRule implements AnalisisInterface
         String serverText = data[0].substring(ix, ic);
         String uriS = data[0].substring(ix+serverText.length());
 
-        Long respomce = Long.parseLong(data[2]);
+        int respomce = Integer.parseInt(data[2]);
         
         String [] daStrings = connect.ruleDB(uriS);
         
         if(daStrings != null)
         {
-            expt = Long.parseLong(daStrings[2]);
+            expt = dataparce(daStrings);
+            
             if(expt <= respomce)
                 connect.disDB(serverText,uriS, data[2], String.valueOf(expt));
         }
@@ -42,9 +43,17 @@ public class ClientRule implements AnalisisInterface
         return false;
     }
     
+    public double  dataparce(String [] arr)
+    {
+        double rdata = 0;
+        String [] nData = arr[0].split(",");
+        rdata = Double.valueOf(nData[5]);
+        return rdata;
+    }
+    
     @Override
     public Long getexpected()
     {
-        return expt;
+        return null;
     }
 }
