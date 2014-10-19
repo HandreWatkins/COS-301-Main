@@ -6,7 +6,7 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.6.0.v20140809-rNA", date="2014-10-19T18:54:37")
+@Generated(value="EclipseLink-2.6.0.v20140809-rNA", date="2014-10-19T21:38:31")
 @StaticMetamodel(Bookmark.class)
 public class Bookmark_ { 
 

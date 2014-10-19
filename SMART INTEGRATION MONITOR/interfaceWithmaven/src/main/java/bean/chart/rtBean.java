@@ -43,6 +43,11 @@ public class rtBean {
                 add(800);
                 add(900);
                 add(1000);
+                add(1100);
+                add(1200);
+                add(1300);
+                add(1400);
+                add(1500);
             }};
             
             model =  new MeterGaugeChartModel(0, intervals);
@@ -78,8 +83,14 @@ public class rtBean {
     try{
         List<Mainactivity> m = mainactivityEJB.getAll();
         Mainactivity temp = m.get(0);
-        liveModel.setValue(temp.getResponseTime());
-        
+        if(temp.getResponseTime() <= 1500)
+        {
+            liveModel.setValue(temp.getResponseTime()); 
+        }
+        else
+        {
+            liveModel.setValue(1500);
+        }
         return liveModel;
     }catch (NullPointerException e) {
         liveModel.setValue(0);
