@@ -11,7 +11,7 @@
     <center><a class="formHeaders" href="../xhtml/failureRate.xhtml">Failure Rate</a></center>
     <h:body>
         <h:form>
-             <p:poll interval="10" update="frPie"/>
+             <p:poll interval="5" update="frPie"/>
              <p:pieChart id="frPie" value="#{frBean.model}" seriesColors='009933,FF3333' showDataLabels="true" legendPosition="ne"/>
         </h:form>
          

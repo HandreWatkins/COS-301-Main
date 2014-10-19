@@ -27,16 +27,19 @@
                  </div>
                  <div style="width:50%; float: left;">
                      <h2 class="formHeaders">List of Failures</h2>
-                     <p:dataTable var="distress" value="#{frBean.failureMapreduce()}" scrollable="true" scrollHeight="100%">
+                     <h:form>
+                     <p:poll interval="5" update="dataFail"/>
+                     <p:dataTable id="dataFail" var="distress" value="#{frBean.failureMapreduce()}" scrollable="true" scrollHeight="100%">
                         
                          <p:column headerText="URI">
                              <h:outputText value="#{distress.uri}" />
                          </p:column>
-                         <p:column headerText="Quantity" sortBy="#{distress.count}">
+                         <p:column headerText="Quantity">
                              <h:outputText value="#{distress.count}" />
                          </p:column>
                          
                     </p:dataTable>
+                     </h:form>
                  </div>
             </div>
          </div>

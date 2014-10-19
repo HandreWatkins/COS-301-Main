@@ -21,12 +21,15 @@
                     <ui:include src="/xhtml/menu.xhtml" />
             </div>
             
-             <div id="rtBody" class="page" style="width: 50%;">
-                <p:panel style="background-color:   rgba(1,1,1,.0); border: none">  
-                    <p:barChart id="overallChart" value="#{overallBean.model}"   
-                     style="height:300px" legendPosition="ne" stacked="true" />
-                 </p:panel>
-            </div>
+             <div id="rtBody" class="page" height="100%">
+                 <div id="rtBody"  style="width: 40%;height: 100%; float: left; ">
+                     <ui:include src="/xhtml/overSysEff.xhtml"/>
+                 </div>
+           
+                <div id="rtBody" style="width: 30%; float: left; text-align: center;">
+                  <p:outputLabel class="thFont" style="font-size: 80px" id="label" value="#{barBean.persent}"/>
+                 </div>
+         </div>
          </div>
     </h:body>
 </html>

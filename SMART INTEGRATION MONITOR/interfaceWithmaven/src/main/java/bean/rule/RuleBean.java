@@ -7,8 +7,10 @@ import ejb.UserEJB;
 import entity.Rule;
 import java.io.IOException;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 @ManagedBean
@@ -50,9 +52,11 @@ public class RuleBean {
             try
             {
                 control.updaterules(uri, expectedTime, "admin");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rule successfully added", "INFO"));
             }
             catch(Exception e)
             {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Rule for URI already exists", "Error"));
         }
         return null;
 }

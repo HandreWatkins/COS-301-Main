@@ -26,7 +26,7 @@
                 <ui:include src="/xhtml/rtPerURIFace.xhtml" />
                 </div>
                 <h:form>
-                    <p:poll interval="10" update="rqTable"/>
+                    <p:poll interval="5" update="rqTable"/>
                         <div id="startsRT" style="width: 50%; float: left;">
                             <h2>Listed Requests</h2>
                             <p:dataTable id="rqTable" var="main" value="#{rtPerURIBean.main}" scrollable="true" scrollHeight="50px">

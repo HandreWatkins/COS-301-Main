@@ -11,7 +11,7 @@
     <h:body>
            <center><a class="formHeaders" href="../xhtml/rtPerURI.xhtml">Requests per URI</a></center>
            <h:form>
-          <p:poll interval="10" update="rqChart"/>
+          <p:poll interval="5" update="rqChart"/>
         <p:donutChart id="rqChart" value="#{rtPerURIBean.model}" legendPosition="ne"/>
            </h:form>
     </h:body>

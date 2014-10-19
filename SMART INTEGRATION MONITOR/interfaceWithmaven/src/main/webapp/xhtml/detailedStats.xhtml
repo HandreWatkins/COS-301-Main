@@ -35,12 +35,12 @@
                         <tr>
                         <th><label>URI:</label></th>
                         <th><p:inputText value="#{ruleBean.uri}" styleClass="loginBoxes" type="text" id="userURI" required="true" requiredMessage="INPUT ERROR:Please provide an URI" a:placeholder="URI" /></th>
-                            <p:tooltip styleClass="thFont" id="uriTool" for="userURI" value="Specify the URI for the Response Time given above" />
+                            <p:tooltip styleClass="thFont" id="uriTool" for="userURI" value="Specify the URI for the Response Time given above(eg. /test/test)" />
                         </tr>
                         <tr></tr>
                         <tr>
                             <th></th>
-                            <th><p:commandButton value="Submit" id="submit" action="#{ruleBean.uriExists}"/></th>
+                            <th><p:commandButton value="Submit" id="submit" action="#{ruleBean.UriExists}"/></th>
                         </tr>
                         <p:messages  id="messageUser" autoUpdate="true" closable="true" />
                     </table>

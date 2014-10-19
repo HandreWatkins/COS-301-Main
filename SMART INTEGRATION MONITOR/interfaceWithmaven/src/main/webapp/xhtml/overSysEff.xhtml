@@ -8,10 +8,13 @@
         <title>Overall System Efficiency</title>
     </h:head>
     <h:body>
+        <h:form>
            <center><a class="formHeaders" href="../xhtml/overall.xhtml">Overall System Performance</a></center>
+           <p:poll interval="10" update="overallBar"/>
         <p:panel style="background-color:   rgba(1,1,1,.0); border: none;">  
-            <p:barChart value="#{trBean.model}"/>
+            <p:barChart id="overallBar" value="#{barBean.model}"/>
         </p:panel>
+        </h:form>
     </h:body>
 </html>
 
