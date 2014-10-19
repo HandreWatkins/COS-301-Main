@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ejb;
 
 import java.util.List;
@@ -15,7 +11,6 @@ import javax.persistence.PersistenceContext;
 import entity.Mainactivity;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import javax.persistence.NoResultException;
 
 @LocalBean
 @Stateless
@@ -41,10 +36,11 @@ public class MainactivityEJB {
 		return  results.isEmpty() ? null : results;
             
 	}
-        public List<Mainactivity> getTimer(Timestamp t){
+        public List<Mainactivity> getTimer(Timestamp tN,Timestamp tT){
             List<Mainactivity> results = new ArrayList<>();
-		results= em.createQuery("SELECT m FROM Mainactivity m WHERE m.createDate<=:createdate ORDER BY m.mainactivityId DESC")
-                        .setParameter("createdate", t).getResultList();
+		results= em.createQuery("SELECT m FROM Mainactivity m WHERE m.createDate>:createdateNow AND m.createDate<=:createdateTo ORDER BY m.mainactivityId DESC")
+                        .setParameter("createdateNow", tN).setParameter("createdateTo", tT)
+                        .getResultList();
 		return  results.isEmpty() ? null : results;
         }
 }

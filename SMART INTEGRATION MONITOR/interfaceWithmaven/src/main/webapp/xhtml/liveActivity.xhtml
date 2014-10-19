@@ -27,12 +27,13 @@
                     <div style="height: 30px; text-align: center; margin-top: 10px;">
                          <p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server"/>
                  </div>
-                    <div align="center">
-                         <p:commandButton value="Generate Report for Main Activity" onclick="PF('mainActDio').show();"/>
-                         <p:commandButton value="Generate Report for Distress" onclick="PF('distressDio').show();"/>
-                         </div>
+                  
+                       
+                         
                     <p:poll interval="1" update="status,distress"/>
-                    <p:dataTable id="status" styleClass="dataTableView" value="#{mainactivityBean.allMainactivity}" var="mainActivity"  scrollable="true" scrollHeight="15%" >
+                    <h2 class="thFont">Main Activity</h2>
+                      <p:commandButton value="Generate Report for Main Activity" onclick="PF('mainActDio').show();"/>
+                    <p:dataTable id="status" styleClass="dataTableView" value="#{mainactivityBean.allMainactivity}" var="mainActivity"  scrollable="true" scrollHeight="200" scrollRows="20" rows="100" >
 		<p:column>
 			<f:facet name="header">Mainactivity Id</f:facet>
                         <h:outputText value="#{mainActivity.mainactivityId}"></h:outputText>
@@ -54,8 +55,10 @@
                         <h:outputText value="#{mainActivity.responseTime}"></h:outputText>
 		</p:column>
             </p:dataTable>
-                    
-                    <p:dataTable id="distress" styleClass="dataTableView" value="#{distressedresourceBean.allDistress}" var="distress"  scrollable="true" scrollHeight="15%" >
+                    <br/>
+                    <h2 class="thFont">Distressed Activity</h2>
+                    <p:commandButton value="Generate Report for Distress" onclick="PF('distressDio').show();"/>
+                    <p:dataTable id="distress" styleClass="dataTableView" value="#{distressedresourceBean.allDistress}" var="distress"  scrollable="true" scrollHeight="200" scrollRows="20" rows="100">
 		<p:column>
 			<f:facet name="header">Distress Resource Id</f:facet>
                         <h:outputText value="#{distress.distressedresourcesId}"></h:outputText>
@@ -82,20 +85,16 @@
 		</p:column>
             </p:dataTable>
 
-                    <p:dialog styleClass="dialogStyle" header="Generate Report Main Activity" widgetVar="mainActDio" showEffect="explode" hideEffect="explode" height="200">
+                    <p:dialog style="text-align: center;" styleClass="dialogStyle" header="Generate Report Main Activity" widgetVar="mainActDio" showEffect="explode" hideEffect="explode" height="200">
                         
                          <h3 class="thFont">Please choose a report format:</h3>
                          
-                         <h3 class="thFont" style="text-align: center;">XML &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PDF &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CSV</h3>
+                         <h3 class="thFont" style="text-align: center;">XML &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CSV</h3>
                         <h:commandLink>
-                             <p:graphicImage url="/images/xml.ico" style="width: 100px; height: 100px;" />
+                             <p:graphicImage url="/images/xml.png" style="width: 100px; height: 100px;" />
                              <p:dataExporter type="xml" target="status" fileName="Mainactivity" />
                          </h:commandLink>
                          
-                          <h:commandLink>
-                             <p:graphicImage url="/images/pdf.png" style="width: 95px; height: 95px;"/>
-                            <p:dataExporter type="pdf" target="status"  fileName="Mainactivity"/>
-                         </h:commandLink>
  
                          <h:commandLink>
                              <p:graphicImage url="/images/csv.png" style="width: 100px; height: 100px;"/>
@@ -104,24 +103,20 @@
                          
                         
                     </p:dialog>
-                       <p:dialog styleClass="dialogStyle" header="Generate Report Distress" widgetVar="distressDio" showEffect="explode" hideEffect="explode" height="200">
+                    <p:dialog style="text-align: center;" styleClass="dialogStyle" header="Generate Report Distress" widgetVar="distressDio" showEffect="explode" hideEffect="explode" height="200">
                         
                          <h3 class="thFont">Please choose a report format:</h3>
                          
-                         <h3 class="thFont" style="text-align: center;">XML &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PDF &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CSV</h3>
+                         <h3 class="thFont" style="text-align: center;">XML &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CSV</h3>
                         <h:commandLink>
-                             <p:graphicImage url="/images/xml.ico" style="width: 100px; height: 100px;" />
-                             <p:dataExporter type="xml" target="distress" fileName="Mainactivity" />
+                             <p:graphicImage url="/images/xml.png" style="width: 100px; height: 100px;" />
+                             <p:dataExporter type="xml" target="distress" fileName="DistressedActivity" />
                          </h:commandLink>
                          
-                          <h:commandLink>
-                             <p:graphicImage url="/images/pdf.png" style="width: 95px; height: 95px;"/>
-                            <p:dataExporter type="pdf" target="distress"  fileName="Mainactivity"/>
-                         </h:commandLink>
  
                          <h:commandLink>
                              <p:graphicImage url="/images/csv.png" style="width: 100px; height: 100px;"/>
-                            <p:dataExporter type="csv" target="distress"  fileName="Mainactivity"/>
+                            <p:dataExporter type="csv" target="distress"  fileName="DistressedActivity"/>
                          </h:commandLink>
                          
                         

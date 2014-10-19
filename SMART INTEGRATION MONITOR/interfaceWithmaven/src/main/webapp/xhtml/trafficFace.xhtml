@@ -10,10 +10,13 @@
     </h:head>
       <center><a class="formHeaders" href="../xhtml/traffic.xhtml">Traffic</a></center>
     <h:body>    
+          <h:form><p:poll interval="8" update="linearTraffic"/>
         <p:panel style="background-color:   rgba(1,1,1,.0); border: none">  
-         <p:lineChart id="linear" value="#{trBean.model}"   
-                      minY="0" style="height:300px"/>
+          
+            <p:lineChart id="linearTraffic" value="#{trBean.model}"   
+                      minY="0" minX="0" maxX="8" style="height:300px"/>
         </p:panel>
+              </h:form>
     </h:body>
 </html>
 

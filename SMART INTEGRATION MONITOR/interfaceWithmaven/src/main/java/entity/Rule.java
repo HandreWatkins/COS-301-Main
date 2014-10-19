@@ -4,24 +4,19 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-
-/**
- * The persistent class for the rules database table.
- * 
- */
 @Entity
 @Table(name="rules")
 @NamedQueries({
     @NamedQuery(name="Rule.findAll", query="SELECT r FROM Rule r ORDER BY r.rulesId DESC"),
     @NamedQuery(name="Rule.finduri", query="SELECT r FROM Rule r WHERE r.uri = :uri"),
-    @NamedQuery(name="Rule.finduser", query="SELECT r FROM Rule r WHERE r.user = :user ORDER BY r.rulesId DESC"),
+    @NamedQuery(name="Rule.finduser", query="SELECT r FROM Rule r WHERE r.user = :user ORDER BY r.rulesId DESC")
 })
 public class Rule implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="RULES_RULESID_GENERATOR" )
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RULES_RULESID_GENERATOR")
+	@SequenceGenerator(name="rules_id_seq", sequenceName = "rules_id_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rules_id_seq" )
 	@Column(name="rules_id")
 	private Integer rulesId;
 
@@ -33,7 +28,6 @@ public class Rule implements Serializable {
 
 	private String uri;
 
-	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="user_requesting")
 	private Users user;

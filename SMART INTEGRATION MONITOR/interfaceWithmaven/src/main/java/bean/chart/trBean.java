@@ -1,16 +1,9 @@
 package bean.chart;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import ejb.DistressedresourceEJB;
 import ejb.MainactivityEJB;
-import entity.Distressedresource;
 import entity.Mainactivity;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,10 +15,6 @@ import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
 
-/**
- *
- * @author Pieter
- */
 @ManagedBean
 @RequestScoped
 public class trBean 
@@ -46,69 +35,49 @@ public class trBean
         java.util.Date now = calendar.getTime();
     	java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
         Timestamp min = new Timestamp(0);
-        Long ij = (long) currentTimestamp.getTime() +30000;
+        Long ij = (long) currentTimestamp.getTime() -30000;
         min.setTime(ij);
         try{
-            List<Mainactivity> ml = mainactivityEJB.getTimer(min);
-            
-         //List<Distressedresource> dl = distressEJB.getAll();
-         model = new CartesianChartModel();	
+            List<Mainactivity> ml = mainactivityEJB.getTimer(min,currentTimestamp);
+
+        model = new CartesianChartModel();	
         ChartSeries prTraffic = new ChartSeries();
-        ChartSeries archTaffic = new ChartSeries();
-         prTraffic.setLabel("Projected Traffic");
-        archTaffic.setLabel("Archived Traffic");
-        
-        
-        List<Integer> persec = new LinkedList<>();
+        prTraffic.setLabel("Projected Traffic");
+
+        List<Integer> persecavg = new LinkedList<>();
         int k = 0;
-        for (int i = 0; i < 30; i++) {
-                persec.add(0);
+       
+        for (int i = 0; i < 30 ; i++) {
+                persecavg.add(0);
             }
+        Timestamp t = new java.sql.Timestamp(min.getTime());//30000
         
         for (int i = 0; i < 30; i++) {
                 
             k += 1000;
-    	java.sql.Timestamp sec = new java.sql.Timestamp(currentTimestamp.getTime()+k);
+    	java.sql.Timestamp sec = new java.sql.Timestamp(t.getTime()+k);
+
         float avg = 0;
         int size = 0;
-        for(Mainactivity m : ml)
+        for(int y=0;y<ml.size();y++)
         {
-            if(m.getCreateDate().before(sec))
+            if(ml.get(y).getCreateDate().compareTo(sec)<=0&& ml.get(y).getCreateDate().compareTo(t)>=0)
             {
-                avg += m.getResponseTime();
+                avg += ml.get(y).getResponseTime();
                 size++;
             }
         }
-        persec.set(i, (int) (avg/size));    
+        t.setTime(t.getTime()+k);
+        persecavg.set(i, (int) (avg/size));    
         
     }
         int i;
-        for(i=0; i<30;i++)
+        for(i=1; i<=30;i++)
         {
-            prTraffic.set(i, persec.get(i));
+            prTraffic.set(i, persecavg.get(i-1));
             //archTaffic.set(i, 0);
         }
-        i =0 ;
-        int size = ml.size();
-         /*for (int j = 0; j < 30; j++) 
-         {
-             if(j<size)
-             if(ml.get(j).getCreateDate().compareTo(currentTimestamp)<60)
-             {
-             prTraffic.set(ml.get(j).getMainactivityId().toString(),  ml.get.getResponseTime());
-             i++;
-             }
-         }*/
-         /*i =0;
-         size = dl.size();
-         for(Distressedresource d: dl)
-         {
-             if(i<60 && i<=size)
-             {
-             prTraffic.set(d.getDistressedresourcesId().toString(),  d.getResponsetime());
-             i++;
-             }
-         }*/
+
          model.addSeries(prTraffic);
          //model.addSeries(archTaffic);
     }catch (NullPointerException e)
@@ -116,13 +85,14 @@ public class trBean
         
          model = new CartesianChartModel();	
         ChartSeries prTraffic = new ChartSeries();
-        ChartSeries archTaffic = new ChartSeries();
+        //ChartSeries archTaffic = new ChartSeries();
          prTraffic.setLabel("Projected Traffic");
-        archTaffic.setLabel("Archived Traffic");
-        prTraffic.set("1", 0);	
-        archTaffic.set("1", 0);
+        //archTaffic.setLabel("Archived Traffic");
+        for (int i = 0; i < 30; i++) {
+            prTraffic.set(i, 0);
+        }
+
         model.addSeries(prTraffic);
-        model.addSeries(archTaffic);     
         }
     }
     public trBean() 

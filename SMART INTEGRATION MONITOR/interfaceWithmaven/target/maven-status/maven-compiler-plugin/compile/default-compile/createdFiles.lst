@@ -22,6 +22,7 @@ entity\Distressedresource_.class
 entity\Mainactivity_.class
 ejb\RuleEJB.class
 entity\Users_.class
+bean\rule\RuleBean.class
 bean\chart\responseBean.class
 startup\APIStart.class
 database\DatabaseControl.class

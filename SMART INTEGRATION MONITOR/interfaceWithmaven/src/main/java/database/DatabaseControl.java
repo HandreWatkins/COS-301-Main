@@ -1,14 +1,8 @@
 package database;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.UnknownHostException;
-import java.nio.file.Path;
-import static java.nio.file.Paths.get;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Queue;
@@ -19,6 +13,7 @@ import javax.inject.Singleton;
 @Singleton
 public class DatabaseControl 
 {
+    
     DBConnection cntrl = null;
     volatile Queue <String []> backlogDQ;
     volatile Queue <Integer> backlogNQ;
@@ -29,7 +24,7 @@ public class DatabaseControl
     Properties properties;
     
 
-    public DatabaseControl() throws ClassNotFoundException, IOException, SQLException
+    public DatabaseControl() throws ClassNotFoundException, IOException, SQLException, Exception
     {
         Properties properties = new Properties();
         try
@@ -85,7 +80,12 @@ public class DatabaseControl
     @Asynchronous
     public String[] ruleDB(String uri)
     {
-        return cntrl.selectRules(uri);        
+        if(cntrl.selectRules(uri) != null)
+        {
+            String [] data = cntrl.selectRules(uri);
+            return  data.length != 0?data:null;
+        }
+        return null;
     }
     
     @Asynchronous
@@ -104,4 +104,29 @@ public class DatabaseControl
     {
         cntrl.insertAI(uri,date,time,count,total);       
     }
+   
+    @Asynchronous
+    public String[] getrules(String uri, String dateF, String time)
+    {
+        if(cntrl.selectAI(uri,dateF,time) != null)
+        {
+            String [] data = cntrl.selectAI(uri,dateF,time);
+            return  data.length != 0?data:null;
+                        }
+        return null;
+    }
+    
+    @Asynchronous
+    public void updaterules(String uri, int resonce, String user) throws Exception
+    {
+        if(cntrl.selectRules(uri) == null)
+        {
+            cntrl.insertRules(user, uri, resonce);
+        }
+        else
+        {
+            throw new Exception("already exist");
+        }
+    }
+    
 }

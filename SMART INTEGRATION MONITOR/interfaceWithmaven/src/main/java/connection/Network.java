@@ -33,7 +33,7 @@ public class Network implements MessageListener
     static final Logger logger = Logger.getLogger("SimpleMessageBean");
     DatabaseControl cntrolBD = null;
     
-    public Network() throws IOException, SQLException, ClassNotFoundException
+    public Network() throws IOException, SQLException, ClassNotFoundException, Exception
     {
        inmessage = new ConcurrentLinkedQueue<>();
        cntrolBD = new DatabaseControl();
