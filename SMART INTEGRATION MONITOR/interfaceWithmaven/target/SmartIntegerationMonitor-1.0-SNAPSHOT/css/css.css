@@ -404,6 +404,10 @@ table
 table.jqplot-table-legend {
     width: auto;
     color: black;
+    display: block;
+    height: 50%;
+    overflow-y: hidden;
+
 }
 
 table.jqplot-table-legend td {
@@ -457,6 +461,10 @@ table.jqplot-table-legend td {
     font-family: headingFont;
 }
 .ui-messages.ui-widget
+{
+    font-family: headingFont;
+}
+.ui-outputlabel
 {
     font-family: headingFont;
 }

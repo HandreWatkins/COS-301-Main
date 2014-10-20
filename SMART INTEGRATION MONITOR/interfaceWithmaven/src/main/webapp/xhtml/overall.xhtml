@@ -27,7 +27,11 @@
                  </div>
            
                 <div id="rtBody" style="width: 30%; float: left; text-align: center;">
+                    <h:form>
+                        <p:poll interval="5" update="label"/>
                   <p:outputLabel class="thFont" style="font-size: 80px" id="label" value="#{barBean.persent}"/>
+                    </h:form>
+                  <h2 class="thFont" style="text-align: center; font-size: 20px;">Overall System Health</h2>
                  </div>
          </div>
          </div>
